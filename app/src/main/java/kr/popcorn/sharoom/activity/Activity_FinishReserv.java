@@ -21,7 +21,7 @@ public class Activity_FinishReserv extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_finish_reserv);
 
-        activity.finish();
+        //activity.finish();
         checkReserv = (TextView)findViewById(R.id.CheckReservation);
         checkReserv.setOnClickListener(new TextView.OnClickListener() {
             @Override

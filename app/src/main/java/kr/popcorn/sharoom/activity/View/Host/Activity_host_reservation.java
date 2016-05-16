@@ -20,10 +20,9 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-
-import org.w3c.dom.Text;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -58,6 +57,7 @@ public class Activity_host_reservation extends Activity {
     private Button callbutton;
     private Button smsbutton;
     private  Button cancel_button;
+    private String today;
 
     private int[] imgList = new int[] {
             R.drawable.room1, R.drawable.room2, R.drawable.room3, R.drawable.roomimg
@@ -239,27 +239,43 @@ public class Activity_host_reservation extends Activity {
                 switch (arg0.getId()) {
                     case R.id.reservationBtn:
 
-                        AlertDialog.Builder aDialog = new AlertDialog.Builder(Activity_host_reservation.this);
-                        aDialog.setTitle("예약 체크 하기"); //타이틀바 제목
-                        aDialog.setMessage("서로 연락이 닿았고 예약 하기로 하셨습니까?");
+                        String sDate = startDate.getText().toString();
+                        String eDate = endDate.getText().toString();
 
-                        aDialog.setPositiveButton("확인",
-                                new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        Intent finishReservIntent = new Intent(Activity_host_reservation.this, Activity_FinishReserv.class);
-                                        startActivity(finishReservIntent);
-                                    }
-                                }).setNegativeButton("취소",
-                                new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        // 'No'
-                                        return;
-                                    }
-                                });
-                        aDialog.show();
+                        if(sDate == null) {
+                            startDate.setText(today);
+                            Toast.makeText(Activity_host_reservation.this, "시작 날짜를 입력해주세요.", Toast.LENGTH_LONG).show();
+                        }
+                        else if(eDate == null)
+                        {
+                            endDate.setText(today);
+                            Toast.makeText(Activity_host_reservation.this, "종료 날짜를 입력해주세요.", Toast.LENGTH_LONG).show();
+                        }
+                        else if(sDate.compareTo(eDate)>0){
+                            Toast.makeText(Activity_host_reservation.this, "입력 날짜를 확인해주세요.", Toast.LENGTH_LONG).show();
+                        }
+                        else {
+                            AlertDialog.Builder aDialog = new AlertDialog.Builder(Activity_host_reservation.this);
+                            aDialog.setTitle("예약 체크 하기"); //타이틀바 제목
+                            aDialog.setMessage("서로 연락이 닿았고 예약 하기로 하셨습니까?");
 
+                            aDialog.setPositiveButton("확인",
+                                    new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            Intent finishReservIntent = new Intent(Activity_host_reservation.this, Activity_FinishReserv.class);
+                                            startActivity(finishReservIntent);
+                                        }
+                                    }).setNegativeButton("취소",
+                                    new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            // 'No'
+                                            return;
+                                        }
+                                    });
+                            aDialog.show();
+                        }
                         break;
 
                 }
