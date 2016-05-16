@@ -84,20 +84,13 @@ public class Activity_login extends Activity {
     public TedPermission ted;
     public String phoneNum;
 
-    public void openActivity(){
-        Intent intent = new Intent(Activity_login.this, Activity_user_view.class);
-        Activity_mainIntro activity = (Activity_mainIntro) Activity_mainIntro.mActivity;
-        Helper_server.userData = Helper_userData.getInstance(getApplicationContext());
-
-        startActivity(intent);
-        finish();
-        //activity.finish();
-    }
     public void open_UserView_Activity(String id, Context mContext){
         Helper_userData.login_GetData(id, mContext);
+        finish();
     }
     public void open_UserView_Activity(String id, Context mContext, int num){
         Helper_userData.login_GetData(id, mContext, num);
+        finish();
     }
 
     public void getPermission(){
@@ -193,7 +186,14 @@ public class Activity_login extends Activity {
                             return;
 
                         } else {
-                            openActivity();
+                            final PersistentCookieStore myCookieStore = new PersistentCookieStore(getApplicationContext());
+                            BasicClientCookie newCookie = new BasicClientCookie("id", userId);
+                            newCookie = new BasicClientCookie("id", userId);
+                            newCookie.setVersion(1);
+                            newCookie.setDomain("14.63.227.200");
+                            newCookie.setPath("/");
+                            myCookieStore.addCookie(newCookie);
+                            Helper_userData.login_GetData(userId, getApplicationContext(),1);
                             return;
                         }
                     }
@@ -350,7 +350,13 @@ public class Activity_login extends Activity {
                             return;
                         } else {
                             System.out.println("fffffff openAcitivity");
-                            openActivity();
+                            BasicClientCookie newCookie = new BasicClientCookie("id", id);
+                            newCookie = new BasicClientCookie("id", id);
+                            newCookie.setVersion(1);
+                            newCookie.setDomain("14.63.227.200");
+                            newCookie.setPath("/");
+                            myCookieStore.addCookie(newCookie);
+                            Helper_userData.login_GetData(id, getApplicationContext(),1);
                             return;
                         }
                     }
