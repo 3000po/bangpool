@@ -30,21 +30,20 @@ public class Helper_userData {
     public String phoneNumber;
     public String email;
     public int sex;
-    public int rate;
-    public String school;
     public String facebook;
+    public String kakaotalk;
+    public String sessionKey;
 
-    public Helper_userData(int userID, String id, String name, String phoneNumber, String email, int sex, int rate, String school, String facebook) {
-
+    public Helper_userData(int userID, String id, String name, String phoneNumber, String email, int sex, String facebook, String kakaotalk, String sessionKey) {
         this.userID = userID;
         this.id = id;
         this.name = name;
         this.phoneNumber = phoneNumber;
         this.email = email;
         this.sex = sex;
-        this.rate = rate;
-        this.school = school;
         this.facebook = facebook;
+        this.kakaotalk = kakaotalk;
+        this.sessionKey = sessionKey;
     }
 
     public Helper_userData(){
@@ -82,7 +81,7 @@ public class Helper_userData {
 
                         Log.i("myself", id + ", " + name + "," + facebook);
 
-                        user = new Helper_userData(userID, id, name, phoneNumber, email, sex, rate, school, facebook);
+                       // user = new Helper_userData(userID, id, name, phoneNumber, email, sex, rate, school, facebook);
 
                         //list.add(new Helper_userData(userID,id,name,phoneNumber,email,sex,rate,school,facebook));
                         //notifyDataSetChanged();
@@ -106,7 +105,7 @@ public class Helper_userData {
         if( user == null ) {
             final RequestParams idParams = new RequestParams("id", id);
 
-            Helper_server.post("getProfile_Id.php", idParams, new JsonHttpResponseHandler() {
+            Helper_server.post("data/getProfile_Id.php", idParams, new JsonHttpResponseHandler() {
                 @Override
                 public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                     Log.i("myself", "success");
@@ -116,9 +115,9 @@ public class Helper_userData {
                     String phoneNumber;
                     String email;
                     int sex;
-                    int rate;
-                    String school;
                     String facebook;
+                    String kakaotalk;
+                    String sessionkey;
 
                     try {
                         System.out.println("ohohohohoh" + response.get("sex"));
@@ -126,19 +125,17 @@ public class Helper_userData {
                         id = isNull_String(response.get("id"));
                         name = isNull_String(response.get("name"));
                         phoneNumber = isNull_String(response.get("phoneNumber"));
-                        ;
                         email = isNull_String(response.get("email"));
                         sex = isNull_Int(response.get("sex"));
-                        rate = isNull_Int(response.get("rate"));
-                        school = isNull_String(response.get("school"));
                         facebook = isNull_String(response.get("facebook"));
+                        kakaotalk = isNull_String(response.get("kakaotalk"));
+                        sessionkey = isNull_String(response.get("sessionkey"));
 
                         Log.d("userData", id);
                         Log.d("userData", name);
                         Log.d("userData", email);
-                        Log.d("userData", school);
 
-                        user = new Helper_userData(userID, id, name, phoneNumber, email, sex, rate, school, facebook);
+                        user = new Helper_userData(userID, id, name, phoneNumber, email, sex, facebook, kakaotalk, sessionkey);
 
                         System.out.println("aaaaa : " + user.getId() + " + " + user.getEmail());
                         System.out.println("aaaaa : " + user);
@@ -219,29 +216,28 @@ public class Helper_userData {
     public void setSex(int sex) {
         this.sex = sex;
     }
-
-    public int getRate() {
-        return rate;
-    }
-
-    public void setRate(int rate) {
-        this.rate = rate;
-    }
-
-    public String getSchool() {
-        return school;
-    }
-
-    public void setSchool(String school) {
-        this.school = school;
-    }
-
     public String getFacebook() {
         return facebook;
     }
 
     public void setFacebook(String facebook) {
         this.facebook = facebook;
+    }
+
+    public String getKakaotalk() {
+        return kakaotalk;
+    }
+
+    public void setKakaotalk(String kakaotalk) {
+        this.kakaotalk = kakaotalk;
+    }
+
+    public String getSessionKey() {
+        return sessionKey;
+    }
+
+    public void setSessionKey(String sessionKey) {
+        this.sessionKey = sessionKey;
     }
 
     public static String isNull_String(Object response){
@@ -251,7 +247,6 @@ public class Helper_userData {
     public static int isNull_Int(Object response){
         if(response == null || response.equals(null)) return -1;
         else return Integer.parseInt(response.toString().trim());
-
     }
 
 }
