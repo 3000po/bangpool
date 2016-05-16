@@ -97,10 +97,6 @@ public class Activity_login extends Activity {
         Helper_userData.login_GetData(id, mContext);
     }
 
-
-
-
-
     public void getPermission(){
         ted = new TedPermission(getApplication());
 
