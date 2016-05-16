@@ -93,7 +93,8 @@ public class Helper_server {
         //일반 로그인
         myCookieStore.clear();
         client.setCookieStore(myCookieStore);
-
+        Helper_userData data = Helper_userData.getInstance();
+        data = null;
         //페이스북
         FacebookSdk.sdkInitialize(mContext);
         AccessToken accessToken = AccessToken.getCurrentAccessToken();
