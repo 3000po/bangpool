@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="kr.popcorn.sharoom">
+
+    <permission
+        android:name="kr.popcorn.sharoom.locationapi.maps.permission.MAPS_RECEIVE"
+        android:protectionLevel="signature" />
+
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
+
+
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="true" />
+
+    <uses-permission android:name="android.permission.GET_TASKS"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <uses-permission android:name="android.permission.READ_SMS"/>
+
+    <!-- Read Permission -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <!-- Write Permission -->
+
+    <uses-feature
+        android:glEsVersion="0x00020000"
+        android:required="true" />
+
+
+    <application
+        android:name=".helper.GlobalApplication"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:largeHeap="true"
+        android:theme="@style/AppTheme">
+        <meta-data
+            android:name="com.google.android.maps.v2.API_KEY"
+            android:value="AIzaSyCEzfkWaI2Cd7Cu2GLcqZ5XebqdWEV2oK0" />
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id" />
+        <meta-data android:name="com.kakao.sdk.AppKey"
+            android:value="@string/kakao_app_key"/>
+        <activity
+            android:name="com.facebook.FacebookActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:label="@string/app_name"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+
+
+        <activity android:name="me.yokeyword.imagepicker.ImagePickerActivity" />
+        <!-- Image load -->
+
+        <activity
+            android:name=".activity.Activity_intro"
+            android:label="@string/app_name">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".activity.Activity_mainIntro">
+
+        </activity>
+        <activity
+            android:name=".activity.Activity_calendar"
+            android:label="@string/title_activity_activity_calendar" />
+        <activity
+            android:name=".activity.Fragment.User.Activity_user_view">
+        </activity>
+        <activity
+            android:name=".activity.Fragment.Host.Activity_host_view">
+        </activity>
+
+        <activity android:name=".activity.TabView.Activity_Host_to_User_animation"/>
+        <activity android:name=".activity.TabView.Activity_User_to_Host_animation"/>
+
+        <activity
+            android:name=".activity.Activity_emailCertification"
+            android:theme="@android:style/Theme.Holo.NoActionBar" />
+
+
+        <activity
+            android:name=".helper.Helper_roomPicPreview"
+            android:theme="@style/EditRoomPicTheme" />
+        <activity android:name=".activity.Activity_largeMap" />
+        <activity android:name=".activity.Activity_roomList" />
+        <activity
+            android:name=".activity.Activity_login"
+            android:theme="@android:style/Theme.Holo.NoActionBar"
+            android:windowSoftInputMode="adjustResize|adjustPan">
+        </activity>
+        <activity
+            android:name=".activity.Activity_find"
+            android:theme="@android:style/Theme.Holo.NoActionBar">
+        </activity>
+        <activity
+            android:name=".activity.Activity_join"
+            android:theme="@android:style/Theme.Holo.NoActionBar">
+        </activity>
+        <activity android:name=".activity.View.User.Activity_user_reservation" />
+        <activity android:name=".activity.View.User.Activity_user_reservation_check"/>
+        <activity android:name=".activity.View.User.Activity_user_infoRoom" />
+
+        <activity android:name=".activity.View.Host.Activity_host_reservation_check"/>
+        <activity android:name=".activity.View.Host.Activity_host_infoRoom"/>
+        <activity android:name=".activity.View.Host.Activity_host_editRoom"/>
+        <activity android:name=".activity.View.Host.Activity_host_registerRoom_roomPic"
+            android:theme="@style/EditRoomPicTheme" />
+        <activity android:name=".activity.View.Host.Activity_host_registerRoom">
+        </activity>
+
+        <activity android:name=".activity.Activity_FinishReserv" />
+        <activity
+            android:name=".activity.Acitivity_test"
+            android:theme="@android:style/Theme.Holo.NoActionBar" />
+        <activity
+            android:name=".activity.Activity_imageUpload"
+            android:theme="@android:style/Theme.Holo.NoActionBar">
+
+        </activity>
+        <activity android:name=".activity.Activity_mapMenu" />
+        <activity android:name=".activity.Activity_finishJoin"></activity>
+    </application>
+
+</manifest>

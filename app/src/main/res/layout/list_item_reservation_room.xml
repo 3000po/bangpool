@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin">
+
+
+    <ImageView
+        android:id="@+id/roomimage"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:src="@drawable/ic_action_mapview_g"
+        android:scaleType="fitXY"/>
+
+    <LinearLayout
+        android:layout_width="180dp"
+        android:layout_height="200dp"
+        android:background="#80FFFFFF"
+        android:orientation="vertical"
+        android:layout_alignParentRight="true"
+        >
+        <TextView
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:id="@+id/r_roomname"
+            android:layout_width="170dp"
+            android:layout_height="80dp"
+            android:text="원룸 비어요. 국민대 정문 근처"
+            android:textColor="#000000"
+            android:textSize="18sp"/>
+        <View
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_width="160dp"
+            android:layout_height="5dp"
+            android:background="#20c589">
+        </View>
+        <TextView
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:text="일정"
+            android:textColor="#000000"
+            android:textSize="16sp"/>
+        <TextView
+            android:gravity="center"
+            android:id="@+id/r_roomschedule"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:text="16/03/01 ~ 16/03/22 "
+            android:textColor="#000000"
+            android:textSize="16sp"/>
+
+    </LinearLayout>
+
+</RelativeLayout>

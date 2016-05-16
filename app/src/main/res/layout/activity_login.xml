@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    tools:context="kr.popcorn.sharoom.activity.Activity_login">
+
+    <RelativeLayout
+        android:id="@+id/ll_header"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentTop="true"
+        android:background="@color/bangpoolColor"
+        android:gravity="top"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/toptext"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="로그인"
+            android:textSize="23sp"
+            android:textStyle="bold"
+            android:textColor="#FFFFFF">
+        </TextView>
+    </RelativeLayout>
+
+    <!-- content start -->
+    <RelativeLayout
+        android:id="@+id/ll_body"
+        android:layout_below="@+id/ll_header"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="130dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical">
+
+        <RelativeLayout
+            android:id="@+id/layout_idpassword"
+            android:layout_width="wrap_content"
+            android:layout_height="90dp"
+            android:gravity="center_vertical"
+            android:layout_centerHorizontal="true"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:descendantFocusability="beforeDescendants"
+            android:paddingRight="70dp">
+            <ImageView
+                android:id="@+id/idpassword"
+                android:layout_width="280dp"
+                android:layout_height="100dp"
+                android:src="@drawable/idpassword"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true" />
+
+            <EditText
+                android:id="@+id/et_login_id"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:background="@null"
+                android:textColor="#949494"
+                android:hint="ID 혹은 이메일 입력"
+                android:imeOptions="actionNext"
+                android:singleLine = "true"
+                android:lines = "1"
+                android:layout_centerVertical="true"
+                android:paddingBottom="21dp"
+                android:layout_alignLeft="@id/idpassword"
+                android:layout_marginLeft="80dp" />
+
+            <EditText
+                android:id="@+id/et_login_password"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:textColor="#949494"
+                android:hint="비밀번호 입력"
+                android:password = "true"
+                android:singleLine = "true"
+                android:lines = "1"
+                android:layout_marginBottom="6dp"
+                android:layout_below="@id/et_login_id"
+                android:layout_alignLeft="@id/et_login_id"
+                android:layout_centerHorizontal="true" />
+
+        </RelativeLayout>
+
+        <CheckBox
+            android:id="@+id/ck_autoLogin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:scaleX="0.6"
+            android:scaleY="0.6"
+            android:checked="true"
+            android:button="@null"
+            android:drawableLeft="@drawable/selector_checkbox"
+            android:layout_below="@+id/layout_idpassword"
+            android:layout_alignEnd="@id/layout_idpassword"
+            android:paddingRight="28dp"/>
+
+        <ImageView
+            android:id="@+id/btn_login"
+            android:layout_below="@+id/ck_autoLogin"
+            android:layout_width="75dp"
+            android:layout_height="40dp"
+            android:layout_margin="15dp"
+            android:src="@drawable/loginbtn"
+            android:layout_centerHorizontal="true">
+        </ImageView>
+
+
+        <Button
+            android:id="@+id/btn_find"
+            android:layout_width="75dp"
+            android:layout_height="40dp"
+            android:text="비밀번호찾기"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_alignTop="@+id/btn_login"
+            android:layout_alignParentEnd="true"
+            android:layout_toEndOf="@+id/btn_login">
+        </Button>
+
+        <com.facebook.login.widget.LoginButton
+            xmlns:fb="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/login_button"
+            android:layout_below="@id/btn_login"
+            android:layout_width="182dp"
+            android:layout_height="70dp"
+            android:layout_alignRight="@+id/kakao_login"
+            android:layout_centerHorizontal="true"
+            fb:com_facebook_login_text=""
+            fb:com_facebook_logout_text="" />
+
+        <ImageView
+            android:id="@+id/kakao_login"
+            android:layout_width="210dp"
+            android:layout_height="80dp"
+            android:paddingBottom="40dp"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/login_button"
+            android:src="@drawable/kakaobtn"
+            />
+
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/iv_join"
+        android:layout_width="180dp"
+        android:layout_height="55dp"
+        android:layout_marginBottom="50dp"
+        android:src="@drawable/ivjoin"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/ll_body">
+    </ImageView>
+
+    <!-- content end -->
+
+
+</RelativeLayout>
