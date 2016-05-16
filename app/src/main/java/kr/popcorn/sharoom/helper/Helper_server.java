@@ -94,7 +94,8 @@ public class Helper_server {
         myCookieStore.clear();
         client.setCookieStore(myCookieStore);
         Helper_userData data = Helper_userData.getInstance();
-        data = null;
+        data.setUserNull();
+        System.out.println("aaaaaa" + data);
         //페이스북
         FacebookSdk.sdkInitialize(mContext);
         AccessToken accessToken = AccessToken.getCurrentAccessToken();

@@ -365,5 +365,8 @@ public class Helper_userData {
         if(response == null || response.equals(null)) return -1;
         else return Integer.parseInt(response.toString().trim());
     }
+    public static void setUserNull(){
+        user = null;
+    }
 
 }
