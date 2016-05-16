@@ -101,6 +101,123 @@ public class Helper_userData {
         return user;
     }
 
+    public static void login_GetData(String id, final Context mContext, int num) {
+        if( user == null ) {
+            final RequestParams idParams = new RequestParams("id", id);
+
+            //kakaotalk
+            if( num == 0 ) {
+                Helper_server.post("data/getProfile_kt.php", idParams, new JsonHttpResponseHandler() {
+                    @Override
+                    public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                        Log.i("myself", "success");
+                        int userID;
+                        String id;
+                        String name;
+                        String phoneNumber;
+                        String email;
+                        int sex;
+                        String facebook;
+                        String kakaotalk;
+                        String sessionkey;
+
+                        try {
+                            System.out.println("ohohohohoh" + response.get("sex"));
+                            userID = isNull_Int(response.get("userID"));
+                            id = isNull_String(response.get("id"));
+                            name = isNull_String(response.get("name"));
+                            phoneNumber = isNull_String(response.get("phoneNumber"));
+                            email = isNull_String(response.get("email"));
+                            sex = isNull_Int(response.get("sex"));
+                            facebook = isNull_String(response.get("facebook"));
+                            kakaotalk = isNull_String(response.get("kakaotalk"));
+                            sessionkey = isNull_String(response.get("sessionkey"));
+
+                            Log.d("userData", id);
+                            Log.d("userData", name);
+                            Log.d("userData", email);
+
+                            user = new Helper_userData(userID, id, name, phoneNumber, email, sex, facebook, kakaotalk, sessionkey);
+
+                            System.out.println("aaaaa : " + user.getId() + " + " + user.getEmail());
+                            System.out.println("aaaaa : " + user);
+
+                            Intent intent = new Intent(mContext, Activity_user_view.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            mContext.startActivity(intent);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                        super.onFailure(statusCode, headers, responseString, throwable);
+                        Log.d("Failed: ", "myself " + statusCode);
+                        Log.d("Error : ", "myself " + throwable);
+                    }
+                });
+            }else if( num == 1){  // facebook
+                Helper_server.post("data/getProfile_fb.php", idParams, new JsonHttpResponseHandler() {
+                    @Override
+                    public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                        Log.i("myself", "success");
+                        int userID;
+                        String id;
+                        String name;
+                        String phoneNumber;
+                        String email;
+                        int sex;
+                        String facebook;
+                        String kakaotalk;
+                        String sessionkey;
+
+                        try {
+                            System.out.println("ohohohohoh" + response.get("sex"));
+                            userID = isNull_Int(response.get("userID"));
+                            id = isNull_String(response.get("id"));
+                            name = isNull_String(response.get("name"));
+                            phoneNumber = isNull_String(response.get("phoneNumber"));
+                            email = isNull_String(response.get("email"));
+                            sex = isNull_Int(response.get("sex"));
+                            facebook = isNull_String(response.get("facebook"));
+                            kakaotalk = isNull_String(response.get("kakaotalk"));
+                            sessionkey = isNull_String(response.get("sessionkey"));
+
+                            Log.d("userData", id);
+                            Log.d("userData", name);
+                            Log.d("userData", email);
+
+                            user = new Helper_userData(userID, id, name, phoneNumber, email, sex, facebook, kakaotalk, sessionkey);
+
+                            System.out.println("aaaaa : " + user.getId() + " + " + user.getEmail());
+                            System.out.println("aaaaa : " + user);
+
+                            Intent intent = new Intent(mContext, Activity_user_view.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            mContext.startActivity(intent);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                        super.onFailure(statusCode, headers, responseString, throwable);
+                        Log.d("Failed: ", "myself " + statusCode);
+                        Log.d("Error : ", "myself " + throwable);
+                    }
+                });
+            }
+        }
+        else{
+            Intent intent = new Intent(mContext, Activity_user_view.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            mContext.startActivity(intent);
+        }
+    }
+
+
     public static void login_GetData(String id, final Context mContext) {
         if( user == null ) {
             final RequestParams idParams = new RequestParams("id", id);

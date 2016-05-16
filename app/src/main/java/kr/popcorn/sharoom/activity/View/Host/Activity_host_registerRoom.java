@@ -213,7 +213,6 @@ public class Activity_host_registerRoom extends Activity  implements View.OnClic
         }
     }
 
-
     public static void postImage(ArrayList<String> list){
         RequestParams params = new RequestParams();
             params.put("size", list.size());
@@ -233,7 +232,6 @@ public class Activity_host_registerRoom extends Activity  implements View.OnClic
             }
 
         Helper_server.post("image/save1.php", params, new AsyncHttpResponseHandler() {
-
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 System.out.println("statusCode "+statusCode);//statusCode 200
@@ -248,7 +246,6 @@ public class Activity_host_registerRoom extends Activity  implements View.OnClic
 
     public static Bitmap decodeUri(Context c, String path, final int requiredSize)
             throws FileNotFoundException {
-
         Uri uri = Uri.fromFile(new File(path));
         BitmapFactory.Options o = new BitmapFactory.Options();
         o.inJustDecodeBounds = true;

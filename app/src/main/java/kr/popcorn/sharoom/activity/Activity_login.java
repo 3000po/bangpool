@@ -96,6 +96,9 @@ public class Activity_login extends Activity {
     public void open_UserView_Activity(String id, Context mContext){
         Helper_userData.login_GetData(id, mContext);
     }
+    public void open_UserView_Activity(String id, Context mContext, int num){
+        Helper_userData.login_GetData(id, mContext, num);
+    }
 
     public void getPermission(){
         ted = new TedPermission(getApplication());
@@ -172,7 +175,12 @@ public class Activity_login extends Activity {
 
                                 public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                                     System.out.println("kkkkk" + "okSuccess");
-                                    openActivity();
+                                    BasicClientCookie newCookie = new BasicClientCookie("id", userId);
+                                    newCookie.setVersion(1);
+                                    newCookie.setDomain("14.63.227.200");
+                                    newCookie.setPath("/");
+                                    myCookieStore.addCookie(newCookie);
+                                    Helper_userData.login_GetData(userId, getApplicationContext(),0);
                                 }
 
                                 @Override
@@ -292,7 +300,7 @@ public class Activity_login extends Activity {
                                                 Log.e("JSON", response.toString());
                                                 JSONObject data = response.getJSONObject();
 
-                                                String id = data.getString("id");
+                                                final String id = data.getString("id");
                                                 String name = data.getString("name");
                                                 String email = data.getString("email");
                                                 String gender = data.getString("gender");
@@ -313,8 +321,12 @@ public class Activity_login extends Activity {
                                                     @Override
 
                                                     public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-                                                        openActivity();
-                                                        System.out.println("ffffff" + "in the success");
+                                                        BasicClientCookie newCookie = new BasicClientCookie("id", id);
+                                                        newCookie.setVersion(1);
+                                                        newCookie.setDomain("14.63.227.200");
+                                                        newCookie.setPath("/");
+                                                        myCookieStore.addCookie(newCookie);
+                                                        Helper_userData.login_GetData(id, getApplicationContext(),1);
                                                     }
 
                                                     @Override
@@ -375,7 +387,8 @@ public class Activity_login extends Activity {
             String id = Helper_server.getCookieValue(myCookieStore,"id");
             open_UserView_Activity(id, getApplicationContext());
         }else if( Session.getCurrentSession().isOpened() ) {
-            openActivity();
+            String id = Helper_server.getCookieValue(myCookieStore,"id");
+            open_UserView_Activity(id, getApplicationContext(),0);
         }else
         { //페이스북 자동로그인 파트
             AccessToken accessToken = AccessToken.getCurrentAccessToken();
@@ -383,7 +396,8 @@ public class Activity_login extends Activity {
                 Log.d("abde", ">>>" + "Signed Out");
             } else {
                 Log.d("abde", ">>>" + "Signed In");
-                openActivity();
+                String id = Helper_server.getCookieValue(myCookieStore,"id");
+                open_UserView_Activity(id, getApplicationContext(),1);
             }
         }
 
