@@ -128,7 +128,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@color/app_ci_4"
-                        android:hint="300,000원"
+                        android:hint="300,000"
+                        android:inputType="number"
                         android:textColor="#ffffff"
                         android:textColorHint="#ffffff"
                         android:textSize="20sp"/>
@@ -216,6 +217,7 @@
                         android:layout_height="wrap_content"
                         android:background="@color/app_ci_4"
                         android:hint="원룸, 자취방, 하숙집...etc"
+                        android:inputType="textLongMessage"
                         android:textColor="#ffffff"
                         android:textColorHint="#ffffff"
                         android:textSize="20sp"/>
@@ -233,6 +235,7 @@
                         android:layout_height="wrap_content"
                         android:background="@color/app_ci_4"
                         android:hint="침대 1인용, 컴퓨터 책상, 옷걸이...etc"
+                        android:inputType="textImeMultiLine"
                         android:textColor="#ffffff"
                         android:textColorHint="#ffffff"
                         android:textSize="20sp"/>

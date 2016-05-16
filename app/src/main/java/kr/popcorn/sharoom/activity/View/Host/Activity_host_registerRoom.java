@@ -67,7 +67,10 @@ public class Activity_host_registerRoom extends Activity  implements View.OnClic
     public TextView tv_register;
     private int mYear, mMonth, mDay;
     private TextView startDate, endDate;
+    private String today;
     private String start, end;
+
+    private int flag1=0, flag2=0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -134,7 +137,7 @@ public class Activity_host_registerRoom extends Activity  implements View.OnClic
                     imm.showSoftInput(et_price, InputMethodManager.SHOW_IMPLICIT);
 
                 } else
-                    et_price.setHint("300,000원");
+                    et_price.setHint("300,000");
             }
         });
         et_roomKind.setOnFocusChangeListener(new View.OnFocusChangeListener() {
@@ -220,7 +223,6 @@ public class Activity_host_registerRoom extends Activity  implements View.OnClic
             }
         });
 
-
         startDate = (TextView) findViewById(R.id.startDate);
         endDate = (TextView) findViewById(R.id.endDate);
 
@@ -229,6 +231,7 @@ public class Activity_host_registerRoom extends Activity  implements View.OnClic
         mMonth = cal.get(Calendar.MONTH);
         mDay = cal.get(Calendar.DAY_OF_MONTH);
         //날짜 초기값 현재날짜로 세팅
+        today = String.format("%d/%d/%d", mYear, mMonth+1, mDay);
         startDate.setText(String.format("%d/%d/%d", mYear, mMonth+1, mDay));
         endDate.setText(String.format("%d/%d/%d", mYear, mMonth + 1, mDay));
 
@@ -239,6 +242,7 @@ public class Activity_host_registerRoom extends Activity  implements View.OnClic
                 switch(v.getId()){
                     case R.id.startDate:
                         new DatePickerDialog(Activity_host_registerRoom.this, mDateSetListener1, mYear, mMonth, mDay).show();
+                        flag1=1;
                         break;
 
                 }
@@ -251,12 +255,27 @@ public class Activity_host_registerRoom extends Activity  implements View.OnClic
                 switch(v.getId()){
                     case R.id.endDate:
                         new DatePickerDialog(Activity_host_registerRoom.this, mDateSetListener2, mYear, mMonth, mDay).show();
+                        flag2=1;
                         break;
 
                 }
             }
         });
 
+        /*
+        //시작날짜 끝날짜를 모두 입력 받은 후에 끝날짜가 시작날짜보다 빠르면 알림
+        if(flag1==1 && flag2==1 &&(startDate.toString().compareTo(endDate.toString())<0)){
+            AlertDialog.Builder alert = new AlertDialog.Builder(Activity_host_registerRoom.this);
+            alert.setTitle("달력");
+            alert.setMessage("입력 날짜를 확인해주세요.");
+            alert.setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    startDate.setText(String.format("%d/%d/%d", mYear, mMonth+1, mDay));
+                    endDate.setText(String.format("%d/%d/%d", mYear, mMonth+1, mDay));
+                }
+            });
+            alert.show();
+        }*/
 
         tv_register = (TextView) findViewById(R.id.bottomtext);
         tv_register.setOnClickListener(new TextView.OnClickListener(){
@@ -278,12 +297,24 @@ public class Activity_host_registerRoom extends Activity  implements View.OnClic
                 final String day2 = et_day2.getText().toString();
                 final String comment = et_commnet.getText().toString();
                 */
-                final String sDate = start;
-                final String eDate = end;
+                String sDate = startDate.toString();
+                String eDate = endDate.toString();
+
+                System.out.println(sDate);
+
+                System.out.println(eDate);
+
+                //시작날짜 끝날짜를 모두 입력 받은 후에 끝날짜가 시작날짜보다 빠르면 알림
+                if(sDate!=null && eDate != null && sDate.compareTo(eDate)>0){
+                    Toast.makeText(Activity_host_registerRoom.this, "입력 날짜를 확인해주세요.", Toast.LENGTH_LONG).show();
+                    //startDate.setText(today);
+                    //endDate.setText(today);
+                }
                 postImage(list, title, address, price, roomKind, roomInfo, sDate, eDate);
             }
         });
     }
+
     DatePickerDialog.OnDateSetListener mDateSetListener1 =
             new DatePickerDialog.OnDateSetListener(){
 
@@ -294,7 +325,7 @@ public class Activity_host_registerRoom extends Activity  implements View.OnClic
                     mDay = dayOfMonth;
 
                     startDate.setText(String.format("%d/%d/%d", mYear, mMonth+1, mDay));
-                    start = String.valueOf(mYear)+"/"+String.valueOf(mMonth+1)+"/"+String.valueOf(mDay);
+                    start = new String(String.valueOf(mYear)+"/"+String.valueOf(mMonth+1)+"/"+String.valueOf(mDay));
                 }
             };
 
@@ -308,11 +339,10 @@ public class Activity_host_registerRoom extends Activity  implements View.OnClic
                     mDay = dayOfMonth;
 
                     endDate.setText(String.format("%d/%d/%d", mYear, mMonth+1, mDay));
-                    end = String.valueOf(mYear)+"/"+String.valueOf(mMonth+1)+"/"+String.valueOf(mDay);
+                    end = new String(String.valueOf(mYear)+"/"+String.valueOf(mMonth+1)+"/"+String.valueOf(mDay));
 
                 }
             };
-
     @Override
     public void onClick(View v) {
         switch (v.getId()){
