@@ -255,7 +255,8 @@ public class Activity_host_registerRoom extends Activity  implements View.OnClic
         String id = Helper_userData.getInstance().getId();
 
         RequestParams params = new RequestParams();
-            params.put("size", list.size()); //이미지 크기.
+        params.put("id",id);
+        params.put("size", list.size()); //이미지 크기.
 
             for (int i = 0; i < list.size(); i++) {
                 System.out.println("sibalbalblabl_imageLink : " + list.get(i));
@@ -270,7 +271,7 @@ public class Activity_host_registerRoom extends Activity  implements View.OnClic
                 catch(FileNotFoundException e){
                     System.out.println("sibalbal fileNotFound");
                 }
-            } postImage(list, title, address, price, year1, month1, day1, year2, month2, day2, comment);
+            }
         params.put("title", title);
         params.put("address", address);
         params.put("price", price);
@@ -281,8 +282,8 @@ public class Activity_host_registerRoom extends Activity  implements View.OnClic
         params.put("month2", month2);
         params.put("day2", day2);
         params.put("comment", comment);
-        
-        Helper_server.post("image/save1.php", params, new AsyncHttpResponseHandler() {
+
+        Helper_server.post("data/insert_Roomdata.php", params, new AsyncHttpResponseHandler() {
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
