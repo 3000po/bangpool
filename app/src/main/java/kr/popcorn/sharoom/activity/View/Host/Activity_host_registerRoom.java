@@ -2,18 +2,22 @@ package kr.popcorn.sharoom.activity.View.Host;
 
 
 import android.app.Activity;
+import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -24,11 +28,14 @@ import com.loopj.android.http.RequestParams;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import cz.msebera.android.httpclient.Header;
 import kr.popcorn.sharoom.R;
 import kr.popcorn.sharoom.helper.Helper_server;
+import kr.popcorn.sharoom.helper.Helper_userData;
 import me.yokeyword.imagepicker.ImagePicker;
 import me.yokeyword.imagepicker.callback.CallbackForCamera;
 import me.yokeyword.imagepicker.callback.CallbackForImagePicker;
@@ -36,7 +43,6 @@ import me.yokeyword.imagepicker.callback.CallbackForImagePicker;
 /**
  * Created by user on 16. 3. 12.
  */
-
 
 //방을 등록하기 위한 액티비티
 public class Activity_host_registerRoom extends Activity  implements View.OnClickListener{
@@ -51,8 +57,17 @@ public class Activity_host_registerRoom extends Activity  implements View.OnClic
     private ImageButton picButton;
     private ImageButton dialogCam;
     private ImageButton dialogGal;
-    public TextView tv_register;
 
+    private EditText et_title;
+    private EditText et_address;
+    private EditText et_price;
+    private EditText et_roomKind;
+    private EditText et_roomInfo;
+
+    public TextView tv_register;
+    private int mYear, mMonth, mDay;
+    private TextView startDate, endDate;
+    private String start, end;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,7 +90,173 @@ public class Activity_host_registerRoom extends Activity  implements View.OnClic
         dialogGal.setOnClickListener(this);
 
         mImagePicker = new ImagePicker(this);
+
         loadData();
+
+        et_title = (EditText)findViewById(R.id.et_title);
+        et_address = (EditText)findViewById(R.id.et_address);
+        et_price = (EditText)findViewById(R.id.et_price);
+        et_roomKind = (EditText)findViewById(R.id.et_roomKind);
+        et_roomInfo = (EditText) findViewById(R.id.et_roominfo);
+
+        et_title.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+                                              @Override
+                                              public void onFocusChange(View v, boolean hasFocus) {
+                                                  if (hasFocus) {
+                                                      et_title.setHint("");
+                                                      InputMethodManager imm = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
+                                                      imm.showSoftInput(et_title, InputMethodManager.SHOW_IMPLICIT);
+                                                  } else
+                                                      et_title.setHint("주말 빌려드립니다! 연락주세요!");
+                                              }
+                                          }
+        );
+
+        et_address.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    et_address.setHint("");
+                    InputMethodManager imm = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
+                    imm.showSoftInput(et_address, InputMethodManager.SHOW_IMPLICIT);
+
+                } else
+                    et_address.setHint("서울시 성북구 정릉동 11-12");
+            }
+        });
+
+        et_price.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    et_price.setHint("");
+                    InputMethodManager imm = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
+                    imm.showSoftInput(et_price, InputMethodManager.SHOW_IMPLICIT);
+
+                } else
+                    et_price.setHint("300,000원");
+            }
+        });
+        et_roomKind.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    et_roomKind.setHint("");
+                    InputMethodManager imm = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
+                    imm.showSoftInput(et_roomKind, InputMethodManager.SHOW_IMPLICIT);
+
+                } else
+                    et_roomKind.setHint("원룸, 자취방, 하숙집...etc");
+            }
+        });
+        et_roomInfo.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    et_roomInfo.setHint("");
+                    InputMethodManager imm = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
+                    imm.showSoftInput(et_roomInfo, InputMethodManager.SHOW_IMPLICIT);
+
+                } else
+                    et_roomInfo.setHint("침대 1인용, 컴퓨터 책상, 옷걸이...etc");
+            }
+        });
+
+        et_title.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if ((event.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
+                    InputMethodManager imm = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(et_title.getWindowToken(), 0);    //hide keyboard
+                    return true;
+                }
+                return false;
+            }
+        });
+        et_address.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if ((event.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
+                    InputMethodManager imm = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(et_address.getWindowToken(), 0);    //hide keyboard
+                    return true;
+                }
+                return false;
+            }
+        });
+        et_price.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if ((event.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
+                    InputMethodManager imm = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(et_price.getWindowToken(), 0);    //hide keyboard
+                    return true;
+                }
+                return false;
+            }
+        });
+
+        et_roomKind.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if ((event.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
+                    InputMethodManager imm = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(et_roomKind.getWindowToken(), 0);    //hide keyboard
+                    return true;
+                }
+                return false;
+            }
+        });
+
+        et_roomInfo.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if ((event.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
+                    InputMethodManager imm = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(et_roomInfo.getWindowToken(), 0);    //hide keyboard
+                    return true;
+                }
+                return false;
+            }
+        });
+
+
+        startDate = (TextView) findViewById(R.id.startDate);
+        endDate = (TextView) findViewById(R.id.endDate);
+
+        Calendar cal = new GregorianCalendar();
+        mYear = cal.get(Calendar.YEAR);
+        mMonth = cal.get(Calendar.MONTH);
+        mDay = cal.get(Calendar.DAY_OF_MONTH);
+        //날짜 초기값 현재날짜로 세팅
+        startDate.setText(String.format("%d/%d/%d", mYear, mMonth+1, mDay));
+        endDate.setText(String.format("%d/%d/%d", mYear, mMonth + 1, mDay));
+
+        //달력 입력을 받기 위한 다이얼로그
+        startDate.setOnClickListener(new TextView.OnClickListener() { //시작날짜
+            @Override
+            public void onClick(View v) {
+                switch(v.getId()){
+                    case R.id.startDate:
+                        new DatePickerDialog(Activity_host_registerRoom.this, mDateSetListener1, mYear, mMonth, mDay).show();
+                        break;
+
+                }
+            }
+        });
+
+        endDate.setOnClickListener(new TextView.OnClickListener() { //끝 날짜
+            @Override
+            public void onClick(View v) {
+                switch(v.getId()){
+                    case R.id.endDate:
+                        new DatePickerDialog(Activity_host_registerRoom.this, mDateSetListener2, mYear, mMonth, mDay).show();
+                        break;
+
+                }
+            }
+        });
+
 
         tv_register = (TextView) findViewById(R.id.bottomtext);
         tv_register.setOnClickListener(new TextView.OnClickListener(){
@@ -84,11 +265,53 @@ public class Activity_host_registerRoom extends Activity  implements View.OnClic
                 for(int i=0; i<list.size(); i++){
                     Log.d("buttonList", list.get(i));
                 }
-                    postImage(list);
+                final String title = et_title.getText().toString();
+                final String address = et_address.getText().toString();
+                final String price = et_price.getText().toString();
+                final String roomKind = et_roomKind.getText().toString();
+                final String roomInfo = et_roomInfo.getText().toString();
+                /*final String year1 = et_year1.getText().toString();
+                final String month1 = et_month1.getText().toString();
+                final String day1 = et_day1.getText().toString();
+                final String year2 = et_year2.getText().toString();
+                final String month2 = et_month2.getText().toString();
+                final String day2 = et_day2.getText().toString();
+                final String comment = et_commnet.getText().toString();
+                */
+                final String sDate = start;
+                final String eDate = end;
+                postImage(list, title, address, price, roomKind, roomInfo, sDate, eDate);
             }
         });
-
     }
+    DatePickerDialog.OnDateSetListener mDateSetListener1 =
+            new DatePickerDialog.OnDateSetListener(){
+
+                @Override
+                public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                    mYear = year;
+                    mMonth = monthOfYear;
+                    mDay = dayOfMonth;
+
+                    startDate.setText(String.format("%d/%d/%d", mYear, mMonth+1, mDay));
+                    start = String.valueOf(mYear)+"/"+String.valueOf(mMonth+1)+"/"+String.valueOf(mDay);
+                }
+            };
+
+    DatePickerDialog.OnDateSetListener mDateSetListener2 =
+            new DatePickerDialog.OnDateSetListener(){
+
+                @Override
+                public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                    mYear = year;
+                    mMonth = monthOfYear;
+                    mDay = dayOfMonth;
+
+                    endDate.setText(String.format("%d/%d/%d", mYear, mMonth+1, mDay));
+                    end = String.valueOf(mYear)+"/"+String.valueOf(mMonth+1)+"/"+String.valueOf(mDay);
+
+                }
+            };
 
     @Override
     public void onClick(View v) {
@@ -214,25 +437,38 @@ public class Activity_host_registerRoom extends Activity  implements View.OnClic
     }
 
 
-    public static void postImage(ArrayList<String> list){
+    public static void postImage(ArrayList<String> list, String title, String address, String price, String roomKind, String roomInfo, String sDate, String eDate){
+
+        //아이디 가져옴.
+        String id = Helper_userData.getInstance().getId();
+
         RequestParams params = new RequestParams();
-            params.put("size", list.size());
-            for (int i = 0; i < list.size(); i++) {
-                System.out.println("sibalbalblabl_imageLink : " + list.get(i));
-                String imagePath =list.get(i);
-                File f = new File(imagePath);
-                System.out.println("sibalbalImagePath : " + imagePath);
+        params.put("id",id);
+        params.put("size", list.size()); //이미지 크기.
+
+        for (int i = 0; i < list.size(); i++) {
+            System.out.println("sibalbalblabl_imageLink : " + list.get(i));
+            String imagePath =list.get(i);
+            File f = new File(imagePath);
+            System.out.println("sibalbalImagePath : " + imagePath);
 
             try{
                 params.put("file" + i, f);
                 //params.put("path", "aaa");
-               }
-                catch(FileNotFoundException e){
-                    System.out.println("sibalbal fileNotFound");
-                }
             }
+            catch(FileNotFoundException e){
+                System.out.println("sibalbal fileNotFound");
+            }
+        }
+        params.put("title", title);
+        params.put("address", address);
+        params.put("price", price);
+        params.put("roomKind", roomKind);
+        params.put("roomInfo", roomInfo);
+        params.put("sDate", sDate);
+        params.put("eDate", eDate);
 
-        Helper_server.post("image/save1.php", params, new AsyncHttpResponseHandler() {
+        Helper_server.post("data/insert_Roomdata.php", params, new AsyncHttpResponseHandler() {
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
@@ -271,4 +507,3 @@ public class Activity_host_registerRoom extends Activity  implements View.OnClic
         return BitmapFactory.decodeStream(c.getContentResolver().openInputStream(uri), null, o2);
     }
 }
-
