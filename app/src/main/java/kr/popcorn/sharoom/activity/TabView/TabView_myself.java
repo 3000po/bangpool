@@ -110,7 +110,7 @@ public class TabView_myself extends LinearLayout {
                 if (v.getId() == R.id.logout) {
                     // Set an EditText view to get user input
                     //로그아웃파트.
-                    joinAlert();
+                    logoutAlert();
                     //여기에 로그아웃 됬다는 말과 함께 로그인 화면으로 이동시켜 주어야 함.
                 }
             }
@@ -218,7 +218,7 @@ public class TabView_myself extends LinearLayout {
         return output;
     }
 
-    public void joinAlert() {
+    public void logoutAlert() {
         android.app.AlertDialog.Builder alert = new android.app.AlertDialog.Builder(getContext());
         alert.setTitle("로그아웃");
         alert.setMessage("로그아웃 하겠습니까?");

@@ -473,7 +473,7 @@ public class Activity_login extends Activity {
                                              params.put("id", id);
                                              params.put("password", password);
                                              //server connect
-                                             Helper_server.post("login.php", params,  new JsonHttpResponseHandler() {
+                                             Helper_server.post("login/login.php", params,  new JsonHttpResponseHandler() {
                                                  @Override
 
                                                  public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
@@ -504,8 +504,6 @@ public class Activity_login extends Activity {
                                                              newCookie.setPath("/");
                                                              myCookieStore.addCookie(newCookie);
                                                          }
-
-                                                         Activity_mainIntro activity = (Activity_mainIntro) Activity_mainIntro.mActivity;
                                                          Helper_userData.login_GetData(id, getApplicationContext());
                                                      }
                                                      else{
