@@ -61,48 +61,6 @@ public class Helper_userData {
 
     }
     public static Helper_userData getInstance(Context mContext) {
-        if( user == null ) {
-            String id = Helper_server.isLogIn(mContext);
-            final RequestParams idParams = new RequestParams("fbid", id);
-
-            Helper_server.post("getProfile.php", idParams, new JsonHttpResponseHandler() {
-                @Override
-                public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                    Log.i("myself", "success");
-                    int userID;
-                    String id;
-                    String name;
-                    String phoneNumber;
-                    String email;
-                    String facebook;
-
-                    try {
-                        userID = isNull_Int(response.get("userID"));
-                        id = isNull_String(response.get("id"));
-                        name = isNull_String(response.get("name"));
-                        phoneNumber = isNull_String(response.get("phoneNumber"));;
-                        email = isNull_String(response.get("email"));
-                        facebook = isNull_String(response.get("facebook"));
-
-                        Log.i("myself", id + ", " + name + "," + facebook);
-
-                       // user = new Helper_userData(userID, id, name, phoneNumber, email, sex, rate, school, facebook);
-
-                        //list.add(new Helper_userData(userID,id,name,phoneNumber,email,sex,rate,school,facebook));
-                        //notifyDataSetChanged();
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
-
-                @Override
-                public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-                    super.onFailure(statusCode, headers, responseString, throwable);
-                    Log.d("Failed: ", "myself " + statusCode);
-                    Log.d("Error : ", "myself " + throwable);
-                }
-            });
-        }
         return user;
     }
 
