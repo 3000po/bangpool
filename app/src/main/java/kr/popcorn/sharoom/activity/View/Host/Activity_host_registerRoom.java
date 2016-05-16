@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -29,6 +30,7 @@ import java.util.List;
 import cz.msebera.android.httpclient.Header;
 import kr.popcorn.sharoom.R;
 import kr.popcorn.sharoom.helper.Helper_server;
+import kr.popcorn.sharoom.helper.Helper_userData;
 import me.yokeyword.imagepicker.ImagePicker;
 import me.yokeyword.imagepicker.callback.CallbackForCamera;
 import me.yokeyword.imagepicker.callback.CallbackForImagePicker;
@@ -36,7 +38,6 @@ import me.yokeyword.imagepicker.callback.CallbackForImagePicker;
 /**
  * Created by user on 16. 3. 12.
  */
-
 
 //방을 등록하기 위한 액티비티
 public class Activity_host_registerRoom extends Activity  implements View.OnClickListener{
@@ -51,6 +52,18 @@ public class Activity_host_registerRoom extends Activity  implements View.OnClic
     private ImageButton picButton;
     private ImageButton dialogCam;
     private ImageButton dialogGal;
+
+    private EditText et_title;
+    private EditText et_address;
+    private EditText et_price;
+    private EditText et_year1;
+    private EditText et_month1;
+    private EditText et_day1;
+    private EditText et_year2;
+    private EditText et_month2;
+    private EditText et_day2;
+    private EditText et_commnet;
+
     public TextView tv_register;
 
     @Override
@@ -75,7 +88,19 @@ public class Activity_host_registerRoom extends Activity  implements View.OnClic
         dialogGal.setOnClickListener(this);
 
         mImagePicker = new ImagePicker(this);
+
         loadData();
+
+        et_title = (EditText)findViewById(R.id.room_title);
+        et_address = (EditText)findViewById(R.id.room_address);
+        et_price = (EditText)findViewById(R.id.room_price);
+        et_year1 = (EditText)findViewById(R.id.room_year1);
+        et_month1 = (EditText)findViewById(R.id.room_month1);
+        et_day1 = (EditText)findViewById(R.id.room_day1);
+        et_year2 = (EditText)findViewById(R.id.room_year2);
+        et_month2 = (EditText)findViewById(R.id.room_month2);
+        et_day2 = (EditText)findViewById(R.id.room_day2);
+        et_commnet = (EditText)findViewById(R.id.room_comment);
 
         tv_register = (TextView) findViewById(R.id.bottomtext);
         tv_register.setOnClickListener(new TextView.OnClickListener(){
@@ -84,10 +109,20 @@ public class Activity_host_registerRoom extends Activity  implements View.OnClic
                 for(int i=0; i<list.size(); i++){
                     Log.d("buttonList", list.get(i));
                 }
-                    postImage(list);
+                final String title = et_title.getText().toString();
+                final String address = et_address.getText().toString();
+                final String price = et_price.getText().toString();
+                final String year1 = et_year1.getText().toString();
+                final String month1 = et_month1.getText().toString();
+                final String day1 = et_day1.getText().toString();
+                final String year2 = et_year2.getText().toString();
+                final String month2 = et_month2.getText().toString();
+                final String day2 = et_day2.getText().toString();
+                final String comment = et_commnet.getText().toString();
+
+                postImage(list, title, address, price, year1, month1, day1, year2, month2, day2, comment);
             }
         });
-
     }
 
     @Override
@@ -214,9 +249,14 @@ public class Activity_host_registerRoom extends Activity  implements View.OnClic
     }
 
 
-    public static void postImage(ArrayList<String> list){
+    public static void postImage(ArrayList<String> list, String title, String address, String price, String year1, String month1, String day1, String year2, String month2, String day2, String comment){
+
+        //아이디 가져옴.
+        String id = Helper_userData.getInstance().getId();
+
         RequestParams params = new RequestParams();
-            params.put("size", list.size());
+            params.put("size", list.size()); //이미지 크기.
+
             for (int i = 0; i < list.size(); i++) {
                 System.out.println("sibalbalblabl_imageLink : " + list.get(i));
                 String imagePath =list.get(i);
@@ -230,8 +270,18 @@ public class Activity_host_registerRoom extends Activity  implements View.OnClic
                 catch(FileNotFoundException e){
                     System.out.println("sibalbal fileNotFound");
                 }
-            }
-
+            } postImage(list, title, address, price, year1, month1, day1, year2, month2, day2, comment);
+        params.put("title", title);
+        params.put("address", address);
+        params.put("price", price);
+        params.put("year1", year1);
+        params.put("month1", month1);
+        params.put("day1", day1);
+        params.put("year2", year2);
+        params.put("month2", month2);
+        params.put("day2", day2);
+        params.put("comment", comment);
+        
         Helper_server.post("image/save1.php", params, new AsyncHttpResponseHandler() {
 
             @Override
