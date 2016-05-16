@@ -13,7 +13,7 @@ public class H_TestFragmentAdapter extends FragmentPagerAdapter implements H_Ico
     protected static final String[] CONTENT = new String[] { "a", "b", "c" };
     protected static final int[] ICONS = new int[] {
             R.drawable.perm_group_register,
-            R.drawable.perm_group_reservation,
+            R.drawable.perm_group_host_reservation,
             R.drawable.perm_group_myinformation
     };
 

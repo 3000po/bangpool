@@ -16,6 +16,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import kr.popcorn.sharoom.R;
+import kr.popcorn.sharoom.activity.View.Host.Activity_host_reservation;
 import kr.popcorn.sharoom.activity.View.Host.Activity_host_reservation_check;
 import kr.popcorn.sharoom.activity.View.User.Activity_user_reservation_check;
 import kr.popcorn.sharoom.helper.Helper_roomData;
@@ -112,8 +113,13 @@ public class TabView_reservationAdapter extends RecyclerView.Adapter<TabView_res
                 Intent intent = new Intent(mContext, Activity_user_reservation_check.class);
                 mContext.startActivity(intent);
             } else if (str.contains("Activity_host_view")) {
-                Intent intent = new Intent(mContext, Activity_host_reservation_check.class);
+                //방 상태에 따라 바로 예약확인 이냐 예약완료냐
+                Intent intent = new Intent(mContext, Activity_host_reservation.class);  // <- 예약 확인
                 mContext.startActivity(intent);
+
+                //Intent intent = new Intent(mContext, Activity_host_reservation_check.class);  // <- 예약 완료
+                //mContext.startActivity(intent);
+
             }
 
             Log.e("reservation_check", "roomname : " + list.get(0).roomname);

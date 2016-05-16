@@ -113,6 +113,7 @@
         <activity android:name=".activity.View.User.Activity_user_reservation_check"/>
         <activity android:name=".activity.View.User.Activity_user_infoRoom" />
 
+        <activity android:name=".activity.View.Host.Activity_host_reservation"/>
         <activity android:name=".activity.View.Host.Activity_host_reservation_check"/>
         <activity android:name=".activity.View.Host.Activity_host_infoRoom"/>
         <activity android:name=".activity.View.Host.Activity_host_editRoom"/>

@@ -100,7 +100,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/pagerlayout"
         android:id="@+id/datelayout"
-        android:layout_marginTop="30dp">
+        android:layout_marginTop="10dp">
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -247,6 +247,29 @@
 
     </RelativeLayout>
 
+    <!--취소 버튼-->
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/requestButtons"
+        android:id="@+id/cancelButtons"
+        android:layout_marginTop="10dp">
+
+        <LinearLayout
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+                <Button
+                    android:id="@+id/cancel_button"
+                    android:layout_width="240dp"
+                    android:layout_height="50dp"
+                    android:background="@drawable/btn_color_selector_red"
+                    android:text="취소 하기"
+                    android:visibility="gone"/>
+        </LinearLayout>
+    </RelativeLayout>
+
 
     <RelativeLayout
         android:id="@+id/reservationBtn"
@@ -258,11 +281,12 @@
         android:gravity="bottom"
         android:clickable="true">
         <TextView
+            android:id="@+id/bottom_text"
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:gravity="center"
             android:layout_centerVertical="true"
-            android:text="예약 체크"
+            android:text="예약 하기"
             android:textSize="23sp"
             android:textStyle="bold"
             android:textColor="#FFFFFF">
