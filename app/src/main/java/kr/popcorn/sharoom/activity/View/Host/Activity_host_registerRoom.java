@@ -297,20 +297,29 @@ public class Activity_host_registerRoom extends Activity  implements View.OnClic
                 final String day2 = et_day2.getText().toString();
                 final String comment = et_commnet.getText().toString();
                 */
-                String sDate = startDate.toString();
-                String eDate = endDate.toString();
+                String sDate = startDate.getText().toString();
+                String eDate = endDate.getText().toString();
 
                 System.out.println(sDate);
 
                 System.out.println(eDate);
-
-                //시작날짜 끝날짜를 모두 입력 받은 후에 끝날짜가 시작날짜보다 빠르면 알림
-                if(sDate!=null && eDate != null && sDate.compareTo(eDate)>0){
+               // Log.i("jihyun1", end);)
+                if(sDate == null) {
+                    startDate.setText(today);
+                    Toast.makeText(Activity_host_registerRoom.this, "시작 날짜를 입력해주세요.", Toast.LENGTH_LONG).show();
+                }
+                else if(eDate == null)
+                {
+                    endDate.setText(today);
+                    Toast.makeText(Activity_host_registerRoom.this, "종료 날짜를 입력해주세요.", Toast.LENGTH_LONG).show();
+                }
+                else if(sDate.compareTo(eDate)>0){
+                    Log.d("Jihyun", "ddddd");
                     Toast.makeText(Activity_host_registerRoom.this, "입력 날짜를 확인해주세요.", Toast.LENGTH_LONG).show();
                     //startDate.setText(today);
                     //endDate.setText(today);
                 }
-                postImage(list, title, address, price, roomKind, roomInfo, sDate, eDate);
+                else postImage(list, title, address, price, roomKind, roomInfo, sDate, eDate);
             }
         });
     }
