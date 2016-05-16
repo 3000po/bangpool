@@ -1,6 +1,10 @@
 package kr.popcorn.sharoom.helper;
 
 import android.content.Context;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -9,9 +13,11 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 import kr.popcorn.sharoom.R;
@@ -52,7 +58,13 @@ public class Helper_roomPicListAdapter extends RecyclerView.Adapter<Helper_roomP
     //현재 보여지는 원소를 출력하기 위한 메소드
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        Picasso.with(mContext).load(new File(list.get(position))).into(holder.roompic);
+        try{
+            Bitmap bitmap = decodeUri(mContext,  Uri.fromFile(new File(list.get(position))), 100);
+            //Picasso.with(mContext).load(bitmap).into(holder.roompic);
+            holder.roompic.setImageBitmap(bitmap);
+        }catch( FileNotFoundException e){
+            e.printStackTrace();
+        }
 
         //holder.text.setText(tmp.substring(0,4));
     }
@@ -96,6 +108,7 @@ public class Helper_roomPicListAdapter extends RecyclerView.Adapter<Helper_roomP
             roompic = (ImageView) itemView.findViewById(R.id.roompic);
             deleteButton = (ImageButton) itemView.findViewById(R.id.delete);
 
+
             itemView.setClickable(true);
             itemView.setOnClickListener(this);
             deleteButton.setOnClickListener(this);
@@ -119,5 +132,28 @@ public class Helper_roomPicListAdapter extends RecyclerView.Adapter<Helper_roomP
                     break;
             }
         }
+    }
+
+    public static Bitmap decodeUri(Context c, Uri uri, final int requiredSize)
+            throws FileNotFoundException {
+        BitmapFactory.Options o = new BitmapFactory.Options();
+        o.inJustDecodeBounds = true;
+        BitmapFactory.decodeStream(c.getContentResolver().openInputStream(uri), null, o);
+
+        int width_tmp = o.outWidth
+                , height_tmp = o.outHeight;
+        int scale = 1;
+
+        while(true) {
+            if(width_tmp / 2 < requiredSize || height_tmp / 2 < requiredSize)
+                break;
+            width_tmp /= 2;
+            height_tmp /= 2;
+            scale *= 2;
+        }
+
+        BitmapFactory.Options o2 = new BitmapFactory.Options();
+        o2.inSampleSize = scale;
+        return BitmapFactory.decodeStream(c.getContentResolver().openInputStream(uri), null, o2);
     }
 }

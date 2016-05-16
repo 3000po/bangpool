@@ -5,12 +5,9 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
-import android.content.pm.Signature;
+
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -23,8 +20,6 @@ import com.loopj.android.http.RequestParams;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -60,25 +55,6 @@ public class Activity_host_registerRoom extends Activity  implements View.OnClic
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_editroom);
 
-        String strHash = "";
-
-        try {
-            PackageInfo info = this.getPackageManager().getPackageInfo(getPackageName(), PackageManager.GET_SIGNATURES);
-            for (Signature sig : info.signatures) {
-                MessageDigest md = MessageDigest.getInstance("SHA");
-                md.update(sig.toByteArray());
-                strHash = Base64.encodeToString(md.digest(), Base64.DEFAULT);
-            }
-        }
-        catch (PackageManager.NameNotFoundException e) {
-            Log.d("UnityFacebookTest", "Error Hashkey not found");
-        }
-        catch (NoSuchAlgorithmException e) {
-            Log.d("UnityFacebookTest", "Error Hashkey no such algorithm");
-        }
-        ///< 해시키를 출력. 이 값을 페이스북 개발자 센터의 등록한 앱에 기입
-        Log.d("UnityFacebookTest", "Hash : " + strHash);
-
 
         //사진 클릭시 카메라와 갤러리에서 고를수있게 지원해주는 다이얼로그
         dialog = new Dialog(this);
@@ -105,7 +81,7 @@ public class Activity_host_registerRoom extends Activity  implements View.OnClic
                 for(int i=0; i<list.size(); i++){
                     Log.d("buttonList", list.get(i));
                 }
-                postImage(list);
+                    postImage(list);
             }
         });
 
@@ -237,21 +213,21 @@ public class Activity_host_registerRoom extends Activity  implements View.OnClic
 
     public static void postImage(ArrayList<String> list){
         RequestParams params = new RequestParams();
-        params.put("size", list.size());
-        for (int i = 0; i < list.size(); i++) {
-            System.out.println("sibalbalblabl_imageLink : " + list.get(i));
-            String imagePath =list.get(i);
-            File f = new File(imagePath);
-            System.out.println("sibalbalImagePath : " + imagePath);
+            params.put("size", list.size());
+            for (int i = 0; i < list.size(); i++) {
+                System.out.println("sibalbalblabl_imageLink : " + list.get(i));
+                String imagePath =list.get(i);
+                File f = new File(imagePath);
+                System.out.println("sibalbalImagePath : " + imagePath);
 
             try{
                 params.put("file" + i, f);
                 //params.put("path", "aaa");
+               }
+                catch(FileNotFoundException e){
+                    System.out.println("sibalbal fileNotFound");
+                }
             }
-            catch(FileNotFoundException e){
-                System.out.println("sibalbal fileNotFound");
-            }
-        }
 
         Helper_server.post("image/save1.php", params, new AsyncHttpResponseHandler() {
 
