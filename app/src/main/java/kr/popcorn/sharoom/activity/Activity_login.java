@@ -175,6 +175,8 @@ public class Activity_login extends Activity {
 
                                 public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                                     System.out.println("kkkkk" + "okSuccess");
+
+                                    final PersistentCookieStore myCookieStore = new PersistentCookieStore(getApplicationContext());
                                     BasicClientCookie newCookie = new BasicClientCookie("id", userId);
                                     newCookie.setVersion(1);
                                     newCookie.setDomain("14.63.227.200");
@@ -234,7 +236,11 @@ public class Activity_login extends Activity {
         login_Activity = Activity_login.this;
 
         setContentView(R.layout.activity_login); // 항상 제공되는
-        // activity_layout.xml을
+
+        AsyncHttpClient client = Helper_server.getInstance();
+        final PersistentCookieStore myCookieStore = new PersistentCookieStore(this);
+        client.setCookieStore(myCookieStore);
+
 
         loginButton = (LoginButton) findViewById(R.id.login_button);
         kakaoButton = (ImageView) findViewById(R.id.kakao_login);
@@ -325,7 +331,6 @@ public class Activity_login extends Activity {
                                                         newCookie.setVersion(1);
                                                         newCookie.setDomain("14.63.227.200");
                                                         newCookie.setPath("/");
-                                                        myCookieStore.addCookie(newCookie);
                                                         Helper_userData.login_GetData(id, getApplicationContext(),1);
                                                     }
 
@@ -375,10 +380,6 @@ public class Activity_login extends Activity {
         et_password = (EditText) findViewById(R.id.et_login_password);
         layoutIdPassword = (RelativeLayout) findViewById(R.id.layout_idpassword);
 
-
-        AsyncHttpClient client = Helper_server.getInstance();
-        final PersistentCookieStore myCookieStore = new PersistentCookieStore(this);
-        client.setCookieStore(myCookieStore);
 
         //자동 로그인 파트.
         //배치 변경 필요.
