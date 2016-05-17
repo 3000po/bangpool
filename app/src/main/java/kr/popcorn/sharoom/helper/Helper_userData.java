@@ -34,13 +34,21 @@ public class Helper_userData {
     public String kakaotalk;
     public String sessionKey;
 
+    public Helper_userData(int userID, String name, String phoneNumber, String email, String facebook, String kakaotalk) {
+        this.userID = userID;
+        this.name = name;
+        this.phoneNumber = phoneNumber;
+        this.email = email;
+        this.facebook = facebook;
+        this.kakaotalk = kakaotalk;
+    }
+
     public Helper_userData(int userID, String id, String name, String phoneNumber, String email, String facebook, String kakaotalk) {
         this.userID = userID;
         this.id = id;
         this.name = name;
         this.phoneNumber = phoneNumber;
         this.email = email;
-        this.sex = sex;
         this.facebook = facebook;
         this.kakaotalk = kakaotalk;
     }
@@ -51,7 +59,6 @@ public class Helper_userData {
         this.name = name;
         this.phoneNumber = phoneNumber;
         this.email = email;
-        this.sex = sex;
         this.facebook = facebook;
         this.kakaotalk = kakaotalk;
         this.sessionKey = sessionKey;
@@ -79,25 +86,18 @@ public class Helper_userData {
                         String name;
                         String phoneNumber;
                         String email;
-                        int sex;
                         String facebook;
                         String kakaotalk;
-                        String sessionkey;
 
                         try {
                             userID = isNull_Int(response.get("userID"));
-                            id = isNull_String(response.get("id"));
                             name = isNull_String(response.get("name"));
                             phoneNumber = isNull_String(response.get("phoneNumber"));
                             email = isNull_String(response.get("email"));
                             facebook = isNull_String(response.get("facebook"));
                             kakaotalk = isNull_String(response.get("kakaotalk"));
 
-                            Log.d("userData", id);
-                            Log.d("userData", name);
-                            Log.d("userData", email);
-
-                            user = new Helper_userData(userID, id, name, phoneNumber, email, facebook, kakaotalk);
+                            user = new Helper_userData(userID, name, phoneNumber, email, facebook, kakaotalk);
 
                             Intent intent = new Intent(mContext, Activity_user_view.class);
                             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -124,28 +124,18 @@ public class Helper_userData {
                         String name;
                         String phoneNumber;
                         String email;
-                        int sex;
                         String facebook;
                         String kakaotalk;
-                        String sessionkey;
 
                         try {
                             userID = isNull_Int(response.get("userID"));
-                            id = isNull_String(response.get("id"));
                             name = isNull_String(response.get("name"));
                             phoneNumber = isNull_String(response.get("phoneNumber"));
                             email = isNull_String(response.get("email"));
                             facebook = isNull_String(response.get("facebook"));
                             kakaotalk = isNull_String(response.get("kakaotalk"));
 
-                            Log.d("userData", id);
-                            Log.d("userData", name);
-                            Log.d("userData", email);
-
-                            user = new Helper_userData(userID, id, name, phoneNumber, email, facebook, kakaotalk);
-
-                            System.out.println("aaaaa : " + user.getId() + " + " + user.getEmail());
-                            System.out.println("aaaaa : " + user);
+                            user = new Helper_userData(userID, name, phoneNumber, email, facebook, kakaotalk);
 
                             Intent intent = new Intent(mContext, Activity_user_view.class);
                             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -185,7 +175,6 @@ public class Helper_userData {
                     String name;
                     String phoneNumber;
                     String email;
-                    int sex;
                     String facebook;
                     String kakaotalk;
                     String sessionkey;
