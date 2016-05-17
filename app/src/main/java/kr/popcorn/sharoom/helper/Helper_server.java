@@ -82,7 +82,7 @@ public class Helper_server {
                 Log.e("surosuro", cookieString);
 
                 if(cookieList.get(i).getName().equals(name)){
-                        return cookieList.get(i).getValue();
+                    return cookieList.get(i).getValue();
                 }
             }
         }
@@ -115,6 +115,8 @@ public class Helper_server {
                     //로그아웃 성공 후 하고싶은 내용 코딩 ~
                 }
             });
+
+            Session.getCurrentSession().close();
         }
     }
 

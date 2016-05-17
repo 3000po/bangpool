@@ -63,7 +63,6 @@ public class Activity_login extends Activity {
     private String login_id = "";
     public static Activity login_Activity; //Aacitivity_login class선언.
 
-
     EditText et_id;
     EditText et_password;
 
@@ -86,11 +85,9 @@ public class Activity_login extends Activity {
 
     public void open_UserView_Activity(String id, Context mContext){
         Helper_userData.login_GetData(id, mContext);
-        finish();
     }
     public void open_UserView_Activity(String id, Context mContext, int num){
         Helper_userData.login_GetData(id, mContext, num);
-        finish();
     }
 
     //전화번 퍼미션
@@ -171,7 +168,7 @@ public class Activity_login extends Activity {
                                     newCookie.setDomain("14.63.227.200");
                                     newCookie.setPath("/");
                                     myCookieStore.addCookie(newCookie);
-                                    Helper_userData.login_GetData(userId, getApplicationContext(),0);
+                                    open_UserView_Activity(userId, getApplicationContext(),0);
                                 }
 
                                 @Override
@@ -189,7 +186,7 @@ public class Activity_login extends Activity {
                             newCookie.setDomain("14.63.227.200");
                             newCookie.setPath("/");
                             myCookieStore.addCookie(newCookie);
-                            Helper_userData.login_GetData(userId, getApplicationContext(), 0);
+                            open_UserView_Activity(userId, getApplicationContext(), 0);
                             return;
                         }
                     }
@@ -327,7 +324,7 @@ public class Activity_login extends Activity {
                                                         newCookie.setVersion(1);
                                                         newCookie.setDomain("14.63.227.200");
                                                         newCookie.setPath("/");
-                                                        Helper_userData.login_GetData(id, getApplicationContext(),1);
+                                                        open_UserView_Activity(id, getApplicationContext(),1);
                                                     }
 
                                                     @Override
@@ -352,7 +349,7 @@ public class Activity_login extends Activity {
                             newCookie.setDomain("14.63.227.200");
                             newCookie.setPath("/");
                             myCookieStore.addCookie(newCookie);
-                            Helper_userData.login_GetData(id, getApplicationContext(),1);
+                            open_UserView_Activity(id, getApplicationContext(),1);
                             return;
                         }
                     }
@@ -381,7 +378,6 @@ public class Activity_login extends Activity {
         et_id = (EditText) findViewById(R.id.et_login_id);
         et_password = (EditText) findViewById(R.id.et_login_password);
         layoutIdPassword = (RelativeLayout) findViewById(R.id.layout_idpassword);
-
 
         //자동 로그인 파트.
         //배치 변경 필요.
@@ -517,7 +513,7 @@ public class Activity_login extends Activity {
                                                              newCookie.setPath("/");
                                                              myCookieStore.addCookie(newCookie);
                                                          }
-                                                         Helper_userData.login_GetData(id, getApplicationContext());
+                                                         open_UserView_Activity(id, getApplicationContext());
                                                      }
                                                      else{
                                                          loginAlert();
