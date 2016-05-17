@@ -137,6 +137,7 @@ public class TabView_myself extends LinearLayout {
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         getContext().startActivity(intent);
                     }else{
+                        //TODO 이것좀 되게해라!!!
                         Toast.makeText(getContext(),"호스트가 아닙니다.",Toast.LENGTH_LONG);
                     }
                 }
