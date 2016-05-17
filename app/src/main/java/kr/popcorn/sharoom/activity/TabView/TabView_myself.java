@@ -97,7 +97,10 @@ public class TabView_myself extends LinearLayout {
 
         //Log.e("check :", "0=" + Helper_server.userData.getName());
 
-        myname.setText(Helper_server.userData.getId() + "(" + Helper_server.userData.getName() + ")" );
+        if(Helper_server.userData.getId() != null )
+            myname.setText(Helper_server.userData.getId() + "(" + Helper_server.userData.getName() + ")" );
+        else
+            myname.setText("(" + Helper_server.userData.getName() + ")" );
 
         text_phone.setText(Helper_server.userData.getPhoneNumber());
 
