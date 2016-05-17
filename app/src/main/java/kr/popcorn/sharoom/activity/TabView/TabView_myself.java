@@ -25,8 +25,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.PersistentCookieStore;
+import com.loopj.android.http.RequestParams;
 
+import cz.msebera.android.httpclient.Header;
+import cz.msebera.android.httpclient.impl.cookie.BasicClientCookie;
 import kr.popcorn.sharoom.R;
 import kr.popcorn.sharoom.activity.Activity_intro;
 import kr.popcorn.sharoom.activity.Activity_login;
@@ -178,16 +182,34 @@ public class TabView_myself extends LinearLayout {
                             new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
+
+                                    final RequestParams idParams = new RequestParams("id", Helper_server.userData.getUserID());
+                                    idParams.put("phone", edit_phone.getText());
+                                    idParams.put("email", edit_email.getText());
+                                    idParams.put("facebook", edit_facebook.getText());
+                                    idParams.put("kakaotalk", edit_kakaotalk.getText());
+
+                                    Helper_server.post("editmyself.php", idParams, new AsyncHttpResponseHandler() {
+                                        @Override
+                                        public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                                            if(!edit_phone.getText().toString().equals(""))
+                                                text_phone.setText(edit_phone.getText());
+                                            if(!edit_email.getText().toString().equals(""))
+                                                text_email.setText(edit_email.getText());
+                                            if(!edit_facebook.getText().toString().equals(""))
+                                                text_facebook.setText(edit_facebook.getText());
+                                            if(!edit_kakaotalk.getText().toString().equals(""))
+                                                text_kakaotalk.setText(edit_kakaotalk.getText());
+                                        }
+
+                                        @Override
+                                        public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+                                            Log.i("abde", "fail");
+                                        }
+                                    });
                                     // 'YES'
                                     //Log.e("edit_phone.getText()",""+edit_phone.getText().toString());
-                                    if(!edit_phone.getText().toString().equals(""))
-                                        text_phone.setText(edit_phone.getText());
-                                    if(!edit_email.getText().toString().equals(""))
-                                        text_email.setText(edit_email.getText());
-                                    if(!edit_facebook.getText().toString().equals(""))
-                                        text_facebook.setText(edit_facebook.getText());
-                                    if(!edit_kakaotalk.getText().toString().equals(""))
-                                        text_kakaotalk.setText(edit_kakaotalk.getText());
+
 
                                 }
                             }).setNegativeButton("취소",
