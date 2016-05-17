@@ -100,9 +100,15 @@ public class TabView_myself extends LinearLayout {
         myname.setText(Helper_server.userData.getId() + "(" + Helper_server.userData.getName() + ")" );
 
         text_phone.setText(Helper_server.userData.getPhoneNumber());
-        text_email.setText(Helper_server.userData.getEmail());
-        text_facebook.setText(Helper_server.userData.getFacebook());
-        text_kakaotalk.setText(Helper_server.userData.getKakaotalk());
+
+        if( Helper_server.userData.getEmail() == null ) text_email.setText("없음");
+        else                                            text_email.setText(Helper_server.userData.getEmail());
+
+        if( Helper_server.userData.getFacebook() == null ) text_facebook.setText("없음");
+        else                                               text_facebook.setText(Helper_server.userData.getFacebook());
+
+        if( Helper_server.userData.getKakaotalk() == null ) text_kakaotalk.setText("없음");
+        else                                                text_kakaotalk.setText(Helper_server.userData.getKakaotalk());
 
         String str = "" + getContext().getClass();
 
