@@ -182,12 +182,10 @@ public class TabView_myself extends LinearLayout {
                             new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
-
                                     final RequestParams idParams = new RequestParams("id", Helper_server.userData.getUserID());
                                     idParams.put("phone", edit_phone.getText());
                                     idParams.put("email", edit_email.getText());
-                                    idParams.put("facebook", edit_facebook.getText());
-                                    idParams.put("kakaotalk", edit_kakaotalk.getText());
+                                    //TODO 카톡이랑 페이스북 아이디 넣기
 
                                     Helper_server.post("editmyself.php", idParams, new AsyncHttpResponseHandler() {
                                         @Override
