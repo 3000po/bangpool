@@ -93,6 +93,7 @@ public class Activity_login extends Activity {
         finish();
     }
 
+    //전화번 퍼미션
     public void getPermission(){
         ted = new TedPermission(getApplication());
 

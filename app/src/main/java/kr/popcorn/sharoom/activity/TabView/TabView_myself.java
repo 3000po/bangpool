@@ -234,8 +234,6 @@ public class TabView_myself extends LinearLayout {
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
                 getContext().startActivity(intent);
-
-
             }
         });
         alert.show();
