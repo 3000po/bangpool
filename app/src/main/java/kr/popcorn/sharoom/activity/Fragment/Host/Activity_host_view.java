@@ -56,7 +56,7 @@ public class Activity_host_view extends FragmentActivity {
                 switch (mPager.getCurrentItem()){
                     case 0 : mToptext.setText("방 등록 및 관리");
                         break;
-                    case 1 : mToptext.setText("예약 체크");
+                    case 1 : mToptext.setText("예약 관리");
                         break;
                     case 2 : mToptext.setText("내 정보");
                         break;
