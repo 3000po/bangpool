@@ -19,7 +19,7 @@
             android:weightSum="1">
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:orientation="vertical"
                 android:layout_weight="0.6">
                 <!--방사진-->
@@ -317,7 +317,7 @@
                             android:text="방 소개"
                             android:textSize="15sp"
                             android:textStyle="bold"
-                            android:layout_marginLeft="80dp"
+                            android:layout_marginLeft="78dp"
                             />
                         <View
                             android:layout_width="3dp"
@@ -333,7 +333,6 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:textColor="#000000"
-                            android:lines="5"
                             android:text="국민대학교 정문에서 걸어서 10분정도 걸리는 거리에 위치한 원룸입니다. 연락주세요."
                             android:textStyle="bold"
                             android:textSize="15sp"/>
@@ -356,7 +355,7 @@
                 <LinearLayout
                     android:id="@+id/ll_facilities"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:orientation="vertical">
 
                     <LinearLayout
@@ -387,7 +386,6 @@
                         android:textColor="#949494"
                         android:textSize="15sp"
                         android:textStyle="bold"
-                        android:lines="3"
                         android:text="침대 1인용, 컴퓨터 책상 옷걸이... etc"
                         android:layout_marginLeft="10dp" />
                 </LinearLayout>
