@@ -98,6 +98,7 @@ public class TabView_myself extends LinearLayout {
         text_phone.setText(Helper_server.userData.getPhoneNumber());
         text_email.setText(Helper_server.userData.getEmail());
         text_facebook.setText(Helper_server.userData.getFacebook());
+        text_kakaotalk.setText(Helper_server.userData.getKakaotalk());
 
         String str = "" + getContext().getClass();
 

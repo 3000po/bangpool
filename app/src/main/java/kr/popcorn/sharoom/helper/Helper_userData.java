@@ -29,7 +29,6 @@ public class Helper_userData {
     public String name;
     public String phoneNumber;
     public String email;
-    public int sex;
     public String facebook;
     public String kakaotalk;
     public String sessionKey;
@@ -262,14 +261,6 @@ public class Helper_userData {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public int getSex() {
-        return sex;
-    }
-
-    public void setSex(int sex) {
-        this.sex = sex;
     }
     public String getFacebook() {
         return facebook;
