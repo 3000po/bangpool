@@ -114,7 +114,7 @@ public class Helper_userData {
                         Log.d("Error : ", "myself " + throwable);
                     }
                 });
-            }else if( num == 1){  // facebook
+            }else if( num == 1 ){  // facebook
                 Helper_server.post("data/getProfile_fb.php", idParams, new JsonHttpResponseHandler() {
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, JSONObject response) {

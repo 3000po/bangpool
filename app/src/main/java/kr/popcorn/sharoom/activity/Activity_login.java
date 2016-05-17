@@ -188,7 +188,7 @@ public class Activity_login extends Activity {
                             newCookie.setDomain("14.63.227.200");
                             newCookie.setPath("/");
                             myCookieStore.addCookie(newCookie);
-                            Helper_userData.login_GetData(userId, getApplicationContext(),1);
+                            Helper_userData.login_GetData(userId, getApplicationContext(), 0);
                             return;
                         }
                     }
