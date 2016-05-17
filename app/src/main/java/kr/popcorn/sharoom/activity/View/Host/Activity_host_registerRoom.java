@@ -507,8 +507,7 @@ public class Activity_host_registerRoom extends Activity  implements View.OnClic
         params.put("sDate", sDate);
         params.put("eDate", eDate);
 
-        Helper_server.post("data/insert_Roomdata.php", params, new AsyncHttpResponseHandler() {
-
+        Helper_server.post("data/insert_roomdata.php", params, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 System.out.println("statusCode "+statusCode);//statusCode 200
