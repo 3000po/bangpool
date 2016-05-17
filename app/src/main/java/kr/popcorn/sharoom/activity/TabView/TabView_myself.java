@@ -22,6 +22,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.PersistentCookieStore;
@@ -38,6 +39,8 @@ import kr.popcorn.sharoom.helper.Helper_userData;
  * Created by Administrator on 2016-05-11.
  */
 public class TabView_myself extends LinearLayout {
+
+    Context mContext;
 
     ImageView myFace;
     Button logout_btn;
@@ -61,6 +64,7 @@ public class TabView_myself extends LinearLayout {
 
     public TabView_myself(Context context) {
         super(context);
+        mContext = context;
         init();
     }
 
@@ -119,10 +123,8 @@ public class TabView_myself extends LinearLayout {
         chage_btn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 if (v.getId() == R.id.chage_btn) {
-
-                    // Log.e("check :", "0=" + getContext().getClass());
                     String str = "" + getContext().getClass();
-                    if (str.contains("Activity_user_view")) {
+                    if (str.contains("Activity_user_view") && Helper_userData.getInstance().isHost == 1) {
                         Intent intent = new Intent(getContext(), Activity_User_to_Host_animation.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -134,8 +136,9 @@ public class TabView_myself extends LinearLayout {
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         getContext().startActivity(intent);
+                    }else{
+                        Toast.makeText(getContext(),"호스트가 아닙니다.",Toast.LENGTH_LONG);
                     }
-
                 }
             }
         });

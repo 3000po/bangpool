@@ -171,7 +171,8 @@ public final class H_TestFragment extends Fragment {
         }
         else if(mContent.equalsIgnoreCase("c")){
             TabView_myself tabView_myself = new TabView_myself(getContext());
-            return tabView_myself;}
+            return tabView_myself;
+        }
         else {
 
             TextView text = new TextView(getActivity());

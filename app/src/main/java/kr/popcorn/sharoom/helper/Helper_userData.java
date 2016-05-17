@@ -33,17 +33,19 @@ public class Helper_userData {
     public String facebook;
     public String kakaotalk;
     public String sessionKey;
+    public int isHost;
 
-    public Helper_userData(int userID, String name, String phoneNumber, String email, String facebook, String kakaotalk) {
+    public Helper_userData(int userID, String name, String phoneNumber, String email, String facebook, String kakaotalk, int isHost) {
         this.userID = userID;
         this.name = name;
         this.phoneNumber = phoneNumber;
         this.email = email;
         this.facebook = facebook;
         this.kakaotalk = kakaotalk;
+        this.isHost = isHost;
     }
 
-    public Helper_userData(int userID, String id, String name, String phoneNumber, String email, String facebook, String kakaotalk) {
+    public Helper_userData(int userID, String id, String name, String phoneNumber, String email, String facebook, String kakaotalk, int isHost) {
         this.userID = userID;
         this.id = id;
         this.name = name;
@@ -51,9 +53,10 @@ public class Helper_userData {
         this.email = email;
         this.facebook = facebook;
         this.kakaotalk = kakaotalk;
+        this.isHost = isHost;
     }
 
-    public Helper_userData(int userID, String id, String name, String phoneNumber, String email, String facebook, String kakaotalk, String sessionKey) {
+    public Helper_userData(int userID, String id, String name, String phoneNumber, String email, String facebook, String kakaotalk, String sessionKey, int isHost) {
         this.userID = userID;
         this.id = id;
         this.name = name;
@@ -62,6 +65,7 @@ public class Helper_userData {
         this.facebook = facebook;
         this.kakaotalk = kakaotalk;
         this.sessionKey = sessionKey;
+        this.isHost = isHost;
     }
 
     public Helper_userData(){
@@ -82,12 +86,12 @@ public class Helper_userData {
                     public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                         Log.i("myself", "success");
                         int userID;
-                        String id;
                         String name;
                         String phoneNumber;
                         String email;
                         String facebook;
                         String kakaotalk;
+                        int isHost;
 
                         try {
                             userID = isNull_Int(response.get("userID"));
@@ -96,8 +100,9 @@ public class Helper_userData {
                             email = isNull_String(response.get("email"));
                             facebook = isNull_String(response.get("facebook"));
                             kakaotalk = isNull_String(response.get("kakaotalk"));
+                            isHost = isNull_Int(response.get("isHost"));
 
-                            user = new Helper_userData(userID, name, phoneNumber, email, facebook, kakaotalk);
+                            user = new Helper_userData(userID, name, phoneNumber, email, facebook, kakaotalk, isHost);
 
                             Intent intent = new Intent(mContext, Activity_user_view.class);
                             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -120,12 +125,12 @@ public class Helper_userData {
                     public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                         Log.i("myself", "success");
                         int userID;
-                        String id;
                         String name;
                         String phoneNumber;
                         String email;
                         String facebook;
                         String kakaotalk;
+                        int isHost;
 
                         try {
                             userID = isNull_Int(response.get("userID"));
@@ -134,8 +139,9 @@ public class Helper_userData {
                             email = isNull_String(response.get("email"));
                             facebook = isNull_String(response.get("facebook"));
                             kakaotalk = isNull_String(response.get("kakaotalk"));
+                            isHost = isNull_Int(response.get("isHost"));
 
-                            user = new Helper_userData(userID, name, phoneNumber, email, facebook, kakaotalk);
+                            user = new Helper_userData(userID, name, phoneNumber, email, facebook, kakaotalk, isHost);
 
                             Intent intent = new Intent(mContext, Activity_user_view.class);
                             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -178,6 +184,7 @@ public class Helper_userData {
                     String facebook;
                     String kakaotalk;
                     String sessionkey;
+                    int isHost;
 
                     try {
                         userID = isNull_Int(response.get("userID"));
@@ -188,12 +195,13 @@ public class Helper_userData {
                         facebook = isNull_String(response.get("facebook"));
                         kakaotalk = isNull_String(response.get("kakaotalk"));
                         sessionkey = isNull_String(response.get("sessionkey"));
+                        isHost = isNull_Int(response.get("isHost"));
 
                         Log.d("userData", id);
                         Log.d("userData", name);
                         Log.d("userData", email);
 
-                        user = new Helper_userData(userID, id, name, phoneNumber, email, facebook, kakaotalk, sessionkey);
+                        user = new Helper_userData(userID, id, name, phoneNumber, email, facebook, kakaotalk, sessionkey, isHost);
 
                         Intent intent = new Intent(mContext, Activity_user_view.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
