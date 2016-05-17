@@ -168,7 +168,7 @@ public class Activity_login extends Activity {
                                     newCookie.setDomain("14.63.227.200");
                                     newCookie.setPath("/");
                                     myCookieStore.addCookie(newCookie);
-                                    open_UserView_Activity(userId, getApplicationContext(),0);
+                                    open_UserView_Activity(userId, getApplicationContext(), 0);
                                 }
 
                                 @Override
@@ -229,6 +229,9 @@ public class Activity_login extends Activity {
         login_Activity = Activity_login.this;
 
         setContentView(R.layout.activity_login); // 항상 제공되는
+
+        Activity_user_view user_view = (Activity_user_view) Activity_user_view.AActivty; //login_Activity_finish
+        if(user_view!=null) user_view.finish();
 
         AsyncHttpClient client = Helper_server.getInstance();
         final PersistentCookieStore myCookieStore = new PersistentCookieStore(this);
