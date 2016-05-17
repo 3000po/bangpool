@@ -116,7 +116,7 @@ public class Activity_user_reservation extends Activity {
         //startDate.setHint("년/월/일");
 
 
-//        startDate.setText("2016/2/14");
+//      startDate.setText("2016/2/14");
 
 
         endDate = (TextView) findViewById(R.id.endDate);
@@ -191,6 +191,7 @@ public class Activity_user_reservation extends Activity {
         mMyadapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
         peopleNum.setAdapter(mMyadapter);
         */
+
         reservationBtn = (RelativeLayout)findViewById(R.id.reservationBtn);
         reservationBtn.setOnClickListener(new Button.OnClickListener() {
 
