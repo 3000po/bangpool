@@ -100,7 +100,6 @@ public class Activity_user_reservation_check extends Activity {
         p = new Paint();
         p.setColor(Color.rgb(32, 197, 137));
 
-        startDate = (TextView) findViewById(R.id.startDate);
 
         callbutton.setOnClickListener(new Button.OnClickListener() {
             @Override
@@ -128,14 +127,7 @@ public class Activity_user_reservation_check extends Activity {
                 }
             }
         });
-        //SpannableString content = new SpannableString("2016/2/14");
-        //content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
-        //startDate.setHint("년/월/일");
-
-
-//        startDate.setText("2016/2/14");
-
-
+        startDate = (TextView) findViewById(R.id.startDate);
         endDate = (TextView) findViewById(R.id.endDate);
 
         Calendar cal = new GregorianCalendar();
@@ -144,7 +136,7 @@ public class Activity_user_reservation_check extends Activity {
         mDay = cal.get(Calendar.DAY_OF_MONTH);
         startDate.setText(String.format("%d/%d/%d", mYear, mMonth+1, mDay));
         endDate.setText(String.format("%d/%d/%d", mYear, mMonth+1, mDay));
-
+/*
         //달력 입력을 받기 위한 다이얼로그
         startDate.setOnClickListener(new TextView.OnClickListener() {
             @Override
@@ -170,7 +162,7 @@ public class Activity_user_reservation_check extends Activity {
             }
         });
 
-
+*/
         /*peopleNum = (Spinner)findViewById(R.id.peopleNum);
         List<String> list = new ArrayList<String>();
         list.add("1");

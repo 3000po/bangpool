@@ -333,10 +333,12 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:textColor="#000000"
+                            android:lines="10"
                             android:text="국민대학교 정문에서 걸어서 10분정도 걸리는 거리에 위치한 원룸입니다. 2달 정도 방을 비워야 할일이 생겨서 같은 학교 학생분께 저렴한 가격에 대여해드리고 싶습니다. 연락주세요."
                             android:textStyle="bold"
                             android:textSize="15sp"/>
                     </LinearLayout>
+
                 </LinearLayout>
 
                 <View
@@ -350,106 +352,46 @@
                     android:layout_marginTop="5dp"
                     android:layout_gravity="center_horizontal" />
 
+                <!--편의시설-->
                 <LinearLayout
                     android:id="@+id/ll_facilities"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <Button
-                        android:id="@+id/facilitiesIcon"
-                        android:layout_width="35dp"
-                        android:layout_height="35dp"
-                        android:background="@drawable/selector_facilitiesbtn"
-                        android:layout_gravity="left"
-                        android:layout_marginLeft="10dp"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="편의시설"
-                        android:textStyle="bold"
-                        android:textColor="#000000"
-                        android:textSize="25sp"
-                        android:layout_margin="3dp"/>
-
-                </LinearLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="5dp"
-                    android:width="3dp"
-                    android:background="@color/bangpoolColor"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:layout_marginBottom="5dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_gravity="center_horizontal" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
-                    <!--리뷰-->
+
                     <LinearLayout
-                        android:id="@+id/reviewBar"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
-                        <ImageView
+                        <Button
+                            android:id="@+id/facilitiesIcon"
                             android:layout_width="35dp"
                             android:layout_height="35dp"
-                            android:src="@drawable/reviewscore"
+                            android:background="@drawable/selector_facilitiesbtn"
                             android:layout_gravity="left"
                             android:layout_marginLeft="10dp"/>
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="리뷰"
+                            android:text="편의시설"
                             android:textStyle="bold"
                             android:textColor="#000000"
                             android:textSize="25sp"
                             android:layout_margin="3dp"/>
                     </LinearLayout>
 
-                    <!--리뷰관련 -->
-                    <LinearLayout
+                    <TextView
+                        android:id="@+id/tv_facilities"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:layout_gravity="center_vertical">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="parkjihyun"
-                                android:textColor="#000000"
-                                android:textStyle="bold"
-                                android:textSize="15sp"
-                                android:layout_marginLeft="10dp"/>
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="님"
-                                android:textColor="#000000"
-                                android:textStyle="bold"
-                                android:textSize="15sp"
-                                android:layout_margin="3dp"/>
-                        </LinearLayout>
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="시험기간에 밤새느라 묵었던 곳인데 학교랑 가깝고 청결해서 좋았어요. 다만 새벽에 좀 시끄러웠어요."
-                            android:textColor="#949494"
-                            android:textSize="15sp"
-                            android:textStyle="bold"
-                            android:layout_marginLeft="10dp" />
-                    </LinearLayout>
+                        android:textColor="#949494"
+                        android:textSize="15sp"
+                        android:textStyle="bold"
+                        android:lines="3"
+                        android:text="침대 1인용, 컴퓨터 책상 옷걸이... etc"
+                        android:layout_marginLeft="10dp" />
                 </LinearLayout>
+
 
                 <View
                     android:layout_width="match_parent"

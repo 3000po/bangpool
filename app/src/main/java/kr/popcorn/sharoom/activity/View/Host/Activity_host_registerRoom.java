@@ -63,6 +63,7 @@ public class Activity_host_registerRoom extends Activity  implements View.OnClic
     private EditText et_price;
     private EditText et_roomKind;
     private EditText et_roomInfo;
+    private EditText et_facilities;
 
     public TextView tv_register;
     private int mYear, mMonth, mDay;
@@ -101,6 +102,7 @@ public class Activity_host_registerRoom extends Activity  implements View.OnClic
         et_price = (EditText)findViewById(R.id.et_price);
         et_roomKind = (EditText)findViewById(R.id.et_roomKind);
         et_roomInfo = (EditText) findViewById(R.id.et_roominfo);
+        et_facilities = (EditText)findViewById(R.id.et_facilities);
 
         et_title.setOnFocusChangeListener(new View.OnFocusChangeListener() {
                                               @Override
@@ -128,6 +130,7 @@ public class Activity_host_registerRoom extends Activity  implements View.OnClic
             }
         });
 
+
         et_price.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
@@ -152,6 +155,20 @@ public class Activity_host_registerRoom extends Activity  implements View.OnClic
                     et_roomKind.setHint("원룸, 자취방, 하숙집...etc");
             }
         });
+
+
+        et_facilities.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    et_facilities.setHint("");
+                    InputMethodManager imm = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
+                    imm.showSoftInput(et_facilities, InputMethodManager.SHOW_IMPLICIT);
+
+                } else
+                    et_address.setHint("침대 1인용, 컴퓨터 책상, 옷걸이...etc");
+            }
+        });
         et_roomInfo.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
@@ -161,7 +178,7 @@ public class Activity_host_registerRoom extends Activity  implements View.OnClic
                     imm.showSoftInput(et_roomInfo, InputMethodManager.SHOW_IMPLICIT);
 
                 } else
-                    et_roomInfo.setHint("침대 1인용, 컴퓨터 책상, 옷걸이...etc");
+                    et_roomInfo.setHint("국민대학교 정문에서 걸어서 10분정도 걸리는 거리에 위치한 원룸입니다. 2달 정도 방을 비워야 할일이 생겨서 같은 학교 학생분께 저렴한 가격에 대여해드리고 싶습니다. 연락주세요.");
             }
         });
 
@@ -210,7 +227,17 @@ public class Activity_host_registerRoom extends Activity  implements View.OnClic
                 return false;
             }
         });
-
+        et_facilities.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if ((event.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
+                    InputMethodManager imm = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(et_facilities.getWindowToken(), 0);    //hide keyboard
+                    return true;
+                }
+                return false;
+            }
+        });
         et_roomInfo.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
@@ -303,7 +330,7 @@ public class Activity_host_registerRoom extends Activity  implements View.OnClic
                 System.out.println(sDate);
 
                 System.out.println(eDate);
-               // Log.i("jihyun1", end);)
+                // Log.i("jihyun1", end);)
                 if(sDate == null) {
                     startDate.setText(today);
                     Toast.makeText(Activity_host_registerRoom.this, "시작 날짜를 입력해주세요.", Toast.LENGTH_LONG).show();
@@ -479,7 +506,7 @@ public class Activity_host_registerRoom extends Activity  implements View.OnClic
     public static void postImage(ArrayList<String> list, String title, String address, String price, String roomKind, String roomInfo, String sDate, String eDate){
 
         //아이디 가져옴.
-        int id = Helper_userData.getInstance().getUserID();
+        String id = Helper_userData.getInstance().getId();
 
         RequestParams params = new RequestParams();
         params.put("id",id);
