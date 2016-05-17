@@ -224,11 +224,21 @@
                             android:layout_marginLeft="20dp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="휴대폰 : "
+                            android:text="휴대폰         "
                             android:textColor="#000000"
                             android:textSize="20sp"
                             android:textStyle="bold" >
                         </TextView>
+                        <View
+                            android:layout_width="3dp"
+                            android:layout_height="match_parent"
+                            android:height="15dp"
+                            android:background="@color/bangpoolColor"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginRight="5dp"
+                            android:layout_marginBottom="3dp"
+                            android:layout_marginTop="3dp"
+                            android:layout_gravity="center_vertical" />
                         <TextView
                             android:id="@+id/text_phone"
                             android:layout_width="wrap_content"
@@ -251,11 +261,21 @@
                             android:layout_marginLeft="20dp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="e-mail  : "
+                            android:text="e-mail        "
                             android:textColor="#000000"
                             android:textSize="20sp"
                             android:textStyle="bold" >
                         </TextView>
+                        <View
+                            android:layout_width="3dp"
+                            android:layout_height="match_parent"
+                            android:height="15dp"
+                            android:background="@color/bangpoolColor"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginRight="5dp"
+                            android:layout_marginBottom="3dp"
+                            android:layout_marginTop="3dp"
+                            android:layout_gravity="center_vertical" />
                         <TextView
                             android:id="@+id/text_email"
                             android:layout_width="wrap_content"
@@ -279,11 +299,21 @@
                             android:layout_marginLeft="20dp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="facebook : "
+                            android:text="facebook   "
                             android:textColor="#000000"
                             android:textSize="20sp"
                             android:textStyle="bold" >
                         </TextView>
+                        <View
+                            android:layout_width="3dp"
+                            android:layout_height="match_parent"
+                            android:height="15dp"
+                            android:background="@color/bangpoolColor"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginRight="5dp"
+                            android:layout_marginBottom="3dp"
+                            android:layout_marginTop="3dp"
+                            android:layout_gravity="center_vertical" />
                         <TextView
                             android:id="@+id/text_facebook"
                             android:layout_width="wrap_content"
@@ -306,11 +336,21 @@
                             android:layout_marginLeft="20dp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="KakaoTalk : "
+                            android:text="KakaoTalk "
                             android:textColor="#000000"
                             android:textSize="20sp"
                             android:textStyle="bold" >
                         </TextView>
+                        <View
+                            android:layout_width="3dp"
+                            android:layout_height="match_parent"
+                            android:height="15dp"
+                            android:background="@color/bangpoolColor"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginRight="5dp"
+                            android:layout_marginBottom="3dp"
+                            android:layout_marginTop="3dp"
+                            android:layout_gravity="center_vertical" />
                         <TextView
                             android:id="@+id/text_kakao"
                             android:layout_width="wrap_content"

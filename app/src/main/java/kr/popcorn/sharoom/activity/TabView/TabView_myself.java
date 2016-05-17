@@ -161,6 +161,7 @@ public class TabView_myself extends LinearLayout {
                     aDialog.setTitle("내 정보 수정하기"); //타이틀바 제목
                     aDialog.setView(layout); //dialog.xml 파일을 뷰로 셋팅
 
+
                     edit_phone = (EditText) layout.findViewById(R.id.edit_phone);
                     edit_email = (EditText) layout.findViewById(R.id.edit_email);
                     edit_facebook = (EditText) layout.findViewById(R.id.edit_facebook);
