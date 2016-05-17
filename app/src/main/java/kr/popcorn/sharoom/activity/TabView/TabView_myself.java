@@ -183,21 +183,27 @@ public class TabView_myself extends LinearLayout {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                     final RequestParams idParams = new RequestParams("id", Helper_server.userData.getUserID());
-                                    idParams.put("phone", edit_phone.getText());
-                                    idParams.put("email", edit_email.getText());
+                                    int userID = Helper_userData.getInstance().getUserID();
+                                    String phone = edit_phone.getText().toString();
+                                    String email = edit_email.getText().toString();
+                                    Log.d("aaaaaa",""+userID);
+                                    Log.d("aaaaaa",email);
+
+                                    //알림 뜨게 추가.
+                                    if(phone.equals(""))
+                                        return;
+                                    if(email.equals(""))
+                                        return;
+                                    idParams.put("userID", userID);
+                                    idParams.put("phone", phone);
+                                    idParams.put("email", email);
                                     //TODO 카톡이랑 페이스북 아이디 넣기
 
                                     Helper_server.post("editmyself.php", idParams, new AsyncHttpResponseHandler() {
                                         @Override
                                         public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-                                            if(!edit_phone.getText().toString().equals(""))
-                                                text_phone.setText(edit_phone.getText());
-                                            if(!edit_email.getText().toString().equals(""))
-                                                text_email.setText(edit_email.getText());
-                                            if(!edit_facebook.getText().toString().equals(""))
-                                                text_facebook.setText(edit_facebook.getText());
-                                            if(!edit_kakaotalk.getText().toString().equals(""))
-                                                text_kakaotalk.setText(edit_kakaotalk.getText());
+                                            text_phone.setText(edit_phone.getText());
+                                            text_email.setText(edit_email.getText());
                                         }
 
                                         @Override
