@@ -125,7 +125,7 @@ public class TabView_myself extends LinearLayout {
             public void onClick(View v) {
                 if (v.getId() == R.id.chage_btn) {
                     String str = "" + getContext().getClass();
-                    if (str.contains("Activity_user_view") && Helper_userData.getInstance().isHost == 1) {
+                    if (str.contains("Activity_user_view")) {
                         Intent intent = new Intent(getContext(), Activity_User_to_Host_animation.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -137,9 +137,6 @@ public class TabView_myself extends LinearLayout {
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         getContext().startActivity(intent);
-                    }else{
-                        //TODO 이것좀 되게해라!!!
-                        Toast.makeText(getContext(),"호스트가 아닙니다.",Toast.LENGTH_LONG);
                     }
                 }
             }
@@ -201,10 +198,7 @@ public class TabView_myself extends LinearLayout {
                 }
             }
         });
-
-
         this.addView(view);
-
     }
 
     public Bitmap getCircleBitmap(Bitmap bitmap) {
@@ -244,9 +238,7 @@ public class TabView_myself extends LinearLayout {
         alert.show();
 
     }
-
     public void setCheck_host_user(int n){
         check_host_user = n;
     }
-
 }

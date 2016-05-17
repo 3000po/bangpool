@@ -12,6 +12,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import cz.msebera.android.httpclient.Header;
+import kr.popcorn.sharoom.activity.Fragment.Host.Activity_host_view;
 import kr.popcorn.sharoom.activity.Fragment.User.Activity_user_view;
 
 /**
@@ -103,7 +104,11 @@ public class Helper_userData {
 
                             user = new Helper_userData(userID, name, phoneNumber, email, facebook, kakaotalk, isHost);
 
-                            Intent intent = new Intent(mContext, Activity_user_view.class);
+                            Intent intent;
+                            if(isHost == 0)
+                                intent = new Intent(mContext, Activity_user_view.class);
+                            else
+                                intent = new Intent(mContext, Activity_host_view.class);
                             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                             mContext.startActivity(intent);
                         } catch (JSONException e) {
@@ -142,7 +147,11 @@ public class Helper_userData {
 
                             user = new Helper_userData(userID, name, phoneNumber, email, facebook, kakaotalk, isHost);
 
-                            Intent intent = new Intent(mContext, Activity_user_view.class);
+                            Intent intent;
+                            if(isHost == 0)
+                                intent = new Intent(mContext, Activity_user_view.class);
+                            else
+                                intent = new Intent(mContext, Activity_host_view.class);
                             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                             mContext.startActivity(intent);
                         } catch (JSONException e) {
@@ -202,7 +211,11 @@ public class Helper_userData {
 
                         user = new Helper_userData(userID, id, name, phoneNumber, email, facebook, kakaotalk, sessionkey, isHost);
 
-                        Intent intent = new Intent(mContext, Activity_user_view.class);
+                        Intent intent;
+                        if(isHost == 0)
+                            intent = new Intent(mContext, Activity_user_view.class);
+                        else
+                            intent = new Intent(mContext, Activity_host_view.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         mContext.startActivity(intent);
                     } catch (JSONException e) {

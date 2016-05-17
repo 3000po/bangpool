@@ -307,7 +307,7 @@ public class Activity_login extends Activity {
                                                 String email = data.getString("email");
                                                 String gender = data.getString("gender");
                                                 String phone = phoneNum;
-                                                System.out.println("ffffff" + id + name);
+
                                                 RequestParams params = new RequestParams();
                                                 params.put("id", id);
                                                 params.put("name", name);
@@ -345,7 +345,6 @@ public class Activity_login extends Activity {
 
                             return;
                         } else {
-                            System.out.println("fffffff openAcitivity");
                             BasicClientCookie newCookie = new BasicClientCookie("id", id);
                             newCookie = new BasicClientCookie("id", id);
                             newCookie.setVersion(1);
@@ -452,14 +451,12 @@ public class Activity_login extends Activity {
                                              return false;
                                          }
                                      }
-
         );
 
         layoutIdPassword.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == KeyEvent.ACTION_DOWN) {
-
                     InputMethodManager imm = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(et_password.getWindowToken(), 0);    //hide keyboard
                     return true;
@@ -537,7 +534,7 @@ public class Activity_login extends Activity {
         );
 
 
-      /*  Button btn_join = (Button) findViewById(R.id.btn_join);
+        /* Button btn_join = (Button) findViewById(R.id.btn_join);
         btn_join.setOnClickListener(new Button.OnClickListener(){
                                         public void onClick(View v) {
 
