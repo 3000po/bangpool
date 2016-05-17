@@ -1,8 +1,10 @@
-package kr.popcorn.sharoom.activity.View.User;
+package kr.popcorn.sharoom.activity.View.Host;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -18,6 +20,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
@@ -25,16 +28,18 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 import kr.popcorn.sharoom.R;
+import kr.popcorn.sharoom.activity.Activity_FinishReserv;
 import kr.popcorn.sharoom.activity.Activity_profileView;
+import me.yokeyword.imagepicker.adapter.GlideFragmentAdapter;
 
 /**
  * Created by parknature on 16. 5. 6..
  */
-public class Activity_user_reservation_check extends Activity {
-
+public class Activity_host_reservation extends Activity {
     private ViewPager viewPager;
     private ViewGroup requestBtn;
-    private RelativeLayout sureBtn;
+    private RelativeLayout reservationBtn;
+    private GlideFragmentAdapter listAdapter;
     private ImageAdapter adapter;
     private TextView tvCount, startDate, endDate;
     private int mYear, mMonth, mDay;
@@ -45,9 +50,14 @@ public class Activity_user_reservation_check extends Activity {
     private Paint p;
     private Spinner peopleNum;
     private Activity_profileView customDialog;
+    public static Activity_host_reservation rActivity;
+
+    private TextView bottom_text;
 
     private Button callbutton;
     private Button smsbutton;
+    private  Button cancel_button;
+    private String today;
 
     private int[] imgList = new int[] {
             R.drawable.room1, R.drawable.room2, R.drawable.room3, R.drawable.roomimg
@@ -58,15 +68,24 @@ public class Activity_user_reservation_check extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_reservation_check);
+        setContentView(R.layout.activity_reservation);
+
+        rActivity = Activity_host_reservation.this;
 
         //imageview(view pager)
         viewPager = (ViewPager)findViewById(R.id.pager);
         tvCount = (TextView) findViewById(R.id.tv_count);
-        position = getIntent().getIntExtra("idx",1);
+
+        bottom_text = (TextView) findViewById(R.id.bottom_text);
 
         callbutton = (Button) findViewById(R.id.callbutton);
         smsbutton = (Button) findViewById(R.id.smsbutton);
+        cancel_button = (Button) findViewById(R.id.cancel_button);
+
+        bottom_text.setText("예약 확인");
+        cancel_button.setVisibility(View.VISIBLE);
+
+        position = getIntent().getIntExtra("idx",1);
 
         if (imgList.length > 1) {
             //if(imgList.size() > 1)
@@ -101,11 +120,52 @@ public class Activity_user_reservation_check extends Activity {
         p.setColor(Color.rgb(32, 197, 137));
 
         startDate = (TextView) findViewById(R.id.startDate);
+        //SpannableString content = new SpannableString("2016/2/14");
+        //content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
+        //startDate.setHint("년/월/일");
+
+
+//        startDate.setText("2016/2/14");
+
+
+        endDate = (TextView) findViewById(R.id.endDate);
+
+        Calendar cal = new GregorianCalendar();
+        mYear = cal.get(Calendar.YEAR);
+        mMonth = cal.get(Calendar.MONTH);
+        mDay = cal.get(Calendar.DAY_OF_MONTH);
+        startDate.setText(String.format("%d/%d/%d", mYear, mMonth+1, mDay));
+        endDate.setText(String.format("%d/%d/%d", mYear, mMonth + 1, mDay));
+
+        //달력 입력을 받기 위한 다이얼로그
+        startDate.setOnClickListener(new TextView.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                switch(v.getId()){
+                    case R.id.startDate:
+                        new DatePickerDialog(Activity_host_reservation.this, mDateSetListener1, mYear, mMonth, mDay).show();
+                        break;
+
+                }
+            }
+        });
+
+        endDate.setOnClickListener(new TextView.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                switch(v.getId()){
+                    case R.id.endDate:
+                        new DatePickerDialog(Activity_host_reservation.this, mDateSetListener2, mYear, mMonth, mDay).show();
+                        break;
+
+                }
+            }
+        });
 
         callbutton.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View v) {
-                switch (v.getId()) {
+                switch(v.getId()){
                     case R.id.callbutton:
                         Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:010-1111-2222"));
                         startActivity(intent);
@@ -128,48 +188,36 @@ public class Activity_user_reservation_check extends Activity {
                 }
             }
         });
-        //SpannableString content = new SpannableString("2016/2/14");
-        //content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
-        //startDate.setHint("년/월/일");
 
-
-//        startDate.setText("2016/2/14");
-
-
-        endDate = (TextView) findViewById(R.id.endDate);
-
-        Calendar cal = new GregorianCalendar();
-        mYear = cal.get(Calendar.YEAR);
-        mMonth = cal.get(Calendar.MONTH);
-        mDay = cal.get(Calendar.DAY_OF_MONTH);
-        startDate.setText(String.format("%d/%d/%d", mYear, mMonth+1, mDay));
-        endDate.setText(String.format("%d/%d/%d", mYear, mMonth+1, mDay));
-
-        //달력 입력을 받기 위한 다이얼로그
-        startDate.setOnClickListener(new TextView.OnClickListener() {
+        cancel_button.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View v) {
                 switch(v.getId()){
-                    case R.id.startDate:
-                        new DatePickerDialog(Activity_user_reservation_check.this, mDateSetListener1, mYear, mMonth, mDay).show();
-                        break;
+                    case R.id.cancel_button:
 
+                        AlertDialog.Builder aDialog = new AlertDialog.Builder(Activity_host_reservation.this);
+                        aDialog.setTitle("예약 취소 하기"); //타이틀바 제목
+                        aDialog.setMessage("현재 상대방과 예약이 취소되고 다시 방 목록에 올라가게됩니다. 취소하시는것이 맞습니까?");
+
+                        aDialog.setPositiveButton("확인",
+                                new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        finish();
+                                    }
+                                }).setNegativeButton("취소",
+                                new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        // 'No'
+                                        return;
+                                    }
+                                });
+                        aDialog.show();
+                        break;
                 }
             }
         });
-
-        endDate.setOnClickListener(new TextView.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                switch(v.getId()){
-                    case R.id.endDate:
-                        new DatePickerDialog(Activity_user_reservation_check.this, mDateSetListener2, mYear, mMonth, mDay).show();
-                        break;
-
-                }
-            }
-        });
-
 
         /*peopleNum = (Spinner)findViewById(R.id.peopleNum);
         List<String> list = new ArrayList<String>();
@@ -182,17 +230,54 @@ public class Activity_user_reservation_check extends Activity {
         mMyadapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
         peopleNum.setAdapter(mMyadapter);
         */
-        sureBtn = (RelativeLayout)findViewById(R.id.sure);
-
-        sureBtn.setOnClickListener(new Button.OnClickListener() {
+        reservationBtn = (RelativeLayout)findViewById(R.id.reservationBtn);
+        reservationBtn.setOnClickListener(new Button.OnClickListener() {
 
             @Override
             public void onClick(View arg0) {
 
                 switch (arg0.getId()) {
-                    case R.id.sure:
-                        finish();
+                    case R.id.reservationBtn:
+
+                        String sDate = startDate.getText().toString();
+                        String eDate = endDate.getText().toString();
+
+                        if(sDate == null) {
+                            startDate.setText(today);
+                            Toast.makeText(Activity_host_reservation.this, "시작 날짜를 입력해주세요.", Toast.LENGTH_LONG).show();
+                        }
+                        else if(eDate == null)
+                        {
+                            endDate.setText(today);
+                            Toast.makeText(Activity_host_reservation.this, "종료 날짜를 입력해주세요.", Toast.LENGTH_LONG).show();
+                        }
+                        else if(sDate.compareTo(eDate)>0){
+                            Toast.makeText(Activity_host_reservation.this, "입력 날짜를 확인해주세요.", Toast.LENGTH_LONG).show();
+                        }
+                        else {
+                            AlertDialog.Builder aDialog = new AlertDialog.Builder(Activity_host_reservation.this);
+                            aDialog.setTitle("예약 체크 하기"); //타이틀바 제목
+                            aDialog.setMessage("서로 연락이 닿았고 예약 하기로 하셨습니까?");
+
+                            aDialog.setPositiveButton("확인",
+                                    new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            Intent finishReservIntent = new Intent(Activity_host_reservation.this, Activity_FinishReserv.class);
+                                            startActivity(finishReservIntent);
+                                        }
+                                    }).setNegativeButton("취소",
+                                    new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            // 'No'
+                                            return;
+                                        }
+                                    });
+                            aDialog.show();
+                        }
                         break;
+
                 }
 
             }
@@ -207,7 +292,7 @@ public class Activity_user_reservation_check extends Activity {
                 {
                     case R.id.requestInfo:
                         //Toast.makeText(Activity_Reservation.this, "문의요청버튼 누름.", Toast.LENGTH_LONG).show();
-                        customDialog = new Activity_profileView(Activity_user_reservation_check.this);
+                        customDialog = new Activity_profileView(Activity_host_reservation.this);
                         customDialog.setCanceledOnTouchOutside(true);
                         customDialog.show();
 
@@ -243,7 +328,6 @@ public class Activity_user_reservation_check extends Activity {
                     endDate.setText(String.format("%d/%d/%d", mYear, mMonth+1, mDay));
                 }
             };
-
 
 
     public class ImageAdapter extends PagerAdapter {

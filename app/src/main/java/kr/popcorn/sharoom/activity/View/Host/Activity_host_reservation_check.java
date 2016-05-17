@@ -3,8 +3,6 @@ package kr.popcorn.sharoom.activity.View.Host;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.Context;
-import android.graphics.Color;
-import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -16,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
@@ -40,10 +39,9 @@ public class Activity_host_reservation_check extends Activity {
     private String url = "http://i.imgur.com/DvpvklR.png";
 
     private int position;
-    private Paint p;
     private Spinner peopleNum;
     private Activity_profileView customDialog;
-
+    private String today;
 
     private int[] imgList = new int[] {
             R.drawable.room1, R.drawable.room2, R.drawable.room3, R.drawable.roomimg
@@ -93,18 +91,9 @@ public class Activity_host_reservation_check extends Activity {
 
             }
         });
-        p = new Paint();
-        p.setColor(Color.rgb(32, 197, 137));
 
+        today = String.format("%d/%d/%d", mYear, mMonth+1, mDay);
         startDate = (TextView) findViewById(R.id.startDate);
-        //SpannableString content = new SpannableString("2016/2/14");
-        //content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
-        //startDate.setHint("년/월/일");
-
-
-//        startDate.setText("2016/2/14");
-
-
         endDate = (TextView) findViewById(R.id.endDate);
 
         Calendar cal = new GregorianCalendar();
@@ -153,14 +142,36 @@ public class Activity_host_reservation_check extends Activity {
         */
         sureBtn = (RelativeLayout)findViewById(R.id.sure);
 
-        sureBtn.setOnClickListener(new Button.OnClickListener() {
+        sureBtn.setOnClickListener(new RelativeLayout.OnClickListener() {
 
             @Override
             public void onClick(View arg0) {
 
                 switch (arg0.getId()) {
                     case R.id.sure:
-                        finish();
+
+                        String sDate = startDate.getText().toString();
+                        String eDate = endDate.getText().toString();
+
+                        System.out.println(sDate);
+
+                        System.out.println(eDate);
+                        // Log.i("jihyun1", end);)
+                        if(sDate == null) {
+                            startDate.setText(today);
+                            Toast.makeText(Activity_host_reservation_check.this, "시작 날짜를 입력해주세요.", Toast.LENGTH_LONG).show();
+                        }
+                        else if(eDate == null)
+                        {
+                            endDate.setText(today);
+                            Toast.makeText(Activity_host_reservation_check.this, "종료 날짜를 입력해주세요.", Toast.LENGTH_LONG).show();
+                        }
+                        else if(sDate.compareTo(eDate)>0){
+                            Toast.makeText(Activity_host_reservation_check.this, "입력 날짜를 확인해주세요.", Toast.LENGTH_LONG).show();
+                            //startDate.setText(today);
+                            //endDate.setText(today);
+                        }
+                        else finish();
                         break;
                 }
 

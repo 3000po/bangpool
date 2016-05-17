@@ -34,7 +34,7 @@ import me.yokeyword.imagepicker.callback.CallbackForImagePicker;
  */
 
 
-//방을 등록하기 위한 액티비티
+//방을 수정하기 위한 액티비티
 public class Activity_host_editRoom extends Activity  implements View.OnClickListener{
     public final int MAX_SIZE=7;
     public final int PICK_THE_ALBUM=1;
