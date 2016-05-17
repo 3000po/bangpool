@@ -251,7 +251,8 @@ public class Activity_host_editRoom extends Activity  implements View.OnClickLis
                 return false;
             }
         });
-
+        et_facilities.setHorizontallyScrolling(false);
+        et_roomInfo.setHorizontallyScrolling(false);
         startDate = (TextView) findViewById(R.id.startDate);
         endDate = (TextView) findViewById(R.id.endDate);
 

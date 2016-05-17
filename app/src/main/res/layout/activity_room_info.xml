@@ -317,7 +317,7 @@
                             android:text="방 소개"
                             android:textSize="15sp"
                             android:textStyle="bold"
-                            android:layout_marginLeft="90dp"
+                            android:layout_marginLeft="80dp"
                             />
                         <View
                             android:layout_width="3dp"
@@ -333,8 +333,8 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:textColor="#000000"
-                            android:lines="10"
-                            android:text="국민대학교 정문에서 걸어서 10분정도 걸리는 거리에 위치한 원룸입니다. 2달 정도 방을 비워야 할일이 생겨서 같은 학교 학생분께 저렴한 가격에 대여해드리고 싶습니다. 연락주세요."
+                            android:lines="5"
+                            android:text="국민대학교 정문에서 걸어서 10분정도 걸리는 거리에 위치한 원룸입니다. 연락주세요."
                             android:textStyle="bold"
                             android:textSize="15sp"/>
                     </LinearLayout>
