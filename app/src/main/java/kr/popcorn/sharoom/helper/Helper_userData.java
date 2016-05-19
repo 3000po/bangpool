@@ -177,6 +177,7 @@ public class Helper_userData {
 
 
     public static void login_GetData(String id, final Context mContext) {
+        Log.i("chochochochocho", "comeononononono");
         if( user == null ) {
             final RequestParams idParams = new RequestParams("id", id);
 
@@ -216,8 +217,10 @@ public class Helper_userData {
                             intent = new Intent(mContext, Activity_user_view.class);
                         else
                             intent = new Intent(mContext, Activity_host_view.class);
+
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         mContext.startActivity(intent);
+
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }

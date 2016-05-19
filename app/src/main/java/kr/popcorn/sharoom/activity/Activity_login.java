@@ -58,6 +58,7 @@ import kr.popcorn.sharoom.R;
 import kr.popcorn.sharoom.activity.Fragment.User.Activity_user_view;
 import kr.popcorn.sharoom.helper.Helper_server;
 import kr.popcorn.sharoom.helper.Helper_userData;
+import kr.popcorn.sharoom.helper.Test;
 
 public class Activity_login extends Activity {
     private String login_id = "";
@@ -84,10 +85,10 @@ public class Activity_login extends Activity {
     public String phoneNum;
 
     public void open_UserView_Activity(String id, Context mContext){
-        Helper_userData.login_GetData(id, mContext);
+        Test.getRoomData_Login(id, mContext);
     }
     public void open_UserView_Activity(String id, Context mContext, int num){
-        Helper_userData.login_GetData(id, mContext, num);
+        Test.getRoomData_Login(id, mContext, num);
     }
 
     //전화번 퍼미션

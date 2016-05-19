@@ -328,14 +328,6 @@ public class Activity_host_registerRoom extends Activity  implements View.OnClic
                 final String price = et_price.getText().toString();
                 final String roomKind = et_roomKind.getText().toString();
                 final String roomInfo = et_roomInfo.getText().toString();
-                /*final String year1 = et_year1.getText().toString();
-                final String month1 = et_month1.getText().toString();
-                final String day1 = et_day1.getText().toString();
-                final String year2 = et_year2.getText().toString();
-                final String month2 = et_month2.getText().toString();
-                final String day2 = et_day2.getText().toString();
-                final String comment = et_commnet.getText().toString();
-                */
                 String sDate = startDate.getText().toString();
                 String eDate = endDate.getText().toString();
 
@@ -518,10 +510,10 @@ public class Activity_host_registerRoom extends Activity  implements View.OnClic
     public static void postImage(ArrayList<String> list, String title, String address, String price, String roomKind, String roomInfo, String sDate, String eDate){
 
         //아이디 가져옴.
-        int id = Helper_userData.getInstance().getUserID();
+        int userID = Helper_userData.getInstance().getUserID();
 
         RequestParams params = new RequestParams();
-        params.put("id",id);
+        params.put("userID",userID);
         params.put("size", list.size()); //이미지 크기.
 
         for (int i = 0; i < list.size(); i++) {

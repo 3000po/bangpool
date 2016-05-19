@@ -19,8 +19,10 @@ import kr.popcorn.sharoom.R;
 import kr.popcorn.sharoom.activity.Activity_login;
 import kr.popcorn.sharoom.activity.Activity_mainIntro;
 import kr.popcorn.sharoom.activity.Activity_mapMenu;
+import kr.popcorn.sharoom.helper.Helper_roomData;
 import kr.popcorn.sharoom.helper.Helper_server;
 import kr.popcorn.sharoom.helper.Helper_userData;
+import kr.popcorn.sharoom.helper.Test;
 
 public class Activity_user_view extends FragmentActivity {
 
@@ -38,9 +40,11 @@ public class Activity_user_view extends FragmentActivity {
         setContentView(R.layout.main_user_view);
 
         Helper_userData data = Helper_userData.getInstance();
-        System.out.println("aaaaa"+data.getId());
+        System.out.println("aaaaa" + data.getId());
         Activity_login login = (Activity_login) Activity_login.login_Activity; //login_Activity_finish
         login.finish();
+
+        System.out.println("bbbbbbbb" + Test.getInstance().getRoomNumber(0) + "   " + Test.getInstance().getRoomInfo(0) + "  " + Test.getInstance().getRoomKind(0));
 
         AsyncHttpClient client = Helper_server.getInstance();
 

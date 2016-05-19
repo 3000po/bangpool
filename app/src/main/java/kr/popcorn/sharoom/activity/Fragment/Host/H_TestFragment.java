@@ -80,11 +80,11 @@ public final class H_TestFragment extends Fragment {
         Helper_roomData first = new Helper_roomData();
         Helper_roomData second = new Helper_roomData();
         Helper_roomData third = new Helper_roomData();
-        first.roomname ="방 화면 예시 1";
-        second.roomname = "방 화면 예시 2";
+//        first.roomname ="방 화면 예시 1";
+ //       second.roomname = "방 화면 예시 2";
         second.roomimage = R.drawable.room2;
         third.roomimage = R.drawable.room3;
-        third.roomname = "방 화면 예시 3";
+   //     third.roomname = "방 화면 예시 3"; 주석
 
         Helper_roomData first2 = new Helper_roomData();
         Helper_roomData second2 = new Helper_roomData();
@@ -93,10 +93,10 @@ public final class H_TestFragment extends Fragment {
         first2.roomimage = R.drawable.room2;
         second2.roomimage = R.drawable.room3;
         third2.roomimage = R.drawable.room1;
-
-        first2.roomname = "우리집에서 라면먹고 갈래?";
-        second2.roomname = "소주한잔 어때요";
-        third2.roomname = " 오늘밤은 혼자있기가 무서워요";
+//주석
+//        first2.roomname = "우리집에서 라면먹고 갈래?";
+//        second2.roomname = "소주한잔 어때요";
+//        third2.roomname = " 오늘밤은 혼자있기가 무서워요";
 
         Helper_roomData first3 = new Helper_roomData();
         Helper_roomData second3 = new Helper_roomData();
@@ -106,9 +106,9 @@ public final class H_TestFragment extends Fragment {
         second3.roomimage = R.drawable.room2;
         third3.roomimage = R.drawable.room1;
 
-        first3.roomname = "등록한 방 예시 1";
-        second3.roomname = "등록한 방 예시 2";
-        third3.roomname = "등록한 방 예시 3";
+//        first3.roomname = "등록한 방 예시 1"; 주석
+//        second3.roomname = "등록한 방 예시 2";
+//        third3.roomname = "등록한 방 예시 3";
 
         ArrayList<Helper_roomData> se = new ArrayList<Helper_roomData>();
         se.add(first);
