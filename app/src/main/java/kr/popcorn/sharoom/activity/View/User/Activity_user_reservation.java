@@ -23,13 +23,17 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
+import cz.msebera.android.httpclient.Header;
 import kr.popcorn.sharoom.R;
 import kr.popcorn.sharoom.activity.Activity_FinishReserv;
 import kr.popcorn.sharoom.activity.Activity_profileView;
+import kr.popcorn.sharoom.helper.Helper_server;
 import me.yokeyword.imagepicker.adapter.GlideFragmentAdapter;
 
 /**
@@ -226,8 +230,21 @@ public class Activity_user_reservation extends Activity {
                                     new DialogInterface.OnClickListener() {
                                         @Override
                                         public void onClick(DialogInterface dialog, int which) {
-                                            Intent finishReservIntent = new Intent(Activity_user_reservation.this, Activity_FinishReserv.class);
-                                            startActivity(finishReservIntent);
+                                            RequestParams params = new RequestParams();
+                                            params.put("roomNumber", position);     //TODO 이 포지션이 룸넘버인지 확인해야 함.
+                                            Helper_server.post("data/reserv_room.php", params, new AsyncHttpResponseHandler() {
+                                                @Override
+                                                public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                                                    System.out.println("statusCode "+statusCode);//statusCode 200
+                                                    Intent finishReservIntent = new Intent(Activity_user_reservation.this, Activity_FinishReserv.class);
+                                                    startActivity(finishReservIntent);
+                                                }
+
+                                                @Override
+                                                public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+                                                    System.out.println("sibalbalblabl_onFailure");
+                                                }
+                                            });
                                         }
                                     }).setNegativeButton("취소",
                                     new DialogInterface.OnClickListener() {

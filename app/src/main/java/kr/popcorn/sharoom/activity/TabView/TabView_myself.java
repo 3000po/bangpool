@@ -202,6 +202,7 @@ public class TabView_myself extends LinearLayout {
                                     Helper_server.post("editmyself.php", idParams, new AsyncHttpResponseHandler() {
                                         @Override
                                         public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                                            Log.i("abde", "why");
                                             text_phone.setText(edit_phone.getText());
                                             text_email.setText(edit_email.getText());
                                         }

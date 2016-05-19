@@ -14,6 +14,7 @@ import kr.popcorn.sharoom.R;
 //TODO 방정보를 저장할 자료형 클래스
 public class Helper_roomData {
 
+    public int roomNumber;
     public String roomname;
     public int roomimage;
 
@@ -25,5 +26,11 @@ public class Helper_roomData {
        // list.add(0, R.drawable.facebook_gray);
         roomname = "방 화면 예시";
         roomimage = R.drawable.room1;
+    }
+
+    public Helper_roomData(int roomNumber, String roomname, int roomimage) {
+        this.roomNumber = roomNumber;
+        this.roomname = roomname;
+        this.roomimage = roomimage;
     }
 }

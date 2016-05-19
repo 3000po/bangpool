@@ -96,7 +96,7 @@ public class Activity_user_infoRoom extends FragmentActivity {
         //imageview(view pager)
         viewPager = (ViewPager)findViewById(R.id.pager);
         tvCount = (TextView) findViewById(R.id.tv_count);
-        position = getIntent().getIntExtra("idx",1);
+        position = getIntent().getIntExtra("roomNumber",1);
 
         if (imgList.length > 1) {
             //if(imgList.size() > 1)

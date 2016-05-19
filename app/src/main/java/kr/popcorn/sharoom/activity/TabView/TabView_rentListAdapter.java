@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -20,6 +21,9 @@ import kr.popcorn.sharoom.helper.Helper_roomData;
 /**
  * Created by user on 16. 3. 2.
  */
+
+
+//예약가능한 방목록을 보여주기위한 리스트 어댑터
 public class TabView_rentListAdapter extends RecyclerView.Adapter<TabView_rentListAdapter.ViewHolder> {
 
     private Context mContext;
@@ -39,7 +43,6 @@ public class TabView_rentListAdapter extends RecyclerView.Adapter<TabView_rentLi
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(mContext)
                 .inflate(R.layout.list_item_room, parent, false);
-
         return new ViewHolder(v);
     }
 
@@ -78,13 +81,11 @@ public class TabView_rentListAdapter extends RecyclerView.Adapter<TabView_rentLi
             //album = (ImageView) itemView.findViewById(R.id.album_art1);
             //text = (TextView) itemView.findViewById(R.id.year);
 
-            Log.e("number", "hihi ");
-
             roomimage = (ImageView) itemView.findViewById(R.id.roomimage);
             rating = (TextView) itemView.findViewById(R.id.roomrating);
 
-            itemView.setClickable(true);
-            itemView.setOnClickListener(this);
+            //itemView.setClickable(true);
+            //itemView.setOnClickListener(this);
 
 
             itemView.setOnLongClickListener(new View.OnLongClickListener() {
@@ -92,16 +93,17 @@ public class TabView_rentListAdapter extends RecyclerView.Adapter<TabView_rentLi
                 public boolean onLongClick(View v) {
                     // song is selected
                     Log.i("", "index : " + getAdapterPosition());
-
                     return true;
                 }
             });
         }
 
+        //방을 클릭했을때 방에대한 정보를 넣어 상세정보 액티비티를 호출한다.
         @Override
         public void onClick(View v) {
             //when user click the roomlist, it show the room information about index!!!
             Intent intent = new Intent(mContext, Activity_user_infoRoom.class);
+            intent.putExtra("roomNumber", list.get(getAdapterPosition()).roomNumber);
             mContext.startActivity(intent);
 
 
