@@ -98,7 +98,6 @@ public class Activity_host_editRoom extends Activity  implements View.OnClickLis
 
         mImagePicker = new ImagePicker(this);
         loadData();
-
         et_title = (EditText)findViewById(R.id.et_title);
         et_address = (EditText)findViewById(R.id.et_address);
         et_price = (EditText)findViewById(R.id.et_price);
@@ -113,8 +112,9 @@ public class Activity_host_editRoom extends Activity  implements View.OnClickLis
                                                       et_title.setHint("");
                                                       InputMethodManager imm = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
                                                       imm.showSoftInput(et_title, InputMethodManager.SHOW_IMPLICIT);
-                                                  } else
+                                                  } else{
                                                       et_title.setHint("주말 빌려드립니다! 연락주세요!");
+                                                  }
                                               }
                                           }
         );
@@ -127,8 +127,9 @@ public class Activity_host_editRoom extends Activity  implements View.OnClickLis
                     InputMethodManager imm = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
                     imm.showSoftInput(et_address, InputMethodManager.SHOW_IMPLICIT);
 
-                } else
+                } else{
                     et_address.setHint("서울시 성북구 정릉동 11-12");
+                }
             }
         });
 
@@ -141,8 +142,9 @@ public class Activity_host_editRoom extends Activity  implements View.OnClickLis
                     InputMethodManager imm = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
                     imm.showSoftInput(et_price, InputMethodManager.SHOW_IMPLICIT);
 
-                } else
+                } else{
                     et_price.setHint("300,000");
+                }
             }
         });
         et_roomKind.setOnFocusChangeListener(new View.OnFocusChangeListener() {
@@ -153,8 +155,9 @@ public class Activity_host_editRoom extends Activity  implements View.OnClickLis
                     InputMethodManager imm = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
                     imm.showSoftInput(et_roomKind, InputMethodManager.SHOW_IMPLICIT);
 
-                } else
+                } else{
                     et_roomKind.setHint("원룸, 자취방, 하숙집...etc");
+                }
             }
         });
 
@@ -167,8 +170,9 @@ public class Activity_host_editRoom extends Activity  implements View.OnClickLis
                     InputMethodManager imm = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
                     imm.showSoftInput(et_facilities, InputMethodManager.SHOW_IMPLICIT);
 
-                } else
+                } else{
                     et_address.setHint("침대 1인용, 컴퓨터 책상, 옷걸이...etc");
+                }
             }
         });
         et_roomInfo.setOnFocusChangeListener(new View.OnFocusChangeListener() {
@@ -179,8 +183,9 @@ public class Activity_host_editRoom extends Activity  implements View.OnClickLis
                     InputMethodManager imm = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
                     imm.showSoftInput(et_roomInfo, InputMethodManager.SHOW_IMPLICIT);
 
-                } else
-                    et_roomInfo.setHint("국민대학교 정문에서 걸어서 10분정도 걸리는 거리에 위치한 원룸입니다. 2달 정도 방을 비워야 할일이 생겨서 같은 학교 학생분께 저렴한 가격에 대여해드리고 싶습니다. 연락주세요.");
+                } else{
+                    et_roomInfo.setHint("국민대학교 정문에서 걸어서 10분정도 걸리는 거리에 위치한 원룸입니다. 연락주세요.");
+                }
             }
         });
 
@@ -189,7 +194,7 @@ public class Activity_host_editRoom extends Activity  implements View.OnClickLis
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 if ((event.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
                     InputMethodManager imm = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
-                    imm.hideSoftInputFromWindow(et_title.getWindowToken(), 0);    //hide keyboard
+                    imm.hideSoftInputFromWindow(et_title.getWindowToken(), 0);//hide keyboard
                     return true;
                 }
                 return false;

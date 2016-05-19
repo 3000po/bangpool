@@ -19,6 +19,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -69,9 +70,11 @@ public class Activity_host_registerRoom extends Activity  implements View.OnClic
     private int mYear, mMonth, mDay;
     private TextView startDate, endDate;
     private String today;
+    private LinearLayout registerBtn;
     private String start, end;
 
     private int flag1=0, flag2=0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -104,6 +107,8 @@ public class Activity_host_registerRoom extends Activity  implements View.OnClic
         et_roomInfo = (EditText) findViewById(R.id.et_roominfo);
         et_facilities = (EditText)findViewById(R.id.et_facilities);
 
+        registerBtn = (LinearLayout)findViewById(R.id.ll_footer);
+
         et_title.setOnFocusChangeListener(new View.OnFocusChangeListener() {
                                               @Override
                                               public void onFocusChange(View v, boolean hasFocus) {
@@ -111,8 +116,9 @@ public class Activity_host_registerRoom extends Activity  implements View.OnClic
                                                       et_title.setHint("");
                                                       InputMethodManager imm = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
                                                       imm.showSoftInput(et_title, InputMethodManager.SHOW_IMPLICIT);
-                                                  } else
+                                                  } else {
                                                       et_title.setHint("주말 빌려드립니다! 연락주세요!");
+                                                    }
                                               }
                                           }
         );
@@ -125,8 +131,10 @@ public class Activity_host_registerRoom extends Activity  implements View.OnClic
                     InputMethodManager imm = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
                     imm.showSoftInput(et_address, InputMethodManager.SHOW_IMPLICIT);
 
-                } else
+                } else{
                     et_address.setHint("서울시 성북구 정릉동 11-12");
+
+                }
             }
         });
 
@@ -139,8 +147,9 @@ public class Activity_host_registerRoom extends Activity  implements View.OnClic
                     InputMethodManager imm = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
                     imm.showSoftInput(et_price, InputMethodManager.SHOW_IMPLICIT);
 
-                } else
+                } else{
                     et_price.setHint("300,000");
+                }
             }
         });
         et_roomKind.setOnFocusChangeListener(new View.OnFocusChangeListener() {
@@ -151,8 +160,9 @@ public class Activity_host_registerRoom extends Activity  implements View.OnClic
                     InputMethodManager imm = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
                     imm.showSoftInput(et_roomKind, InputMethodManager.SHOW_IMPLICIT);
 
-                } else
+                } else{
                     et_roomKind.setHint("원룸, 자취방, 하숙집...etc");
+                }
             }
         });
 
@@ -165,8 +175,9 @@ public class Activity_host_registerRoom extends Activity  implements View.OnClic
                     InputMethodManager imm = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
                     imm.showSoftInput(et_facilities, InputMethodManager.SHOW_IMPLICIT);
 
-                } else
-                    et_address.setHint("침대 1인용, 컴퓨터 책상, 옷걸이...etc");
+                } else{
+                    et_facilities.setHint("침대 1인용, 컴퓨터 책상, 옷걸이...etc");
+                }
             }
         });
         et_roomInfo.setOnFocusChangeListener(new View.OnFocusChangeListener() {
@@ -177,8 +188,9 @@ public class Activity_host_registerRoom extends Activity  implements View.OnClic
                     InputMethodManager imm = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
                     imm.showSoftInput(et_roomInfo, InputMethodManager.SHOW_IMPLICIT);
 
-                } else
-                    et_roomInfo.setHint("국민대학교 정문에서 걸어서 10분정도 걸리는 거리에 위치한 원룸입니다. 2달 정도 방을 비워야 할일이 생겨서 같은 학교 학생분께 저렴한 가격에 대여해드리고 싶습니다. 연락주세요.");
+                } else{
+                    et_roomInfo.setHint("국민대학교 정문에서 걸어서 10분정도 걸리는 거리에 위치한 원룸입니다. 연락주세요.");
+                }
             }
         });
 

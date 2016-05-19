@@ -11,18 +11,15 @@ import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
-import android.graphics.drawable.ColorDrawable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
@@ -30,12 +27,8 @@ import com.loopj.android.http.PersistentCookieStore;
 import com.loopj.android.http.RequestParams;
 
 import cz.msebera.android.httpclient.Header;
-import cz.msebera.android.httpclient.impl.cookie.BasicClientCookie;
 import kr.popcorn.sharoom.R;
-import kr.popcorn.sharoom.activity.Activity_intro;
 import kr.popcorn.sharoom.activity.Activity_login;
-import kr.popcorn.sharoom.activity.Fragment.Host.Activity_host_view;
-import kr.popcorn.sharoom.activity.Fragment.User.Activity_user_view;
 import kr.popcorn.sharoom.helper.Helper_server;
 import kr.popcorn.sharoom.helper.Helper_userData;
 
@@ -168,6 +161,7 @@ public class TabView_myself extends LinearLayout {
                     aDialog.setTitle("내 정보 수정하기"); //타이틀바 제목
                     aDialog.setView(layout); //dialog.xml 파일을 뷰로 셋팅
 
+
                     edit_phone = (EditText) layout.findViewById(R.id.edit_phone);
                     edit_email = (EditText) layout.findViewById(R.id.edit_email);
                     edit_facebook = (EditText) layout.findViewById(R.id.edit_facebook);
@@ -184,8 +178,8 @@ public class TabView_myself extends LinearLayout {
                                 public void onClick(DialogInterface dialog, int which) {
                                     final RequestParams idParams = new RequestParams("id", Helper_server.userData.getUserID());
                                     int userID = Helper_userData.getInstance().getUserID();
-                                    String phone = edit_phone.getText().toString();
-                                    String email = edit_email.getText().toString();
+                                    final String phone = edit_phone.getText().toString();
+                                    final String email = edit_email.getText().toString();
                                     Log.d("aaaaaa",""+userID);
                                     Log.d("aaaaaa",email);
 
@@ -205,6 +199,8 @@ public class TabView_myself extends LinearLayout {
                                             Log.i("abde", "why");
                                             text_phone.setText(edit_phone.getText());
                                             text_email.setText(edit_email.getText());
+                                            Helper_userData.getInstance().setPhoneNumber(phone);
+                                            Helper_userData.getInstance().setEmail(email);
                                         }
 
                                         @Override
