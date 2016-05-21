@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
@@ -51,7 +52,8 @@ public class TabView_rentListAdapter extends RecyclerView.Adapter<TabView_rentLi
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        Picasso.with(mContext).load(new File(list.get(position).image.get(0))).into(holder.roomimage);
+        Log.i("whatthe", list.get(0).image.get(0));
+        Glide.with(mContext).load(list.get(0).image.get(0)).into(holder.roomimage);
 
         //holder.roomimage.setImageResource(list.get(position).roomimage);
         holder.rating.setText(list.get(position).title);
@@ -81,15 +83,11 @@ public class TabView_rentListAdapter extends RecyclerView.Adapter<TabView_rentLi
 
         public ViewHolder(View itemView) {
             super(itemView);
-            //album = (ImageView) itemView.findViewById(R.id.album_art1);
-            //text = (TextView) itemView.findViewById(R.id.year);
-
             roomimage = (ImageView) itemView.findViewById(R.id.roomimage);
             rating = (TextView) itemView.findViewById(R.id.roomrating);
 
-            //itemView.setClickable(true);
-            //itemView.setOnClickListener(this);
-
+            itemView.setClickable(true);
+            itemView.setOnClickListener(this);
 
             itemView.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override

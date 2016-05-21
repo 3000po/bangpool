@@ -5,6 +5,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -143,6 +144,8 @@ public final class TestFragment extends Fragment {
 
         for(int i=0; i< Test.roomCount; i++){
             list = Test.getInstance().list;
+            Log.i("whatthe", list.get(0).title);
+            Log.i("whatthe", list.get(0).image.get(0));
         }
 
         switch (cases){
