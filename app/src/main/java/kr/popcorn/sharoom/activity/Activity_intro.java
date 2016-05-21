@@ -1,6 +1,7 @@
 package kr.popcorn.sharoom.activity;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -16,15 +17,31 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.facebook.AccessToken;
+import com.facebook.FacebookSdk;
+import com.kakao.auth.Session;
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.PersistentCookieStore;
+
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 import kr.popcorn.sharoom.R;
+import kr.popcorn.sharoom.helper.Helper_server;
+import kr.popcorn.sharoom.helper.Test;
 
 public class Activity_intro extends Activity {
 
     ImageView loading_img;
     AnimationDrawable mAnimationDrawable_1;
+
+    public void open_UserView_Activity(String id, Context mContext){
+        Test.getRoomData_Login(id, mContext);
+    }
+    public void open_UserView_Activity(String id, Context mContext, int num){
+        Test.getRoomData_Login(id, mContext, num);
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
