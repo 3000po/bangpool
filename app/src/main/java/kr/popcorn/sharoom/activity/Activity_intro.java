@@ -31,19 +31,7 @@ public class Activity_intro extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_intro);
 
-        try {
-            PackageInfo info = getPackageManager().getPackageInfo("kr.popcorn.sharoom.activity", PackageManager.GET_SIGNATURES);
-            for (Signature signature : info.signatures) {
-                MessageDigest md = MessageDigest.getInstance("SHA");
-
-                md.update(signature.toByteArray());
-                Log.i("abd : ", Base64.encodeToString(md.digest(), Base64.DEFAULT));
-            }
-        } catch (PackageManager.NameNotFoundException e) {
-
-        } catch (NoSuchAlgorithmException e) {
-
-        }
+        getAppKeyHash();
 
         // 주 쓰레드를 실행
         start_thread();
@@ -151,14 +139,16 @@ public class Activity_intro extends Activity {
     //get App hash key
     private void getAppKeyHash() {
         try {
+            String something="";
             PackageInfo info = getPackageManager().getPackageInfo(getPackageName(), PackageManager.GET_SIGNATURES);
             for (Signature signature : info.signatures) {
                 MessageDigest md;
                 md = MessageDigest.getInstance("SHA");
                 md.update(signature.toByteArray());
-                String something = new String(Base64.encode(md.digest(), 0));
+                something = new String(Base64.encode(md.digest(), 0));
                 Log.d("Hash key", something);
             }
+            Log.d("lol key ", something);
         } catch (Exception e) {
             // TODO Auto-generated catch block
             Log.e("name not found", e.toString());
