@@ -67,9 +67,9 @@ public class Test {
                     roomData = new Test();
 
                     try {
-                        int num = Integer.parseInt(response.get("num").toString().trim());
+                        int number = Integer.parseInt(response.get("num").toString().trim());
 
-                        for (int i = 0; i < num; i++) {
+                        for (int i = 0; i < number; i++) {
                             int roomNumber = Integer.parseInt(response.get("roomNumber" + i).toString().trim());
                             int userID = Integer.parseInt(response.get("userID" + i).toString().trim());
                             String title = response.get("title" + i).toString().trim();
@@ -115,9 +115,9 @@ public class Test {
                 roomData = new Test();
 
                 try {
-                    int num = Integer.parseInt(response.get("num").toString().trim());
+                    int number = Integer.parseInt(response.get("num").toString().trim());
 
-                    for (int i = 0; i < num; i++) {
+                    for (int i = 0; i < number; i++) {
                         int roomNumber = Integer.parseInt(response.get("roomNumber" + i).toString().trim());
                         int userID = Integer.parseInt(response.get("userID" + i).toString().trim());
                         String title = response.get("title" + i).toString().trim();
@@ -139,7 +139,7 @@ public class Test {
                         System.out.println("aaaaa " + roomNumber + " " + userID + " " + title + " " + address + " " + price + " " + roomKind + " " + roomInfo + " " + sDate + " " + eDate + " ");
                     }
                     System.out.println("ListData finish");
-                    Helper_userData.login_GetData(id, mContext,num);
+                    Helper_userData.login_GetData(id, mContext, num);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
