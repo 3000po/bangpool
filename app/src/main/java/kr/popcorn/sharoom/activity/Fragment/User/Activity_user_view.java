@@ -5,7 +5,9 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -32,6 +34,8 @@ public class Activity_user_view extends FragmentActivity {
     private TextView mToptext;
     private ImageView mapMenu;
 
+    private Fragment reload1;
+
     public static Activity AActivty;
 
     @Override
@@ -53,7 +57,13 @@ public class Activity_user_view extends FragmentActivity {
 //        Activity_mainIntro activity = (Activity_mainIntro) Activity_mainIntro.mActivity;
 //        activity.finish();
 
+
         mAdapter = new TestFragmentAdapter(getSupportFragmentManager());
+        reload1 = mAdapter.getItem(0);
+        final FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+
+
+
         mapMenu = (ImageView)findViewById(R.id.mapMenu);
 
         mapMenu.setOnClickListener(new View.OnClickListener() {
@@ -61,8 +71,15 @@ public class Activity_user_view extends FragmentActivity {
             public void onClick(View v) {
                 switch (v.getId()){
                     case R.id.mapMenu:
-                        Intent mapIntent = new Intent(Activity_user_view.this, Activity_mapMenu.class);
-                        startActivity(mapIntent);
+
+                        //리로드 되는 부분!!
+                        //여기 소스 참고 http://stackoverflow.com/questions/20702333/refresh-fragment-at-reload
+                        ft.detach(reload1);
+                        ft.attach(reload1);
+                        ft.commit();
+
+                        //Intent mapIntent = new Intent(Activity_user_view.this, Activity_mapMenu.class);
+                        //startActivity(mapIntent);
                 }
             }
         });
@@ -74,6 +91,7 @@ public class Activity_user_view extends FragmentActivity {
         mPager.setAdapter(mAdapter);
 
         mPager.setOffscreenPageLimit(3);
+
 
         mIndicator = (IconPageIndicator) findViewById(R.id.u_indicator);
 

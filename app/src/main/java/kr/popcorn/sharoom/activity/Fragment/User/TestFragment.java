@@ -142,6 +142,7 @@ public final class TestFragment extends Fragment {
 
         ArrayList<Helper_roomData> list = new ArrayList<Helper_roomData>();
 
+        Log.i("roomCount",""+Test.roomCount);
         for(int i=0; i< Test.roomCount; i++){
             list = Test.getInstance().list;
             Log.i("whatthe", list.get(0).title);
@@ -230,4 +231,9 @@ public final class TestFragment extends Fragment {
         outState.putString(KEY_CONTENT, mContent);
 
     }
+
+    public void setDate(ArrayList<Helper_roomData> list){
+
+    }
+
 }

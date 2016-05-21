@@ -133,7 +133,7 @@ public final class H_TestFragment extends Fragment {
                 recyclerView.setItemAnimator(new DefaultItemAnimator());
 
                 reservationAdapter = new TabView_reservationAdapter(getActivity(),
-                        list,
+                        null,
                         (LinearLayoutManager) recyclerView.getLayoutManager());
                 recyclerView.setAdapter(reservationAdapter);
                 break;
@@ -142,7 +142,7 @@ public final class H_TestFragment extends Fragment {
                 recyclerView_register.setItemAnimator(new DefaultItemAnimator());
 
                 registerAdapter = new TabView_registerAdapter(getActivity(),
-                        null,
+                        list,
                         (LinearLayoutManager) recyclerView_register.getLayoutManager());
                 recyclerView_register.setAdapter(registerAdapter);
                 break;
