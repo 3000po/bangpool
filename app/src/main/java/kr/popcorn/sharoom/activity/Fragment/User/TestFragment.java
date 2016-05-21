@@ -88,7 +88,7 @@ public final class TestFragment extends Fragment {
             return;
         }
 */
-
+/*
         Helper_roomData first = new Helper_roomData();
         Helper_roomData second = new Helper_roomData();
         Helper_roomData third = new Helper_roomData();
@@ -136,8 +136,11 @@ public final class TestFragment extends Fragment {
         se3.add(first3);
         se3.add(second3);
         se3.add(third3);
+        */
 
-        Helper_userData user = new Helper_userData();
+        ArrayList<Helper_roomData> list = new ArrayList<Helper_roomData>();
+
+        for(int i=0; i<Test.)
 
         switch (cases){
             case ROOMLIST:
@@ -145,7 +148,7 @@ public final class TestFragment extends Fragment {
                 recyclerView.setItemAnimator(new DefaultItemAnimator());
 
                 rentListAdapter = new TabView_rentListAdapter(getActivity(),
-                        se,
+                        list,
                         (LinearLayoutManager) recyclerView.getLayoutManager());
                 recyclerView.setAdapter(rentListAdapter);
 
@@ -156,7 +159,7 @@ public final class TestFragment extends Fragment {
                 recyclerView.setItemAnimator(new DefaultItemAnimator());
 
                 reservationAdapter = new TabView_reservationAdapter(getActivity(),
-                        se2,
+                        null,
                         (LinearLayoutManager) recyclerView.getLayoutManager());
                 recyclerView.setAdapter(reservationAdapter);
                 break;

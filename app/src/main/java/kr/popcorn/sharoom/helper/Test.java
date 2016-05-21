@@ -27,6 +27,7 @@ public class Test {
     private static Test roomData = null;
     final static String baseURL = "14.63.227.200/";
 
+    public static int roomCount;
     public static int MAX = 50;
     public static int[] roomNumber = new int[MAX];
     public static int[] userID =new int[MAX];
@@ -67,9 +68,9 @@ public class Test {
                     roomData = new Test();
 
                     try {
-                        int number = Integer.parseInt(response.get("num").toString().trim());
+                        roomCount = Integer.parseInt(response.get("num").toString().trim());
 
-                        for (int i = 0; i < number; i++) {
+                        for (int i = 0; i < roomCount; i++) {
                             int roomNumber = Integer.parseInt(response.get("roomNumber" + i).toString().trim());
                             int userID = Integer.parseInt(response.get("userID" + i).toString().trim());
                             String title = response.get("title" + i).toString().trim();
@@ -115,9 +116,9 @@ public class Test {
                 roomData = new Test();
 
                 try {
-                    int number = Integer.parseInt(response.get("num").toString().trim());
+                    roomCount = Integer.parseInt(response.get("num").toString().trim());
 
-                    for (int i = 0; i < number; i++) {
+                    for (int i = 0; i < roomCount; i++) {
                         int roomNumber = Integer.parseInt(response.get("roomNumber" + i).toString().trim());
                         int userID = Integer.parseInt(response.get("userID" + i).toString().trim());
                         String title = response.get("title" + i).toString().trim();

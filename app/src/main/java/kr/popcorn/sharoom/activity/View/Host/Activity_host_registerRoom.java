@@ -346,7 +346,6 @@ public class Activity_host_registerRoom extends Activity  implements View.OnClic
                     Toast.makeText(Activity_host_registerRoom.this, "종료 날짜를 입력해주세요.", Toast.LENGTH_LONG).show();
                 }
                 else if(sDate.compareTo(eDate)>0){
-                    Log.d("Jihyun", "ddddd");
                     Toast.makeText(Activity_host_registerRoom.this, "입력 날짜를 확인해주세요.", Toast.LENGTH_LONG).show();
                     //startDate.setText(today);
                     //endDate.setText(today);
