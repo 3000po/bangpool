@@ -24,6 +24,7 @@ import kr.popcorn.sharoom.activity.TabView.TabView_registerAdapter;
 import kr.popcorn.sharoom.activity.TabView.TabView_reservationAdapter;
 import kr.popcorn.sharoom.floatingactionbutton.FloatingActionButton;
 import kr.popcorn.sharoom.helper.Helper_roomData;
+import kr.popcorn.sharoom.helper.Test;
 
 public final class H_TestFragment extends Fragment {
     private static final String KEY_CONTENT = "TestFragment:Content";
@@ -76,7 +77,7 @@ public final class H_TestFragment extends Fragment {
             }
         });
 
-
+/*
         Helper_roomData first = new Helper_roomData();
         Helper_roomData second = new Helper_roomData();
         Helper_roomData third = new Helper_roomData();
@@ -119,11 +120,12 @@ public final class H_TestFragment extends Fragment {
         se2.add(first2);
         se2.add(second2);
         se2.add(third2);
+*/
+        ArrayList<Helper_roomData> list = new ArrayList<Helper_roomData>();
 
-        ArrayList<Helper_roomData> se3 = new ArrayList<Helper_roomData>();
-        se3.add(first3);
-        se3.add(second3);
-        se3.add(third3);
+        for(int i = 0; i< Test.roomCount; i++){
+            list = Test.getInstance().list;
+        }
 
         switch (cases){
             case RESERVATONROOM:
@@ -131,7 +133,7 @@ public final class H_TestFragment extends Fragment {
                 recyclerView.setItemAnimator(new DefaultItemAnimator());
 
                 reservationAdapter = new TabView_reservationAdapter(getActivity(),
-                        se,
+                        list,
                         (LinearLayoutManager) recyclerView.getLayoutManager());
                 recyclerView.setAdapter(reservationAdapter);
                 break;
@@ -140,7 +142,7 @@ public final class H_TestFragment extends Fragment {
                 recyclerView_register.setItemAnimator(new DefaultItemAnimator());
 
                 registerAdapter = new TabView_registerAdapter(getActivity(),
-                        se2,
+                        null,
                         (LinearLayoutManager) recyclerView_register.getLayoutManager());
                 recyclerView_register.setAdapter(registerAdapter);
                 break;

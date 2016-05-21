@@ -27,6 +27,8 @@ public class Test {
     private static Test roomData = null;
     final static String baseURL = "14.63.227.200/";
 
+    public static ArrayList<Helper_roomData> list = new ArrayList<Helper_roomData>();
+
     public static int roomCount;
     public static int MAX = 50;
     public static int[] roomNumber = new int[MAX];
@@ -87,6 +89,7 @@ public class Test {
                                 System.out.println("ccccc" + imageUrl);
                                 addImage(i, imageUrl);
                             }
+                            list.add( new Helper_roomData(roomNumber, userID, title, address,price,roomKind,roomInfo,sDate,eDate, image[i]) );
                             roomData.setData(roomNumber, userID, title, address, price, roomKind, roomInfo, sDate, eDate, i);
                             System.out.println("aaaaa " + roomNumber + " " + userID + " " + title + " " + address + " " + price + " " + roomKind + " " + roomInfo + " " + sDate + " " + eDate + " ");
                         }
@@ -135,7 +138,7 @@ public class Test {
                             System.out.println("ccccc" + imageUrl);
                             addImage(i, imageUrl);
                         }
-                        
+                        list.add( new Helper_roomData(roomNumber, userID, title, address,price,roomKind,roomInfo,sDate,eDate, image[i]) );
                         roomData.setData(roomNumber, userID, title, address, price, roomKind, roomInfo, sDate, eDate, i);
                         System.out.println("aaaaa " + roomNumber + " " + userID + " " + title + " " + address + " " + price + " " + roomKind + " " + roomInfo + " " + sDate + " " + eDate + " ");
                     }

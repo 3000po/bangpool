@@ -13,6 +13,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
+import java.io.File;
 import java.util.ArrayList;
 
 import kr.popcorn.sharoom.R;
@@ -59,8 +62,11 @@ public class TabView_reservationAdapter extends RecyclerView.Adapter<TabView_res
         //holder.myface.setImageResource(R.drawable.ic_action_mapview_m);
         //holder.myname.setText((CharSequence) list.get(position));
         //holder.text.setText(tmp.substring(0,4));
-        holder.roomimage.setImageResource(list.get(position).roomimage);
-        holder.roomname.setText(list.get(position).roomname);
+        Picasso.with(mContext).load(new File(list.get(position).image.get(0))).into(holder.roomimage);
+
+        //holder.roomimage.setImageResource(list.get(position).roomimage);
+        holder.roomname.setText(list.get(position).title);
+        //holder.text.setText(tmp.substring(0,4));
     }
 
     @Override
@@ -122,7 +128,7 @@ public class TabView_reservationAdapter extends RecyclerView.Adapter<TabView_res
 
             }
 
-            Log.e("reservation_check", "roomname : " + list.get(0).roomname);
+            Log.e("reservation_check", "roomname : " + list.get(0).title);
             Log.e("reservation_check", "index : " + getAdapterPosition());
         }
 
