@@ -42,7 +42,6 @@ import java.util.List;
 import kr.popcorn.sharoom.R;
 import kr.popcorn.sharoom.activity.Activity_FacillitiesInfo;
 import kr.popcorn.sharoom.activity.Activity_largeMap;
-import kr.popcorn.sharoom.activity.View.User.Activity_user_reservation;
 import kr.popcorn.sharoom.helper.GlobalApplication;
 import me.yokeyword.imagepicker.adapter.GlideFragmentAdapter;
 
@@ -147,7 +146,7 @@ public class Activity_host_infoRoom extends FragmentActivity {
                 imm.showSoftInput(etLocation, InputMethodManager.SHOW_FORCED);
 
                 // Getting user input location
-                String location = etLocation.getText().toString();
+                String location = etLocation.getText().toString(); //location에 주소를 넣으면 됨.
                 GlobalApplication myApp = (GlobalApplication) getApplication();
                 myApp.setGlobalString(location);
 
@@ -309,7 +308,7 @@ public class Activity_host_infoRoom extends FragmentActivity {
                 Address address = (Address) addresses.get(i);
 
                 // Creating an instance of GeoPoint, to display in Google Map
-                latLng = new LatLng(address.getLatitude(), address.getLongitude());
+                latLng = new LatLng(address.getLatitude(), address.getLongitude()); //Latitude:위도, Longitude:경도
                 String addressText = String.format("%s, %s",
                         address.getMaxAddressLineIndex() > 0 ? address.getAddressLine(0) : "",
                         address.getCountryName());
