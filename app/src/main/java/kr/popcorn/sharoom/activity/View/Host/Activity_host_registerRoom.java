@@ -11,6 +11,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -350,7 +351,14 @@ public class Activity_host_registerRoom extends Activity  implements View.OnClic
                     //startDate.setText(today);
                     //endDate.setText(today);
                 }
-                else postImage(list, title, address, price, roomKind, roomInfo, sDate, eDate);
+                else{
+                    postImage(list, title, address, price, roomKind, roomInfo, sDate, eDate);
+
+                    SharedPreferences mPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                    SharedPreferences.Editor editor = mPref.edit();
+                    editor.clear();
+                    editor.commit();
+                }
             }
         });
     }
