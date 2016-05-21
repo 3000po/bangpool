@@ -381,6 +381,26 @@ public class Activity_login extends Activity {
             }
         });
 
+        if (Helper_server.login(myCookieStore)) {
+            Log.i("abde", "what the!! ");
+            String id = Helper_server.getCookieValue(myCookieStore,"id");
+            open_UserView_Activity(id, getApplicationContext());
+        }else if( Session.getCurrentSession().isOpened() ) {
+            String id = Helper_server.getCookieValue(myCookieStore,"id");
+            open_UserView_Activity(id, getApplicationContext(),0);
+        }else
+        { //페이스북 자동로그인 파트
+            FacebookSdk.sdkInitialize(getApplicationContext());
+            AccessToken accessToken = AccessToken.getCurrentAccessToken();
+            if (accessToken == null) {
+                Log.d("abde", ">>>" + "Signed Out");
+            } else {
+                Log.d("abde", ">>>" + "Signed In");
+                String id = Helper_server.getCookieValue(myCookieStore,"id");
+                open_UserView_Activity(id, getApplicationContext(),1);
+            }
+        }
+
         // 만듦
         et_id = (EditText) findViewById(R.id.et_login_id);
         et_password = (EditText) findViewById(R.id.et_login_password);
