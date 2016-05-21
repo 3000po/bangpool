@@ -25,6 +25,7 @@ import kr.popcorn.sharoom.R;
 public class Test {
 
     private static Test roomData = null;
+    final static String baseURL = "14.63.227.200/";
 
     public static int MAX = 50;
     public static int[] roomNumber = new int[MAX];
@@ -36,11 +37,8 @@ public class Test {
     public static String[] roomInfo= new String[MAX];
     public static String[] sDate= new String[MAX];
     public static String[] eDate= new String[MAX];
-    public static String[][] image= new String[MAX][8];
 
-    public int roomimage;
-
-    public ArrayList<Integer> list;
+    public static ArrayList<String>[] image = new ArrayList[MAX];
 
     public Test(){
 
@@ -82,6 +80,12 @@ public class Test {
                             String sDate = response.get("sDate" + i).toString().trim();
                             String eDate = response.get("eDate" + i).toString().trim();
 
+                            image[i] = new ArrayList<String>();
+                            for(int j=0; j< 8; j++){
+                                String imageUrl = baseURL+response.get("image"+j+"?"+i).toString().trim();
+                                System.out.println("ccccc" + imageUrl);
+                                addImage(i, imageUrl);
+                            }
                             roomData.setData(roomNumber, userID, title, address, price, roomKind, roomInfo, sDate, eDate, i);
                             System.out.println("aaaaa " + roomNumber + " " + userID + " " + title + " " + address + " " + price + " " + roomKind + " " + roomInfo + " " + sDate + " " + eDate + " ");
                         }
@@ -123,7 +127,14 @@ public class Test {
                         String roomInfo = response.get("roomInfo" + i).toString().trim();
                         String sDate = response.get("sDate" + i).toString().trim();
                         String eDate = response.get("eDate" + i).toString().trim();
+                        image[i] = new ArrayList<String>();
 
+                        for(int j=0; j< 8; j++){
+                            String imageUrl = baseURL+response.get("image"+j+"?"+i).toString().trim();
+                            System.out.println("ccccc" + imageUrl);
+                            addImage(i, imageUrl);
+                        }
+                        
                         roomData.setData(roomNumber, userID, title, address, price, roomKind, roomInfo, sDate, eDate, i);
                         System.out.println("aaaaa " + roomNumber + " " + userID + " " + title + " " + address + " " + price + " " + roomKind + " " + roomInfo + " " + sDate + " " + eDate + " ");
                     }
@@ -215,10 +226,10 @@ public class Test {
         eDate[index]=value;
     }
     public static String getImage(int index, int number) {
-        return image[index][number];
+        return image[index].get(number);
     }
 
-    public static void setImage(int index, int number, String value) {
-        image[index][number] = value;
+    public static void addImage(int index, String value) {
+        image[index].add(value);
     }
 }
