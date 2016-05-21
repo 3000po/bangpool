@@ -169,6 +169,7 @@ public class Helper_userData {
             }
         }
         else{
+            Log.i("myself", "whyman");
             Intent intent = new Intent(mContext, Activity_user_view.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             mContext.startActivity(intent);
@@ -235,6 +236,7 @@ public class Helper_userData {
             });
         }
         else{
+            Log.i("myself", "whyman");
             Intent intent = new Intent(mContext, Activity_user_view.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             mContext.startActivity(intent);

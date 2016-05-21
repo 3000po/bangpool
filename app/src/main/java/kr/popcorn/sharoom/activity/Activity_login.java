@@ -346,6 +346,7 @@ public class Activity_login extends Activity {
 
                             return;
                         } else {
+                            Log.i("whywhy","bye");
                             BasicClientCookie newCookie = new BasicClientCookie("id", id);
                             newCookie = new BasicClientCookie("id", id);
                             newCookie.setVersion(1);
