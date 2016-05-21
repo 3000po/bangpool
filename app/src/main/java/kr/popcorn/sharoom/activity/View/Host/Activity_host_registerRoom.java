@@ -500,7 +500,12 @@ public class Activity_host_registerRoom extends Activity  implements View.OnClic
         list = arrayList;
 
         if( list.size() > 0 ) {
-            picButton.setImageURI( Uri.fromFile( new File(list.get(0))));
+            try {
+                Bitmap bitmap = decodeUri(getApplicationContext(), Uri.fromFile(new File(list.get(0))), 100);
+                picButton.setImageBitmap(bitmap);
+            }catch (FileNotFoundException e){
+                Log.e("ddddd","fuck");
+            }
         }else{
             picButton.setImageResource(R.drawable.roompicture);
         }
@@ -551,10 +556,8 @@ public class Activity_host_registerRoom extends Activity  implements View.OnClic
         });
     }
 
-    public static Bitmap decodeUri(Context c, String path, final int requiredSize)
+    public static Bitmap decodeUri(Context c, Uri uri, final int requiredSize)
             throws FileNotFoundException {
-
-        Uri uri = Uri.fromFile(new File(path));
         BitmapFactory.Options o = new BitmapFactory.Options();
         o.inJustDecodeBounds = true;
         BitmapFactory.decodeStream(c.getContentResolver().openInputStream(uri), null, o);

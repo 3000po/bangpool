@@ -382,27 +382,6 @@ public class Activity_login extends Activity {
         et_password = (EditText) findViewById(R.id.et_login_password);
         layoutIdPassword = (RelativeLayout) findViewById(R.id.layout_idpassword);
 
-        //자동 로그인 파트.
-        //배치 변경 필요.
-        if (Helper_server.login(myCookieStore)) {
-            Log.i("abde", "what the!! ");
-            String id = Helper_server.getCookieValue(myCookieStore,"id");
-            open_UserView_Activity(id, getApplicationContext());
-        }else if( Session.getCurrentSession().isOpened() ) {
-            String id = Helper_server.getCookieValue(myCookieStore,"id");
-            open_UserView_Activity(id, getApplicationContext(),0);
-        }else
-        { //페이스북 자동로그인 파트
-            AccessToken accessToken = AccessToken.getCurrentAccessToken();
-            if (accessToken == null) {
-                Log.d("abde", ">>>" + "Signed Out");
-            } else {
-                Log.d("abde", ">>>" + "Signed In");
-                String id = Helper_server.getCookieValue(myCookieStore,"id");
-                open_UserView_Activity(id, getApplicationContext(),1);
-            }
-        }
-
         et_id.setOnFocusChangeListener(new View.OnFocusChangeListener() {
                                            @Override
                                            public void onFocusChange(View v, boolean hasFocus) {

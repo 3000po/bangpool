@@ -1,6 +1,7 @@
 package kr.popcorn.sharoom.activity;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -16,38 +17,76 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.facebook.AccessToken;
+import com.facebook.FacebookSdk;
+import com.kakao.auth.Session;
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.PersistentCookieStore;
+
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 import kr.popcorn.sharoom.R;
+import kr.popcorn.sharoom.helper.Helper_server;
+import kr.popcorn.sharoom.helper.Test;
 
 public class Activity_intro extends Activity {
 
     ImageView loading_img;
     AnimationDrawable mAnimationDrawable_1;
 
+    public void open_UserView_Activity(String id, Context mContext){
+        Test.getRoomData_Login(id, mContext);
+    }
+    public void open_UserView_Activity(String id, Context mContext, int num){
+        Test.getRoomData_Login(id, mContext, num);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_intro);
 
-        try {
-            PackageInfo info = getPackageManager().getPackageInfo("kr.popcorn.sharoom.activity", PackageManager.GET_SIGNATURES);
-            for (Signature signature : info.signatures) {
-                MessageDigest md = MessageDigest.getInstance("SHA");
+        getAppKeyHash();
 
-                md.update(signature.toByteArray());
-                Log.i("abd : ", Base64.encodeToString(md.digest(), Base64.DEFAULT));
+        boolean isLogined = false;
+
+        AsyncHttpClient client = Helper_server.getInstance();
+        final PersistentCookieStore myCookieStore = new PersistentCookieStore(this);
+        client.setCookieStore(myCookieStore);
+
+        //자동 로그인 파트.
+        //배치 변경 필요.
+        if (Helper_server.login(myCookieStore)) {
+            Log.i("abde", "what the!! ");
+            String id = Helper_server.getCookieValue(myCookieStore,"id");
+            open_UserView_Activity(id, getApplicationContext());
+            isLogined = true;
+        }else if( Session.getCurrentSession().isOpened() ) {
+            String id = Helper_server.getCookieValue(myCookieStore,"id");
+            open_UserView_Activity(id, getApplicationContext(),0);
+            isLogined = true;
+        }else
+        { //페이스북 자동로그인 파트
+            FacebookSdk.sdkInitialize(getApplicationContext());
+            AccessToken accessToken = AccessToken.getCurrentAccessToken();
+            if (accessToken == null) {
+                Log.d("abde", ">>>" + "Signed Out");
+            } else {
+                Log.d("abde", ">>>" + "Signed In");
+                String id = Helper_server.getCookieValue(myCookieStore,"id");
+                open_UserView_Activity(id, getApplicationContext(),1);
+                isLogined = true;
             }
-        } catch (PackageManager.NameNotFoundException e) {
-
-        } catch (NoSuchAlgorithmException e) {
-
         }
 
-        // 주 쓰레드를 실행
-        start_thread();
-        init(); // 디자인초기화
+        if( !isLogined ) {
+            // 주 쓰레드를 실행
+            start_thread();
+            init(); // 디자인초기화
+        }else{
+            Log.d("what","thefuck");
+        }
     }
 
     @Override
@@ -76,18 +115,14 @@ public class Activity_intro extends Activity {
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-
         switch (keyCode) {
-
             case KeyEvent.KEYCODE_BACK:
-
                 moveTaskToBack(true);
 
                 Intent setIntent = new Intent(Intent.ACTION_MAIN);
                 setIntent.addCategory(Intent.CATEGORY_HOME);
                 setIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(setIntent);
-
             default:
                 return super.onKeyDown(keyCode, event);
         }
@@ -150,15 +185,17 @@ public class Activity_intro extends Activity {
 
     //get App hash key
     private void getAppKeyHash() {
+        String something="";
         try {
             PackageInfo info = getPackageManager().getPackageInfo(getPackageName(), PackageManager.GET_SIGNATURES);
             for (Signature signature : info.signatures) {
                 MessageDigest md;
                 md = MessageDigest.getInstance("SHA");
                 md.update(signature.toByteArray());
-                String something = new String(Base64.encode(md.digest(), 0));
-                Log.d("Hash key", something);
+                something = new String(Base64.encode(md.digest(), 0));
+                //Log.d("Hash key", something);
             }
+            Log.d("lol key : ", something);
         } catch (Exception e) {
             // TODO Auto-generated catch block
             Log.e("name not found", e.toString());
