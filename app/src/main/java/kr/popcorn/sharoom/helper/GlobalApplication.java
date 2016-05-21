@@ -15,6 +15,9 @@ public class GlobalApplication extends Application {
     private static GlobalApplication mInstance;
     private static volatile Activity currentActivity = null;
 
+    /*Typekit.getInstance()
+            .addNormal(Typekit.createFromAsset(this, "fonts/NanumBarunGothic-Regular.otf"))
+            .addBold(Typekit.createFromAsset(this, "fonts/NanumBarunGothic-Bold.otf"));*/
     public static Activity getCurrentActivity() {
         Log.d("TAG", "++ currentActivity : " + (currentActivity != null ? currentActivity.getClass().getSimpleName() : ""));
         return currentActivity;
