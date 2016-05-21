@@ -1,7 +1,6 @@
 package kr.popcorn.sharoom.activity;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -17,30 +16,15 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.facebook.AccessToken;
-import com.facebook.FacebookSdk;
-import com.kakao.auth.Session;
-import com.loopj.android.http.AsyncHttpClient;
-import com.loopj.android.http.PersistentCookieStore;
-
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 import kr.popcorn.sharoom.R;
-import kr.popcorn.sharoom.helper.Helper_server;
-import kr.popcorn.sharoom.helper.Test;
 
 public class Activity_intro extends Activity {
 
     ImageView loading_img;
     AnimationDrawable mAnimationDrawable_1;
-
-    public void open_UserView_Activity(String id, Context mContext){
-        Test.getRoomData_Login(id, mContext);
-    }
-    public void open_UserView_Activity(String id, Context mContext, int num){
-        Test.getRoomData_Login(id, mContext, num);
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -115,14 +99,18 @@ public class Activity_intro extends Activity {
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
+
         switch (keyCode) {
+
             case KeyEvent.KEYCODE_BACK:
+
                 moveTaskToBack(true);
 
                 Intent setIntent = new Intent(Intent.ACTION_MAIN);
                 setIntent.addCategory(Intent.CATEGORY_HOME);
                 setIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(setIntent);
+
             default:
                 return super.onKeyDown(keyCode, event);
         }
@@ -185,17 +173,15 @@ public class Activity_intro extends Activity {
 
     //get App hash key
     private void getAppKeyHash() {
-        String something="";
         try {
             PackageInfo info = getPackageManager().getPackageInfo(getPackageName(), PackageManager.GET_SIGNATURES);
             for (Signature signature : info.signatures) {
                 MessageDigest md;
                 md = MessageDigest.getInstance("SHA");
                 md.update(signature.toByteArray());
-                something = new String(Base64.encode(md.digest(), 0));
-                //Log.d("Hash key", something);
+                String something = new String(Base64.encode(md.digest(), 0));
+                Log.d("Hash key", something);
             }
-            Log.d("lol key : ", something);
         } catch (Exception e) {
             // TODO Auto-generated catch block
             Log.e("name not found", e.toString());
