@@ -52,8 +52,7 @@ public class TabView_rentListAdapter extends RecyclerView.Adapter<TabView_rentLi
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        Log.i("whatthefuck", list.get(0).image.get(0));
-        Glide.with(mContext).load(list.get(0).image.get(0)).into(holder.roomimage);
+        Glide.with(mContext).load("http://"+list.get(0).image.get(0)).into(holder.roomimage);
 
         //holder.roomimage.setImageResource(list.get(position).roomimage);
         holder.rating.setText(list.get(position).title);
@@ -106,10 +105,6 @@ public class TabView_rentListAdapter extends RecyclerView.Adapter<TabView_rentLi
             Intent intent = new Intent(mContext, Activity_user_infoRoom.class);
             intent.putExtra("roomNumber", list.get(getAdapterPosition()).roomNumber);
             mContext.startActivity(intent);
-
-
-            Log.e("number", "index : " + list.get(0).title);
-            Log.e("number", "index : " + getAdapterPosition());
         }
 
     }
