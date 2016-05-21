@@ -44,7 +44,7 @@ public class Activity_user_view extends FragmentActivity {
         Activity_login login = (Activity_login) Activity_login.login_Activity; //login_Activity_finish
         login.finish();
 
-        System.out.println("bbbbbbbb" + Test.getInstance().getRoomNumber(0) + "   " + Test.getInstance().getRoomInfo(0) + "  " + Test.getInstance().getRoomKind(0));
+        System.out.println("bbbbbbbb" + Test.getInstance().image[0].get(0) + "   " + Test.getInstance().getRoomInfo(0) + "  " + Test.getInstance().getRoomKind(0));
 
         AsyncHttpClient client = Helper_server.getInstance();
 
