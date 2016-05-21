@@ -127,11 +127,14 @@ public class Test {
                         String roomInfo = response.get("roomInfo" + i).toString().trim();
                         String sDate = response.get("sDate" + i).toString().trim();
                         String eDate = response.get("eDate" + i).toString().trim();
+                        image[i] = new ArrayList<String>();
+
                         for(int j=0; j< 8; j++){
                             String imageUrl = baseURL+response.get("image"+j+"?"+i).toString().trim();
                             System.out.println("ccccc" + imageUrl);
                             addImage(i, imageUrl);
                         }
+                        
                         roomData.setData(roomNumber, userID, title, address, price, roomKind, roomInfo, sDate, eDate, i);
                         System.out.println("aaaaa " + roomNumber + " " + userID + " " + title + " " + address + " " + price + " " + roomKind + " " + roomInfo + " " + sDate + " " + eDate + " ");
                     }
