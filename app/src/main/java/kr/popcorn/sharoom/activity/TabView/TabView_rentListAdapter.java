@@ -52,7 +52,7 @@ public class TabView_rentListAdapter extends RecyclerView.Adapter<TabView_rentLi
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        Log.i("whatthe", list.get(0).image.get(0));
+        Log.i("whatthefuck", list.get(0).image.get(0));
         Glide.with(mContext).load(list.get(0).image.get(0)).into(holder.roomimage);
 
         //holder.roomimage.setImageResource(list.get(position).roomimage);
