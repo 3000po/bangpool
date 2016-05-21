@@ -48,16 +48,10 @@ public class TabView_registerAdapter extends RecyclerView.Adapter<TabView_regist
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        //Picasso.with(mContext).load(new File(list.get(position).path)).into(holder.album);
 
         //holder.roomimage.setImageResource(R.drawable.ic_action_mapview_m);
-        //holder.rating.setText(list.get(position).roomname);
-        //holder.text.setText(tmp.substring(0,4));
-        Picasso.with(mContext).load(new File(list.get(position).image.get(0))).into(holder.roomimage);
-
-        //holder.roomimage.setImageResource(list.get(position).roomimage);
+        Picasso.with(mContext).load("http://"+ list.get(position).image.get(0)).into(holder.roomimage);
         holder.rating.setText(list.get(position).title);
-        //holder.text.setText(tmp.substring(0,4));
     }
 
     @Override
@@ -104,9 +98,6 @@ public class TabView_registerAdapter extends RecyclerView.Adapter<TabView_regist
         public void onClick(View v) {
             Intent intent = new Intent(mContext, Activity_host_infoRoom.class);
             mContext.startActivity(intent);
-
-            Log.e("number", "index : " + list.get(0).title);
-            Log.e("number", "index : " + getAdapterPosition());
         }
 
     }

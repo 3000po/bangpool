@@ -60,13 +60,9 @@ public class TabView_reservationAdapter extends RecyclerView.Adapter<TabView_res
         //myface.setImageBitmap(getCircleBitmap(face));
 
         //holder.myface.setImageResource(R.drawable.ic_action_mapview_m);
-        //holder.myname.setText((CharSequence) list.get(position));
-        //holder.text.setText(tmp.substring(0,4));
-        Picasso.with(mContext).load(new File(list.get(position).image.get(0))).into(holder.roomimage);
+        Picasso.with(mContext).load("http://"+list.get(position).image.get(0)).into(holder.roomimage);
 
-        //holder.roomimage.setImageResource(list.get(position).roomimage);
         holder.roomname.setText(list.get(position).title);
-        //holder.text.setText(tmp.substring(0,4));
     }
 
     @Override
@@ -127,9 +123,6 @@ public class TabView_reservationAdapter extends RecyclerView.Adapter<TabView_res
                 //mContext.startActivity(intent);
 
             }
-
-            Log.e("reservation_check", "roomname : " + list.get(0).title);
-            Log.e("reservation_check", "index : " + getAdapterPosition());
         }
 
     }
