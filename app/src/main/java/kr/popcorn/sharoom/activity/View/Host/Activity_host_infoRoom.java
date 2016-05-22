@@ -274,7 +274,7 @@ public class Activity_host_infoRoom extends FragmentActivity {
 
 
     // An AsyncTask class for accessing the GeoCoding Web Service
-    private class GeocoderTask extends AsyncTask<String, Void, List<Address>>{
+    final class GeocoderTask extends AsyncTask<String, Void, List<Address>>{
 
         @Override
         protected List<Address> doInBackground(String... locationName) {

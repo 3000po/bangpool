@@ -9,6 +9,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.location.Address;
+import android.location.Geocoder;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -39,6 +41,7 @@ import java.util.List;
 
 import cz.msebera.android.httpclient.Header;
 import kr.popcorn.sharoom.R;
+import kr.popcorn.sharoom.helper.GlobalApplication;
 import kr.popcorn.sharoom.helper.Helper_server;
 import kr.popcorn.sharoom.helper.Helper_userData;
 import me.yokeyword.imagepicker.ImagePicker;
@@ -74,10 +77,10 @@ public class Activity_host_registerRoom extends Activity  implements View.OnClic
     private int mYear, mMonth, mDay;
     private TextView startDate, endDate;
     private String today;
-    private LinearLayout registerBtn;
     private String start, end;
+    private LinearLayout registerBtn;
 
-    private int flag1=0, flag2=0;
+    private double lat, lng;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -285,7 +288,6 @@ public class Activity_host_registerRoom extends Activity  implements View.OnClic
                 switch(v.getId()){
                     case R.id.startDate:
                         new DatePickerDialog(Activity_host_registerRoom.this, mDateSetListener1, mYear, mMonth, mDay).show();
-                        flag1=1;
                         break;
 
                 }
@@ -298,7 +300,6 @@ public class Activity_host_registerRoom extends Activity  implements View.OnClic
                 switch(v.getId()){
                     case R.id.endDate:
                         new DatePickerDialog(Activity_host_registerRoom.this, mDateSetListener2, mYear, mMonth, mDay).show();
-                        flag2=1;
                         break;
 
                 }
@@ -319,6 +320,29 @@ public class Activity_host_registerRoom extends Activity  implements View.OnClic
             });
             alert.show();
         }*/
+
+        // Getting user input location
+        String location = et_address.getText().toString();
+        GlobalApplication myApp = (GlobalApplication) getApplication();
+        myApp.setGlobalString(location);
+
+        Geocoder geocoder = new Geocoder(this);
+        Address addr;
+
+        try {
+            List<Address> listAddress = geocoder.getFromLocationName(location, 1);
+            if (listAddress.size() > 0) { // 주소값이 존재 하면
+                addr = listAddress.get(0); // Address형태로
+                //lat = (int) (addr.getLatitude() * 1E6);
+                //lng = (int) (addr.getLongitude() * 1E6);
+                lat = addr.getLatitude();
+                lng = addr.getLongitude();
+
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
 
         tv_register = (TextView) findViewById(R.id.bottomtext);
         tv_register.setOnClickListener(new TextView.OnClickListener(){
@@ -448,6 +472,7 @@ public class Activity_host_registerRoom extends Activity  implements View.OnClic
                 break;
         }
     }
+
     public void openActivity(){
         Intent it = new Intent(this, Activity_host_registerRoom_roomPic.class);
         it.putExtra("list", list);
