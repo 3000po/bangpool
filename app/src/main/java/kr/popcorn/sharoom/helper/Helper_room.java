@@ -2,9 +2,7 @@ package kr.popcorn.sharoom.helper;
 
 
 import android.content.Context;
-import android.content.Intent;
 import android.util.Log;
-import android.widget.ImageView;
 
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
@@ -15,16 +13,15 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 import cz.msebera.android.httpclient.Header;
-import kr.popcorn.sharoom.R;
 
 /**
  * Created by user on 16. 3. 2.
  */
 
 //TODO 방정보를 저장할 자료형 클래스
-public class Test {
+public class Helper_room {
 
-    private static Test roomData = null;
+    private static Helper_room roomData = null;
     final static String baseURL = "14.63.227.200/";
 
     public static ArrayList<Helper_roomData> list = new ArrayList<Helper_roomData>();
@@ -43,7 +40,7 @@ public class Test {
 
     public static ArrayList<String>[] image = new ArrayList[MAX];
 
-    public Test(){
+    public Helper_room(){
 
     }
 
@@ -67,7 +64,7 @@ public class Test {
                 public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
 
                     roomData = null;
-                    roomData = new Test();
+                    roomData = new Helper_room();
 
                     try {
                         roomCount = Integer.parseInt(response.get("num").toString().trim());
@@ -116,7 +113,7 @@ public class Test {
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
 
                 roomData = null;
-                roomData = new Test();
+                roomData = new Helper_room();
 
                 try {
                     roomCount = Integer.parseInt(response.get("num").toString().trim());
@@ -157,7 +154,7 @@ public class Test {
         });
 
     }
-    public static Test getInstance(){
+    public static Helper_room getInstance(){
         return roomData;
     }
 

@@ -23,8 +23,8 @@ import kr.popcorn.sharoom.activity.TabView.TabView_myself;
 import kr.popcorn.sharoom.activity.TabView.TabView_registerAdapter;
 import kr.popcorn.sharoom.activity.TabView.TabView_reservationAdapter;
 import kr.popcorn.sharoom.floatingactionbutton.FloatingActionButton;
+import kr.popcorn.sharoom.helper.Helper_room;
 import kr.popcorn.sharoom.helper.Helper_roomData;
-import kr.popcorn.sharoom.helper.Test;
 
 public final class H_TestFragment extends Fragment {
     private static final String KEY_CONTENT = "TestFragment:Content";
@@ -123,8 +123,8 @@ public final class H_TestFragment extends Fragment {
 */
         ArrayList<Helper_roomData> list = new ArrayList<Helper_roomData>();
 
-        for(int i = 0; i< Test.roomCount; i++){
-            list.add(i,Test.getInstance().list.get(i));
+        for(int i = 0; i< Helper_room.roomCount; i++){
+            list.add(i, Helper_room.getInstance().list.get(i));
         }
 
         switch (cases){

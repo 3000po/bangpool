@@ -23,8 +23,7 @@ import kr.popcorn.sharoom.activity.TabView.TabView_registerAdapter;
 import kr.popcorn.sharoom.activity.TabView.TabView_rentListAdapter;
 import kr.popcorn.sharoom.activity.TabView.TabView_reservationAdapter;
 import kr.popcorn.sharoom.helper.Helper_roomData;
-import kr.popcorn.sharoom.helper.Helper_userData;
-import kr.popcorn.sharoom.helper.Test;
+import kr.popcorn.sharoom.helper.Helper_room;
 
 public final class TestFragment extends Fragment {
     private static final String KEY_CONTENT = "TestFragment:Content";
@@ -140,11 +139,11 @@ public final class TestFragment extends Fragment {
 
         ArrayList<Helper_roomData> list = new ArrayList<Helper_roomData>();
 
-        Log.i("roomCount",""+Test.roomCount);
-        for(int i=0; i< Test.roomCount; i++){
-            //list = Test.getInstance().list;
-            list.add(i,Test.getInstance().list.get(i));
-            //list.addAll(Test.getInstance().list);
+        Log.i("roomCount",""+ Helper_room.roomCount);
+        for(int i=0; i< Helper_room.roomCount; i++){
+            //list = Helper_room.getInstance().list;
+            list.add(i, Helper_room.getInstance().list.get(i));
+            //list.addAll(Helper_room.getInstance().list);
             Log.i("roomCount1", list.get(i).title);
             Log.i("roomCount2", list.get(i).image.get(i));
         }

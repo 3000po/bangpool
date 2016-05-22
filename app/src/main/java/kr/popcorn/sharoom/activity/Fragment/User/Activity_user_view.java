@@ -3,13 +3,11 @@ package kr.popcorn.sharoom.activity.Fragment.User;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageView;
@@ -19,12 +17,9 @@ import com.loopj.android.http.AsyncHttpClient;
 
 import kr.popcorn.sharoom.R;
 import kr.popcorn.sharoom.activity.Activity_login;
-import kr.popcorn.sharoom.activity.Activity_mainIntro;
-import kr.popcorn.sharoom.activity.Activity_mapMenu;
-import kr.popcorn.sharoom.helper.Helper_roomData;
+import kr.popcorn.sharoom.helper.Helper_room;
 import kr.popcorn.sharoom.helper.Helper_server;
 import kr.popcorn.sharoom.helper.Helper_userData;
-import kr.popcorn.sharoom.helper.Test;
 
 public class Activity_user_view extends FragmentActivity {
 
@@ -48,7 +43,7 @@ public class Activity_user_view extends FragmentActivity {
         Activity_login login = (Activity_login) Activity_login.login_Activity; //login_Activity_finish
         login.finish();
 
-        System.out.println("bbbbbbbb" + Test.getInstance().image[0].get(0) + "   " + Test.getInstance().getRoomInfo(0) + "  " + Test.getInstance().getRoomKind(0));
+        System.out.println("bbbbbbbb" + Helper_room.getInstance().image[0].get(0) + "   " + Helper_room.getInstance().getRoomInfo(0) + "  " + Helper_room.getInstance().getRoomKind(0));
 
         AsyncHttpClient client = Helper_server.getInstance();
 

@@ -57,9 +57,8 @@ import cz.msebera.android.httpclient.impl.cookie.BasicClientCookie;
 import kr.popcorn.sharoom.R;
 import kr.popcorn.sharoom.activity.Fragment.User.Activity_user_view;
 import kr.popcorn.sharoom.activity.TabView.Activity_roading;
+import kr.popcorn.sharoom.helper.Helper_room;
 import kr.popcorn.sharoom.helper.Helper_server;
-import kr.popcorn.sharoom.helper.Helper_userData;
-import kr.popcorn.sharoom.helper.Test;
 
 public class Activity_login extends Activity {
     private String login_id = "";
@@ -87,11 +86,11 @@ public class Activity_login extends Activity {
 
     public void open_UserView_Activity(String id, Context mContext){
         startActivity(new Intent(getApplication(), Activity_roading.class));
-        Test.getRoomData_Login(id, mContext);
+        Helper_room.getRoomData_Login(id, mContext);
     }
     public void open_UserView_Activity(String id, Context mContext, int num){
         startActivity(new Intent(getApplication(), Activity_roading.class));
-        Test.getRoomData_Login(id, mContext, num);
+        Helper_room.getRoomData_Login(id, mContext, num);
     }
 
     //전화번 퍼미션

@@ -25,15 +25,15 @@ public class Helper_userData {
 
     private static Helper_userData user;
 
-    public int userID;
-    public String id;
-    public String name;
-    public String phoneNumber;
-    public String email;
-    public String facebook;
-    public String kakaotalk;
-    public String sessionKey;
-    public int isHost;
+    public static int userID;
+    public static String id;
+    public static String name;
+    public static String phoneNumber;
+    public static String email;
+    public static String facebook;
+    public static String kakaotalk;
+    public static String sessionKey;
+    public static int isHost;
 
     public Helper_userData(int userID, String name, String phoneNumber, String email, String facebook, String kakaotalk, int isHost) {
         this.userID = userID;
@@ -253,63 +253,63 @@ public class Helper_userData {
         return userID;
     }
 
-    public void setUserID(int userID) {
-        this.userID = userID;
+    public static void setUserID(int value) {
+        userID = value;
     }
 
     public String getId() {
         return id;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public static void setId(String value) {
+        id = value;
     }
 
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public static void setName(String value) {
+        name = value;
     }
 
     public String getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
+    public static void setPhoneNumber(String value) {
+        phoneNumber = value;
     }
 
     public String getEmail() {
         return email;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public static void setEmail(String value) {
+        email = value;
     }
     public String getFacebook() {
         return facebook;
     }
 
-    public void setFacebook(String facebook) {
-        this.facebook = facebook;
+    public static void setFacebook(String value) {
+        facebook = value;
     }
 
     public String getKakaotalk() {
         return kakaotalk;
     }
 
-    public void setKakaotalk(String kakaotalk) {
-        this.kakaotalk = kakaotalk;
+    public static void setKakaotalk(String value) {
+        kakaotalk = value;
     }
 
     public String getSessionKey() {
         return sessionKey;
     }
 
-    public void setSessionKey(String sessionKey) {
-        this.sessionKey = sessionKey;
+    public static void setSessionKey(String value) {
+        sessionKey = value;
     }
 
     public static String isNull_String(Object response){
