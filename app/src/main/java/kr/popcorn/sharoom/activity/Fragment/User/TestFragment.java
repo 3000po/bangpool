@@ -61,11 +61,9 @@ public final class TestFragment extends Fragment {
 
     private void setAdapterView(LayoutInflater inflater, ViewGroup container, int cases){
         view = inflater.inflate(R.layout.activity_list, container, false);
-        view_register = inflater.inflate(R.layout.activity_list2, container, false);
         info = inflater.inflate(R.layout.activity_myself,container,false);
 
         recyclerView = (RecyclerView) view.findViewById(R.id.list);
-        recyclerView_register = (RecyclerView) view_register.findViewById(R.id.list_register);
        // inflater.
 
         /*if( cases == 1 ){
@@ -144,9 +142,11 @@ public final class TestFragment extends Fragment {
 
         Log.i("roomCount",""+Test.roomCount);
         for(int i=0; i< Test.roomCount; i++){
-            list = Test.getInstance().list;
-            Log.i("whatthe", list.get(0).title);
-            Log.i("whatthe", list.get(0).image.get(0));
+            //list = Test.getInstance().list;
+            list.add(i,Test.getInstance().list.get(i));
+            //list.addAll(Test.getInstance().list);
+//            Log.i("whatthe", list.get(0).title);
+//            Log.i("whatthe", list.get(0).image.get(0));
         }
 
         switch (cases){

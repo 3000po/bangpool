@@ -59,7 +59,7 @@ public class Activity_user_view extends FragmentActivity {
 
 
         mAdapter = new TestFragmentAdapter(getSupportFragmentManager());
-        reload1 = mAdapter.getItem(0);
+
         final FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
 
 
@@ -72,11 +72,14 @@ public class Activity_user_view extends FragmentActivity {
                 switch (v.getId()){
                     case R.id.mapMenu:
 
+                        //mAdapter.notifyDataSetChanged();
+
                         //리로드 되는 부분!!
                         //여기 소스 참고 http://stackoverflow.com/questions/20702333/refresh-fragment-at-reload
-                        ft.detach(reload1);
-                        ft.attach(reload1);
-                        ft.commit();
+                       // reload1 = mAdapter.getItem(0);
+                        //ft.detach(reload1);
+                        //ft.attach(reload1);
+                        //ft.commit();
 
                         //Intent mapIntent = new Intent(Activity_user_view.this, Activity_mapMenu.class);
                         //startActivity(mapIntent);

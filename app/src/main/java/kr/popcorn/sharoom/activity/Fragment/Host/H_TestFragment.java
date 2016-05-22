@@ -124,19 +124,10 @@ public final class H_TestFragment extends Fragment {
         ArrayList<Helper_roomData> list = new ArrayList<Helper_roomData>();
 
         for(int i = 0; i< Test.roomCount; i++){
-            list = Test.getInstance().list;
+            list.add(i,Test.getInstance().list.get(i));
         }
 
         switch (cases){
-            case RESERVATONROOM:
-                recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-                recyclerView.setItemAnimator(new DefaultItemAnimator());
-
-                reservationAdapter = new TabView_reservationAdapter(getActivity(),
-                        null,
-                        (LinearLayoutManager) recyclerView.getLayoutManager());
-                recyclerView.setAdapter(reservationAdapter);
-                break;
             case REGISTER:
                 recyclerView_register.setLayoutManager(new LinearLayoutManager(getActivity()));
                 recyclerView_register.setItemAnimator(new DefaultItemAnimator());
@@ -145,6 +136,15 @@ public final class H_TestFragment extends Fragment {
                         list,
                         (LinearLayoutManager) recyclerView_register.getLayoutManager());
                 recyclerView_register.setAdapter(registerAdapter);
+                break;
+            case RESERVATONROOM:
+                recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+                recyclerView.setItemAnimator(new DefaultItemAnimator());
+
+                reservationAdapter = new TabView_reservationAdapter(getActivity(),
+                        null,
+                        (LinearLayoutManager) recyclerView.getLayoutManager());
+                recyclerView.setAdapter(reservationAdapter);
                 break;
         }
         return ;
