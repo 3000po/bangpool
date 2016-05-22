@@ -145,8 +145,8 @@ public final class TestFragment extends Fragment {
             //list = Test.getInstance().list;
             list.add(i,Test.getInstance().list.get(i));
             //list.addAll(Test.getInstance().list);
-//            Log.i("whatthe", list.get(0).title);
-//            Log.i("whatthe", list.get(0).image.get(0));
+            Log.i("roomCount1", list.get(i).title);
+            Log.i("roomCount2", list.get(i).image.get(i));
         }
 
         switch (cases){
