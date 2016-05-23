@@ -124,7 +124,7 @@ public final class H_TestFragment extends Fragment {
         ArrayList<Helper_roomData> list = new ArrayList<Helper_roomData>();
 
         for(int i = 0; i< Helper_room.roomCount; i++){
-            list.add(Helper_room.getInstance().list.get(i));
+            list.add(i, Helper_room.getInstance().list.get(i));
         }
 
         switch (cases){

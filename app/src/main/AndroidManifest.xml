@@ -68,12 +68,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.Activity_mainIntro"></activity>
+        <activity android:name=".activity.Activity_mainIntro" />
         <activity
             android:name=".activity.Activity_calendar"
             android:label="@string/title_activity_activity_calendar" />
-        <activity android:name=".activity.Fragment.User.Activity_user_view"></activity>
-        <activity android:name=".activity.Fragment.Host.Activity_host_view"></activity>
+        <activity android:name=".activity.Fragment.User.Activity_user_view" />
+        <activity android:name=".activity.Fragment.Host.Activity_host_view" />
         <activity android:name=".activity.TabView.Activity_Host_to_User_animation" />
         <activity android:name=".activity.TabView.Activity_User_to_Host_animation" />
         <activity
@@ -87,13 +87,13 @@
         <activity
             android:name=".activity.Activity_login"
             android:theme="@android:style/Theme.Holo.NoActionBar"
-            android:windowSoftInputMode="adjustResize|adjustPan"></activity>
+            android:windowSoftInputMode="adjustResize|adjustPan" />
         <activity
             android:name=".activity.Activity_find"
-            android:theme="@android:style/Theme.Holo.NoActionBar"></activity>
+            android:theme="@android:style/Theme.Holo.NoActionBar" />
         <activity
             android:name=".activity.Activity_join"
-            android:theme="@android:style/Theme.Holo.NoActionBar"></activity>
+            android:theme="@android:style/Theme.Holo.NoActionBar" />
         <activity android:name=".activity.View.User.Activity_user_reservation" />
         <activity android:name=".activity.View.User.Activity_user_reservation_check" />
         <activity android:name=".activity.View.User.Activity_user_infoRoom" />
@@ -104,17 +104,18 @@
         <activity
             android:name=".activity.View.Host.Activity_host_registerRoom_roomPic"
             android:theme="@style/EditRoomPicTheme" />
-        <activity android:name=".activity.View.Host.Activity_host_registerRoom"></activity>
+        <activity android:name=".activity.View.Host.Activity_host_registerRoom" />
         <activity android:name=".activity.Activity_FinishReserv" />
         <activity
             android:name=".activity.Acitivity_test"
             android:theme="@android:style/Theme.Holo.NoActionBar" />
         <activity
             android:name=".activity.Activity_imageUpload"
-            android:theme="@android:style/Theme.Holo.NoActionBar"></activity>
+            android:theme="@android:style/Theme.Holo.NoActionBar" />
         <activity android:name=".activity.Activity_mapMenu" />
         <activity android:name=".activity.Activity_finishJoin" />
-        <activity android:name=".activity.TabView.Activity_roading"></activity>
+        <activity android:name=".activity.TabView.Activity_roading" />
+        <activity android:name=".activity.TabView.Activity_server_roading" android:theme="@style/Theme.Transparent"></activity>
     </application>
 
 </manifest>

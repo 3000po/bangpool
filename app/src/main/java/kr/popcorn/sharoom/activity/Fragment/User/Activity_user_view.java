@@ -3,11 +3,13 @@ package kr.popcorn.sharoom.activity.Fragment.User;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageView;
@@ -17,6 +19,7 @@ import com.loopj.android.http.AsyncHttpClient;
 
 import kr.popcorn.sharoom.R;
 import kr.popcorn.sharoom.activity.Activity_login;
+import kr.popcorn.sharoom.activity.Activity_mapMenu;
 import kr.popcorn.sharoom.helper.Helper_room;
 import kr.popcorn.sharoom.helper.Helper_server;
 import kr.popcorn.sharoom.helper.Helper_userData;
@@ -29,7 +32,6 @@ public class Activity_user_view extends FragmentActivity {
     private TextView mToptext;
     private ImageView mapMenu;
 
-    private Fragment reload1;
 
     public static Activity AActivty;
 
@@ -52,35 +54,9 @@ public class Activity_user_view extends FragmentActivity {
 //        Activity_mainIntro activity = (Activity_mainIntro) Activity_mainIntro.mActivity;
 //        activity.finish();
 
-
         mAdapter = new TestFragmentAdapter(getSupportFragmentManager());
 
-        final FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-
-
-
         mapMenu = (ImageView)findViewById(R.id.mapMenu);
-
-        mapMenu.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                switch (v.getId()){
-                    case R.id.mapMenu:
-                        mAdapter.notifyDataSetChanged();
-                        Helper_room.refreshRoomData("good");
-                        //리로드 되는 부분!!
-                        //여기 소스 참고 http://stackoverflow.com/questions/20702333/refresh-fragment-at-reload
-                        reload1 = mAdapter.getItem(0);
-                        ft.detach(reload1);
-                        ft.attach(reload1);
-                        ft.commit();
-
-                        //Intent mapIntent = new Intent(Activity_user_view.this, Activity_mapMenu.class);
-                        //startActivity(mapIntent);
-                }
-            }
-        });
-
 
         mToptext = (TextView) findViewById(R.id.toptext);
 
@@ -94,6 +70,20 @@ public class Activity_user_view extends FragmentActivity {
 
         mIndicator.setViewPager(mPager);
 
+        mapMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                switch (v.getId()){
+                    case R.id.mapMenu:
+                        mAdapter = new TestFragmentAdapter(getSupportFragmentManager());
+                        mPager.setAdapter(mAdapter);
+                        //Intent mapIntent = new Intent(Activity_user_view.this, Activity_mapMenu.class);
+                        //startActivity(mapIntent);
+                }
+            }
+        });
+
+
         mIndicator.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -102,20 +92,23 @@ public class Activity_user_view extends FragmentActivity {
 
             @Override
             public void onPageSelected(int position) {
-
+                Log.i("kgakgka","position: "+position);
             }
 
             @Override
             public void onPageScrollStateChanged(int state) {
+
+
+
                 switch (mPager.getCurrentItem()){
                     case 0 : mToptext.setText("방 리스트");
                         mapMenu.setVisibility(View.VISIBLE);
                         break;
                     case 1 : mToptext.setText("예약 확인");
-                        mapMenu.setVisibility(View.GONE);
+                        //mapMenu.setVisibility(View.GONE);
                         break;
                     case 2 : mToptext.setText("내 정보");
-                        mapMenu.setVisibility(View.GONE);
+                        //mapMenu.setVisibility(View.GONE);
                         break;
                 }
             }

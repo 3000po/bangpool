@@ -137,12 +137,14 @@ public final class TestFragment extends Fragment {
         se3.add(third3);
         */
 
+        Helper_room.refreshRoomData("good");    // 서버로 부터 데이터 다시 받아옴
+
         ArrayList<Helper_roomData> list = new ArrayList<Helper_roomData>();
 
         Log.i("roomCount",""+ Helper_room.roomCount);
         for(int i=0; i< Helper_room.roomCount; i++){
             //list = Helper_room.getInstance().list;
-            list.add(Helper_room.getInstance().list.get(i));
+            list.add(i, Helper_room.getInstance().list.get(i));
             //list.addAll(Helper_room.getInstance().list);
 
 

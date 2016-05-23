@@ -295,7 +295,8 @@
                         android:layout_marginRight="20dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        android:visibility="gone">
                         <TextView
                             android:layout_marginLeft="20dp"
                             android:layout_width="wrap_content"
@@ -303,7 +304,8 @@
                             android:text="facebook   "
                             android:textColor="#000000"
                             android:textSize="20sp"
-                            android:textStyle="bold" >
+                            android:textStyle="bold"
+                            >
                         </TextView>
                         <View
                             android:layout_width="3dp"
@@ -332,7 +334,8 @@
                         android:layout_marginRight="20dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        android:visibility="gone">
                         <TextView
                             android:layout_marginLeft="20dp"
                             android:layout_width="wrap_content"

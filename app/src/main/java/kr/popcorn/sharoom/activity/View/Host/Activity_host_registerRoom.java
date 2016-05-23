@@ -42,6 +42,7 @@ import java.util.List;
 
 import cz.msebera.android.httpclient.Header;
 import kr.popcorn.sharoom.R;
+import kr.popcorn.sharoom.activity.TabView.Activity_server_roading;
 import kr.popcorn.sharoom.helper.GlobalApplication;
 import kr.popcorn.sharoom.helper.Helper_server;
 import kr.popcorn.sharoom.helper.Helper_userData;
@@ -355,6 +356,9 @@ public class Activity_host_registerRoom extends Activity  implements View.OnClic
         tv_register = (TextView) findViewById(R.id.bottomtext);
         tv_register.setOnClickListener(new TextView.OnClickListener(){
             public void onClick(View v) {
+
+                startActivity(new Intent(getApplication(), Activity_server_roading.class)); // 서버 정보 받을 동안 보여줄 activity
+
                 Log.d("buttonClick", "okokokokok");
                 for(int i=0; i<list.size(); i++){
                     Log.d("buttonList", list.get(i));
