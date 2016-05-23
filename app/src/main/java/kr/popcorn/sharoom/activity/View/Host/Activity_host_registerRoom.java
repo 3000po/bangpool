@@ -358,6 +358,8 @@ public class Activity_host_registerRoom extends Activity  implements View.OnClic
                 final String roomInfo = et_roomInfo.getText().toString();
                 String sDate = startDate.getText().toString();
                 String eDate = endDate.getText().toString();
+                final double mLat = lat;
+                final double mLng = lng;
 
                 System.out.println(sDate);
 
@@ -378,7 +380,7 @@ public class Activity_host_registerRoom extends Activity  implements View.OnClic
                     //endDate.setText(today);
                 }
                 else{
-                    postImage(list, title, address, price, roomKind, roomInfo, sDate, eDate);
+                    postImage(list, title, address, price, roomKind, roomInfo, sDate, eDate, mLat, mLng);
 
                     SharedPreferences mPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
                     SharedPreferences.Editor editor = mPref.edit();
@@ -547,7 +549,7 @@ public class Activity_host_registerRoom extends Activity  implements View.OnClic
     }
 
 
-    public void postImage(ArrayList<String> list, String title, String address, String price, String roomKind, String roomInfo, String sDate, String eDate){
+    public void postImage(ArrayList<String> list, String title, String address, String price, String roomKind, String roomInfo, String sDate, String eDate, double mLat, double mLng){
 
         //아이디 가져옴.
         int userID = Helper_userData.getInstance().getUserID();
@@ -576,6 +578,8 @@ public class Activity_host_registerRoom extends Activity  implements View.OnClic
         params.put("roomInfo", roomInfo);
         params.put("sDate", sDate);
         params.put("eDate", eDate);
+        params.put("lat", mLat);
+        params.put("lng", mLat);
 
         Helper_server.post("data/insert_roomdata.php", params, new AsyncHttpResponseHandler() {
             @Override
