@@ -28,32 +28,11 @@ public class Helper_room {
 
     public static int roomCount;
     public static int MAX = 50;
-    public static int[] roomNumber = new int[MAX];
-    public static int[] userID =new int[MAX];
-    public static String[] title = new String[MAX];
-    public static String[] address = new String[MAX];
-    public static String[] price = new String[MAX];
-    public static String[] roomKind = new String[MAX];
-    public static String[] roomInfo= new String[MAX];
-    public static String[] sDate= new String[MAX];
-    public static String[] eDate= new String[MAX];
 
     public static ArrayList<String>[] image = new ArrayList[MAX];
 
     public Helper_room(){
 
-    }
-
-    public static void setData(int roomNumber, int userID, String title, String address, String price, String roomKind, String roomInfo, String sDate, String eDate, int index) {
-        setRoomNumber(index, roomNumber);
-        setUserID(index, userID);
-        setTitle(index, title);
-        setAddress(index, address);
-        setPrice(index, price);
-        setRoomKind(index, roomKind);
-        setRoomInfo(index, roomInfo);
-        setSDate(index, sDate);
-        setEDate(index, eDate);
     }
 
     public static void getRoomData_Login(final String id, final Context mContext) {
@@ -87,7 +66,6 @@ public class Helper_room {
                                 addImage(i, imageUrl);
                             }
                             list.add( new Helper_roomData(roomNumber, userID, title, address,price,roomKind,roomInfo,sDate,eDate, image[i]) );
-                            roomData.setData(roomNumber, userID, title, address, price, roomKind, roomInfo, sDate, eDate, i);
                             System.out.println("aaaaa " + roomNumber + " " + userID + " " + title + " " + address + " " + price + " " + roomKind + " " + roomInfo + " " + sDate + " " + eDate + " ");
                         }
                         System.out.println("ListData finish");
@@ -136,7 +114,6 @@ public class Helper_room {
                             addImage(i, imageUrl);
                         }
                         list.add( new Helper_roomData(roomNumber, userID, title, address,price,roomKind,roomInfo,sDate,eDate, image[i]) );
-                        roomData.setData(roomNumber, userID, title, address, price, roomKind, roomInfo, sDate, eDate, i);
                         System.out.println("aaaaa " + roomNumber + " " + userID + " " + title + " " + address + " " + price + " " + roomKind + " " + roomInfo + " " + sDate + " " + eDate + " ");
                     }
                     System.out.println("ListData finish");
@@ -158,74 +135,6 @@ public class Helper_room {
         return roomData;
     }
 
-    public static int getRoomNumber(int index) {
-        return roomNumber[index];
-    }
-
-    public static void setRoomNumber(int index, int value) {
-        roomNumber[index]=value;
-    }
-
-
-    public static int getUserID(int index) {
-        return userID[index];
-    }
-
-    public static void setUserID(int index, int value) {
-        userID[index]=value;
-    }
-    public static String getTitle(int index) {
-        return title[index];
-    }
-
-    public static void setTitle(int index, String value) {
-        title[index]=value;
-    }
-    public static String getAddress(int index) {
-        return address[index];
-    }
-
-    public static void setAddress(int index, String value) {
-        address[index]=value;
-    }
-
-    public static String getPrice(int index) {
-        return price[index];
-    }
-
-    public static void setPrice(int index, String value) {
-        title[index]=value;
-    }
-
-    public static String getRoomKind(int index) {
-        return roomKind[index];
-    }
-
-    public static void setRoomKind(int index, String value) {
-        roomKind[index]=value;
-    }
-    public static String getRoomInfo(int index) {
-        return roomInfo[index];
-    }
-
-    public static void setRoomInfo(int index, String value) {
-        roomInfo[index]=value;
-    }
-    public static String getSDate(int index) {
-        return sDate[index];
-    }
-
-    public static void setSDate(int index, String value) {
-        sDate[index]=value;
-    }
-
-    public static String getEDate(int index) {
-        return eDate[index];
-    }
-
-    public static void setEDate(int index, String value) {
-        eDate[index]=value;
-    }
     public static String getImage(int index, int number) {
         return image[index].get(number);
     }

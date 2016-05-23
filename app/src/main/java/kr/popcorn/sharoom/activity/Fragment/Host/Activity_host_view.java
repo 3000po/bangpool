@@ -1,8 +1,11 @@
 package kr.popcorn.sharoom.activity.Fragment.Host;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
+import android.view.KeyEvent;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -111,5 +114,21 @@ public class Activity_host_view extends FragmentActivity {
     private void init() {
     }
 
-
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        switch(keyCode) {
+            case KeyEvent.KEYCODE_BACK:
+                new AlertDialog.Builder(this)
+                        .setTitle("종료")
+                        .setMessage("종료 하시겠어요?")
+                        .setPositiveButton("예", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int whichButton) {
+                                finish();
+                            }
+                        })
+                        .setNegativeButton("아니오", null).show();
+                return false;
+            default:
+                return false;
+        }
+    }
 }
