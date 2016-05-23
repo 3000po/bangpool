@@ -60,7 +60,7 @@ public class TabView_reservationAdapter extends RecyclerView.Adapter<TabView_res
         //myface.setImageBitmap(getCircleBitmap(face));
 
         //holder.myface.setImageResource(R.drawable.ic_action_mapview_m);
-        Picasso.with(mContext).load("http://"+list.get(position).image.get(0)).into(holder.roomimage);
+        Picasso.with(mContext).load(list.get(position).image.get(0)).into(holder.roomimage);
 
         holder.roomname.setText(list.get(position).title);
     }
