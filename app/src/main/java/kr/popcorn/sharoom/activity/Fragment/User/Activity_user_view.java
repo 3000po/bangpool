@@ -67,6 +67,7 @@ public class Activity_user_view extends FragmentActivity {
                 switch (v.getId()){
                     case R.id.mapMenu:
                         mAdapter.notifyDataSetChanged();
+                        Helper_room.refreshRoomData("good");
                         //리로드 되는 부분!!
                         //여기 소스 참고 http://stackoverflow.com/questions/20702333/refresh-fragment-at-reload
                         reload1 = mAdapter.getItem(0);

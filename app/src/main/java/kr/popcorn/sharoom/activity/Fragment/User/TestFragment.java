@@ -142,10 +142,13 @@ public final class TestFragment extends Fragment {
         Log.i("roomCount",""+ Helper_room.roomCount);
         for(int i=0; i< Helper_room.roomCount; i++){
             //list = Helper_room.getInstance().list;
-            list.add(i, Helper_room.getInstance().list.get(i));
+            list.add(Helper_room.getInstance().list.get(i));
             //list.addAll(Helper_room.getInstance().list);
-            Log.i("roomCount1", list.get(i).title);
-            Log.i("roomCount2", list.get(i).image.get(i));
+
+
+            Log.i("roomCount1-i= ", ""+i);
+            Log.i("roomCount-title= ", list.get(i).title);
+            Log.i("roomCount-image= ", list.get(i).image.get(i));
         }
 
         switch (cases){

@@ -25,10 +25,10 @@ public class Activity_roading extends Activity {
         text = (TextView)findViewById(R.id.maintext);
         loading_img = (ImageView)findViewById(R.id.loading_img);
 
-        text.setText("로디디리이디리리링");
+        text.setText("로딩 중입니다.");
 
         Handler handler = new Handler();
-        handler.postDelayed(new splashhandler(), 2000);
+        handler.postDelayed(new splashhandler(), 5000);
     }
 
     @Override
