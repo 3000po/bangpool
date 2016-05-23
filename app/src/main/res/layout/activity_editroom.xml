@@ -219,15 +219,60 @@
                             android:text="방 유형"
                             android:textColor="#000000"
                             android:textSize="20sp"/>
-                        <EditText
-                            android:id="@+id/et_roomKind"
-                            android:layout_width="match_parent"
+                        <LinearLayout
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:background="@color/app_ci_4"
-                            android:hint="원룸, 자취방, 하숙집...etc"
-                            android:textColor="#ffffff"
-                            android:textColorHint="#ffffff"
-                            android:textSize="20sp"/>
+                            android:orientation="vertical">
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+                                <!--원룸-->
+                                <CheckBox
+                                    android:id="@+id/ck_roomtype1"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:scaleX="0.8"
+                                    android:scaleY="0.8"
+                                    android:button="@null"
+                                    android:drawableLeft="@drawable/selector_roomtype1" />
+                                <!--하숙-->
+                                <CheckBox
+                                    android:layout_marginLeft="40dp"
+                                    android:id="@+id/ck_roomtype2"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:scaleX="0.8"
+                                    android:scaleY="0.8"
+                                    android:button="@null"
+                                    android:drawableLeft="@drawable/selector_roomtype2" />
+                            </LinearLayout>
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+                                <!--자취-->
+                                <CheckBox
+                                    android:id="@+id/ck_roomtype3"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:scaleX="0.8"
+                                    android:scaleY="0.8"
+                                    android:button="@null"
+                                    android:drawableLeft="@drawable/selector_roomtype3" />
+                                <!--고시원-->
+                                <CheckBox
+                                    android:layout_marginLeft="36dp"
+                                    android:id="@+id/ck_roomtype4"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:scaleX="0.8"
+                                    android:scaleY="0.8"
+                                    android:button="@null"
+                                    android:drawableLeft="@drawable/selector_roomtype4" />
+                            </LinearLayout>
+
+                        </LinearLayout>
 
                         <TextView
                             android:layout_width="match_parent"

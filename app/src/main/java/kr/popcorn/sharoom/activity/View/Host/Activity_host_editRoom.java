@@ -13,6 +13,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -58,9 +59,11 @@ public class Activity_host_editRoom extends Activity  implements View.OnClickLis
     private EditText et_title;
     private EditText et_address;
     private EditText et_price;
-    private EditText et_roomKind;
     private EditText et_roomInfo;
     private EditText et_facilities;
+    private CheckBox roomtype1, roomtype2, roomtype3, roomtype4;
+    private String mRoomKind[] = { "원룸", "하숙", "자취", "고시원" };
+    private String _roomKind;
 
     public TextView tv_register;
     private int mYear, mMonth, mDay;
@@ -101,10 +104,34 @@ public class Activity_host_editRoom extends Activity  implements View.OnClickLis
         et_title = (EditText)findViewById(R.id.et_title);
         et_address = (EditText)findViewById(R.id.et_address);
         et_price = (EditText)findViewById(R.id.et_price);
-        et_roomKind = (EditText)findViewById(R.id.et_roomKind);
+        //et_roomKind = (EditText)findViewById(R.id.et_roomKind);
         et_roomInfo = (EditText) findViewById(R.id.et_roominfo);
         et_facilities = (EditText)findViewById(R.id.et_facilities);
 
+        roomtype1 = (CheckBox) findViewById(R.id.ck_roomtype1);
+        roomtype2 = (CheckBox) findViewById(R.id.ck_roomtype2);
+        roomtype3 = (CheckBox) findViewById(R.id.ck_roomtype3);
+        roomtype4 = (CheckBox) findViewById(R.id.ck_roomtype4);
+
+        if(roomtype1.isChecked()==true)
+        {
+            _roomKind = mRoomKind[0];
+        }
+        else if(roomtype2.isChecked()==true)
+        {
+            _roomKind = mRoomKind[1];
+        }
+        else if(roomtype3.isChecked()==true)
+        {
+            _roomKind = mRoomKind[2];
+        }
+        else if(roomtype4.isChecked()==true)
+        {
+            _roomKind = mRoomKind[3];
+        }
+        else{
+            Toast.makeText(Activity_host_editRoom.this, "방유형을 선택해주세요.", Toast.LENGTH_LONG).show();
+        }
         et_title.setOnFocusChangeListener(new View.OnFocusChangeListener() {
                                               @Override
                                               public void onFocusChange(View v, boolean hasFocus) {
@@ -147,7 +174,7 @@ public class Activity_host_editRoom extends Activity  implements View.OnClickLis
                 }
             }
         });
-        et_roomKind.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        /*et_roomKind.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) {
@@ -160,7 +187,7 @@ public class Activity_host_editRoom extends Activity  implements View.OnClickLis
                 }
             }
         });
-
+        */
 
         et_facilities.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
@@ -223,7 +250,7 @@ public class Activity_host_editRoom extends Activity  implements View.OnClickLis
             }
         });
 
-        et_roomKind.setOnKeyListener(new View.OnKeyListener() {
+        /*et_roomKind.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 if ((event.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
@@ -233,7 +260,7 @@ public class Activity_host_editRoom extends Activity  implements View.OnClickLis
                 }
                 return false;
             }
-        });
+        });*/
         et_facilities.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
