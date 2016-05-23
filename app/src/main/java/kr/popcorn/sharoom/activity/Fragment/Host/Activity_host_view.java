@@ -11,8 +11,13 @@ import android.widget.TextView;
 
 import com.loopj.android.http.AsyncHttpClient;
 
+import java.util.ArrayList;
+
 import kr.popcorn.sharoom.R;
+import kr.popcorn.sharoom.helper.Helper_room;
+import kr.popcorn.sharoom.helper.Helper_roomData;
 import kr.popcorn.sharoom.helper.Helper_server;
+import kr.popcorn.sharoom.helper.Helper_userData;
 
 public class Activity_host_view extends FragmentActivity {
 
@@ -60,6 +65,18 @@ public class Activity_host_view extends FragmentActivity {
                     case 0 : mToptext.setText("방 등록 및 관리");
                         break;
                     case 1 : mToptext.setText("예약 관리");
+//                        ArrayList<Helper_roomData> roomData;
+//
+//                        roomData = Helper_room.getInstance().getHostRoomData(""+Helper_userData.getInstance().getUserID());
+//                        System.out.println("rooData  : 완료" + Helper_userData.getInstance().getUserID());
+//                        int sum=0;
+//                        boolean ok = false;
+//                        while(!ok){
+//                            ok = Helper_room.getInstance().getHostListOK();
+//                            System.out.println("kkkkk  :" + sum);
+//                            sum++;
+//                        }
+//                        System.out.println("roomData : " + roomData.get(0).roomNumber);
                         break;
                     case 2 : mToptext.setText("내 정보");
                         break;

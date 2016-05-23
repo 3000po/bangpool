@@ -2,6 +2,7 @@ package kr.popcorn.sharoom.helper;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -13,6 +14,8 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 import cz.msebera.android.httpclient.Header;
+import kr.popcorn.sharoom.activity.Fragment.Host.Activity_host_view;
+import kr.popcorn.sharoom.activity.TabView.Activity_roading;
 
 /**
  * Created by user on 16. 3. 2.
@@ -29,7 +32,10 @@ public class Helper_room {
     public static int roomCount;
     public static int MAX = 50;
 
+
     public static ArrayList<String>[] image = new ArrayList[MAX];
+    ArrayList<Helper_roomData> hostList = new ArrayList<Helper_roomData>();
+    public static boolean hostListOk = false;
 
     public Helper_room(){
 
@@ -119,7 +125,7 @@ public class Helper_room {
                             System.out.println("ccccc" + imageUrl);
                             addImage(i, imageUrl);
                         }
-                        list.add( new Helper_roomData(roomNumber, userID, title, address,price,roomKind,roomInfo, lat, lng, sDate,eDate, image[i], isClosed) );
+                        list.add(new Helper_roomData(roomNumber, userID, title, address, price, roomKind, roomInfo, lat, lng, sDate, eDate, image[i], isClosed));
                     }
                     System.out.println("ListData finish");
                     Helper_userData.login_GetData(id, mContext, num);
@@ -136,6 +142,114 @@ public class Helper_room {
         });
 
     }
+
+    public ArrayList<Helper_roomData> getHostRoomData(final String id) {
+
+        final RequestParams idParams = new RequestParams("userID", id);
+
+        Helper_server.post("data/getHostRoom.php", idParams, new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+
+                try {
+
+                    int roomCount = Integer.parseInt(response.get("num").toString().trim());
+
+                    for (int i = 0; i < roomCount; i++) {
+                        int roomNumber = Integer.parseInt(response.get("roomNumber" + i).toString().trim());
+                        int userID = Integer.parseInt(response.get("userID" + i).toString().trim());
+                        String title = response.get("title" + i).toString().trim();
+                        String address = response.get("address" + i).toString().trim();
+                        String price = response.get("price" + i).toString().trim();
+                        String roomKind = response.get("roomKind" + i).toString().trim();
+                        String roomInfo = response.get("roomInfo" + i).toString().trim();
+                        double lat = Double.parseDouble(response.get("lat" + i).toString().trim());
+                        double lng = Double.parseDouble(response.get("lng" + i).toString().trim());
+                        String sDate = response.get("sDate" + i).toString().trim();
+                        String eDate = response.get("eDate" + i).toString().trim();
+                        int isClosed = Integer.parseInt(response.get("isClosed" + i).toString().trim());
+
+                        ArrayList<String>[] img = new ArrayList[MAX];
+                        img[i] = new ArrayList<String>();
+                        for(int j=0; j< 8; j++){
+                            String imageUrl = baseURL+response.get("image"+j+"?"+i).toString().trim();
+                            System.out.println("ccccc" + imageUrl);
+                            img[i].add(imageUrl);
+                        }
+                        hostList.add(new Helper_roomData(roomNumber, userID, title, address, price, roomKind, roomInfo, lat, lng, sDate, eDate, img[i], isClosed));
+                    }
+                    System.out.println("ListData finish");
+                    hostListOk = true;
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                super.onFailure(statusCode, headers, responseString, throwable);
+                Log.d("Failed: ", "myself " + statusCode);
+                Log.d("Error : ", "myself " + throwable);
+            }
+        });
+        return hostList;
+    }
+    public static boolean getHostListOK(){
+        return hostListOk;
+    }
+
+    public static void refreshRoomData(final String id) {
+
+        final RequestParams idParams = new RequestParams("userID", id);
+        Helper_server.post("data/getRoomData.php", idParams, new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+
+                roomData = null;
+                roomData = new Helper_room();
+
+                try {
+                    roomCount = Integer.parseInt(response.get("num").toString().trim());
+
+                    for (int i = 0; i < roomCount; i++) {
+                        int roomNumber = Integer.parseInt(response.get("roomNumber" + i).toString().trim());
+                        int userID = Integer.parseInt(response.get("userID" + i).toString().trim());
+                        String title = response.get("title" + i).toString().trim();
+                        String address = response.get("address" + i).toString().trim();
+                        String price = response.get("price" + i).toString().trim();
+                        String roomKind = response.get("roomKind" + i).toString().trim();
+                        String roomInfo = response.get("roomInfo" + i).toString().trim();
+                        double lat = Double.parseDouble(response.get("lat" + i).toString().trim());
+                        double lng = Double.parseDouble(response.get("lng" + i).toString().trim());
+                        String sDate = response.get("sDate" + i).toString().trim();
+                        String eDate = response.get("eDate" + i).toString().trim();
+                        int isClosed = Integer.parseInt(response.get("isClosed"+i).toString().trim());
+
+                        image[i] = new ArrayList<String>();
+                        for(int j=0; j< 8; j++){
+                            String imageUrl = baseURL+response.get("image"+j+"?"+i).toString().trim();
+                            System.out.println("ccccc" + imageUrl);
+                            addImage(i, imageUrl);
+                        }
+                        list.add( new Helper_roomData(roomNumber, userID, title, address,price,roomKind,roomInfo, lat, lng, sDate,eDate, image[i], isClosed) );
+                    }
+                    System.out.println("ListData finish");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                super.onFailure(statusCode, headers, responseString, throwable);
+                Log.d("Failed: ", "myself " + statusCode);
+                Log.d("Error : ", "myself " + throwable);
+            }
+        });
+
+    }
+
+
     public static Helper_room getInstance(){
         return roomData;
     }
