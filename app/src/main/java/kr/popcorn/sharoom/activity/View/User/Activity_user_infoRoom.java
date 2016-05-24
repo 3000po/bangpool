@@ -55,6 +55,7 @@ public class Activity_user_infoRoom extends FragmentActivity {
     public static final int SEARCH_RADIUS = 8000;
     private String url = "http://imageshack.com/a/img922/7286/fUYUWw.jpg";
 
+
     private ViewPager viewPager;
     private Button btn_find;
 
