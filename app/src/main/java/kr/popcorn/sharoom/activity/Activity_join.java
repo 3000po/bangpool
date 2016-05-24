@@ -9,9 +9,11 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.facebook.appevents.AppEventsLogger;
 import com.loopj.android.http.AsyncHttpResponseHandler;
@@ -41,6 +43,10 @@ public class Activity_join extends Activity {
     boolean id_check_ok = false;
     boolean join_flag = false;
 
+    private CheckBox ck_service, ck_personalInfo;
+    private Activity_service_agree customDialog;
+    private Activity_personal_info_agree agreeDialog;
+
     private form_basic form_basic;
     class form_basic {
         EditText et_id;
@@ -64,6 +70,9 @@ public class Activity_join extends Activity {
         // 만듦
         final form_basic form_basic = new form_basic();
         final Helper_network network_check = new Helper_network(this);
+
+        ck_service = (CheckBox) findViewById(R.id.ck_service);
+        ck_personalInfo = (CheckBox) findViewById(R.id.ck_agreeinfo);
 
         form_basic.et_id = (EditText) findViewById(R.id.et_join_id);
         form_basic.et_password = (EditText) findViewById(R.id.et_join_password);
@@ -199,6 +208,16 @@ public class Activity_join extends Activity {
                     if (!Helper_checker.validJoin(Activity_join.this, email, name, id, password)) {
                         return;
                     }
+                    if(!ck_service.isChecked())
+                    {
+                        Toast.makeText(getApplicationContext(), "서비스 이용약관에 동의해주세요.", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    if(!ck_personalInfo.isChecked())
+                    {
+                        Toast.makeText(getApplicationContext(), "개인정보 수집 및 이름에 대한 동의에 동의해주세요.", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
                     if(id_check_ok==false) {
                         RequestParams idParams = new RequestParams();
                         idParams.put("id", id);
@@ -275,6 +294,7 @@ public class Activity_join extends Activity {
                                                              String phoneNumber = form_basic.et_phoneNumber.getText().toString();
                                                              String email = form_basic.et_email.getText().toString();
 
+
                                                              if (!Helper_checker.validJoin(Activity_join.this, email, name, id, password)) {
                                                                  return false;
                                                              }
@@ -307,6 +327,38 @@ public class Activity_join extends Activity {
                                              }
 
         );
+
+        ck_service.setOnClickListener(new CheckBox.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                switch (v.getId()) {
+                    case R.id.ck_service:
+                        Log.d("ck_service","1111");
+                        customDialog = new Activity_service_agree(Activity_join.this);
+                        customDialog.setCanceledOnTouchOutside(true);
+                        customDialog.show();
+                        Log.d("ck_service","2222");
+
+                        break;
+
+                }
+            }
+        });
+        ck_personalInfo.setOnClickListener(new CheckBox.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                switch (v.getId()) {
+                    case R.id.ck_agreeinfo:
+                        agreeDialog = new Activity_personal_info_agree(Activity_join.this);
+                        agreeDialog.setCanceledOnTouchOutside(true);
+                        agreeDialog.show();
+
+                        break;
+
+                }
+            }
+        });
+
     } //onCreate 종료
 
     public void joinAlert() {

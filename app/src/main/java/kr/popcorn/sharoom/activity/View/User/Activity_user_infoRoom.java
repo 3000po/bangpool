@@ -58,6 +58,7 @@ public class Activity_user_infoRoom extends FragmentActivity {
     private LatLng latLng;
     public static final int SEARCH_RADIUS = 8000;
 
+
     private ViewPager viewPager;
     private Button btn_find;
 
