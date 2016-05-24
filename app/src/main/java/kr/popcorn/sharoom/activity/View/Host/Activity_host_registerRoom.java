@@ -585,7 +585,7 @@ public class Activity_host_registerRoom extends Activity  implements View.OnClic
     }
 
 
-    public void postImage(ArrayList<String> list, String title, String address, String price, String roomKind, String roomInfo, String sDate, String eDate, double mLat, double mLng){
+    public void postImage(ArrayList<String> list, String title, String address, String price,  String roomKind, String roomInfo, String sDate, String eDate, double mLat, double mLng){
 
         //아이디 가져옴.
         int userID = Helper_userData.getInstance().getUserID();
