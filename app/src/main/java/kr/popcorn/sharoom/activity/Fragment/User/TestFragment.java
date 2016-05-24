@@ -145,7 +145,8 @@ public final class TestFragment extends Fragment {
         Helper_roomReserv.getReservRoomData(Helper_userData.getInstance().getUserID());
 
         for(int i=0; i<Helper_room.getInstance().list.size(); i++){
-            for(int j=0; i<Helper_roomReserv.getInstance().size(); j++){
+
+            for(int j=0; Helper_roomReserv.reservRoomList != null && i<Helper_roomReserv.reservRoomList.size(); j++){
                 if( Helper_room.getInstance().list.get(i).roomNumber == Helper_roomReserv.getInstance().get(j).roomNumber ){
                     reservList.add(Helper_room.getInstance().list.get(i));
                     break;
