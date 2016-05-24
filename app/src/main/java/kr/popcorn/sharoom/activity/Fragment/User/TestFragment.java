@@ -72,6 +72,8 @@ public final class TestFragment extends Fragment {
             //roomList = Helper_room.getInstance().list;
             if( Helper_room.getInstance().list.get(i).isClosed == 0 ) {
                 roomList.add( Helper_room.getInstance().list.get(i) );
+            }else if( Helper_room.getInstance().list.get(i).getUserID() == Helper_userData.getInstance().getUserID() ){
+                reservList.add( Helper_room.getInstance().list.get(i) );
             }
         }
 
