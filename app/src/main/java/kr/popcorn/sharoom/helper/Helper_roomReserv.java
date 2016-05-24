@@ -17,7 +17,7 @@ import cz.msebera.android.httpclient.Header;
  */
 public class Helper_roomReserv {
 
-    public static ArrayList<Helper_roomReservData> reservRoomList;
+    public static ArrayList<Helper_roomReservData> reservRoomList = new ArrayList<Helper_roomReservData>(); ;
 
     public static int userID;
     public static int roomNumber;
@@ -34,8 +34,6 @@ public class Helper_roomReserv {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
 
-                reservRoomList = new ArrayList<Helper_roomReservData>();
-
                 try {
                     roomCount = Integer.parseInt(response.get("num").toString().trim());
 
@@ -45,7 +43,7 @@ public class Helper_roomReserv {
 
                         reservRoomList.add(i, new Helper_roomReservData(roomNumber, userID));
                     }
-                    System.out.println("ListData finish");
+                    System.out.println("ListData finish2");
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
