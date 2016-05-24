@@ -340,6 +340,7 @@
                             android:layout_marginTop="3dp"
                             android:layout_gravity="center_vertical" />
                         <TextView
+                            android:id="@+id/address"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:textColor="#000000"
@@ -375,6 +376,7 @@
                             android:layout_marginTop="3dp"
                             android:layout_gravity="center_vertical" />
                         <TextView
+                            android:id="@+id/comment"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:textColor="#000000"
@@ -382,7 +384,6 @@
                             android:textStyle="bold"
                             android:textSize="15sp"/>
                     </LinearLayout>
-
                 </LinearLayout>
 
                 <View
@@ -425,7 +426,7 @@
                     </LinearLayout>
 
                     <TextView
-                        android:id="@+id/tv_facilities"
+                        android:id="@+id/facilities"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textColor="#949494"
