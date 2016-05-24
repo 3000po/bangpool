@@ -53,6 +53,8 @@ import me.yokeyword.imagepicker.adapter.GlideFragmentAdapter;
 
 public class Activity_user_infoRoom extends FragmentActivity {
 
+    public static Activity_user_infoRoom rActivity;
+
     private GoogleMap googleMap;
     private MarkerOptions markerOptions;
     private LatLng latLng;
@@ -61,7 +63,6 @@ public class Activity_user_infoRoom extends FragmentActivity {
 
     private ViewPager viewPager;
     private Button btn_find;
-
 
     private GlideFragmentAdapter listAdapter;
     private ImageAdapter adapter;
