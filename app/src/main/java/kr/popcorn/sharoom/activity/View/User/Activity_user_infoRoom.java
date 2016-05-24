@@ -1,5 +1,6 @@
 package kr.popcorn.sharoom.activity.View.User;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -10,6 +11,7 @@ import android.location.Geocoder;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -18,10 +20,12 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
@@ -31,6 +35,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import kr.popcorn.sharoom.R;
@@ -80,6 +85,9 @@ public class Activity_user_infoRoom extends FragmentActivity {
     private LinearLayout cFacilities;
     private Activity_FacillitiesInfo customDialog;
     private ViewGroup layout;
+    private ImageAdapter adapter;
+    private ArrayList<String> mimage;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -156,7 +164,10 @@ public class Activity_user_infoRoom extends FragmentActivity {
         if(location!=null && !location.equals("")){
             new GeocoderTask().execute(location);
         }
-        listAdapter = new GlideFragmentAdapter( getSupportFragmentManager(), roomData.image);
+        //listAdapter = new GlideFragmentAdapter( getSupportFragmentManager(), roomData.image);
+
+        mimage = roomData.getImage();
+        adapter = new ImageAdapter(this);
 
         viewPager.setAdapter(listAdapter);
         viewPager.setCurrentItem(0);
@@ -170,7 +181,7 @@ public class Activity_user_infoRoom extends FragmentActivity {
             @Override
             public void onPageSelected(int position) {
                 //tvCount.setText(position + 1 + "/" + imgList.size());
-                tvCount.setText(position + 1 + " /" + imgLength);
+                tvCount.setText(position + 1 + " /" + mimage.size());
             }
 
             @Override
@@ -209,7 +220,42 @@ public class Activity_user_infoRoom extends FragmentActivity {
             }
         });
     }
+    public class ImageAdapter extends PagerAdapter {
+        Context context;
 
+        ImageAdapter(Context context){
+            this.context=context;
+        }
+        @Override
+        public int getCount() {
+            return mimage.size();
+        }
+
+        @Override
+        public boolean isViewFromObject(View view, Object object) {
+            return view == ((ImageView) object);
+        }
+
+        @Override
+        public Object instantiateItem(ViewGroup container, int p) {
+
+            ImageView imageView = new ImageView(context);
+            imageView.setScaleType(ImageView.ScaleType.FIT_XY);
+
+            //imageView.setImageBitmap((decodeSampledBitmapFromResource(getResources(), imgList[p], 100, 100)));
+            Glide.with(context).load(mimage).into(imageView);
+
+
+            ((ViewPager) container).addView(imageView, 0);
+
+            return imageView;
+        }
+
+        @Override
+        public void destroyItem(ViewGroup container, int position, Object object) {
+            ((ViewPager) container).removeView((ImageView) object);
+        }
+    }
     public boolean onTouchEvent(MotionEvent event)
     {
         if(event.getAction() == MotionEvent.ACTION_OUTSIDE){
