@@ -75,11 +75,9 @@ public class Helper_room {
                             image[i] = new ArrayList<String>();
                             for(int j=0; j< 8; j++){
                                 String str=response.get("image"+j+"?"+i).toString().trim();
-                                if(str.equals("0")){
-                                    String imageUrl = baseURL+str;
-                                    System.out.println("ccccc" + imageUrl);
-                                    addImage(i, imageUrl);
-                                }
+                                String imageUrl = baseURL+str;
+                                System.out.println("ccccc" + imageUrl);
+                                addImage(i, imageUrl);
                             }
                             list.add(i, new Helper_roomData(roomNumber, userID, title, address, price, roomKind, roomInfo, fac, lat, lng, sDate, eDate, image[i], isClosed, rUserID));
                         }
@@ -131,11 +129,9 @@ public class Helper_room {
 
                         for(int j=0; j< 8; j++){
                             String str=response.get("image"+j+"?"+i).toString().trim();
-                            if(str.equals("0")){
-                                String imageUrl = baseURL+str;
-                                System.out.println("ccccc" + imageUrl);
-                                addImage(i, imageUrl);
-                            }
+                            String imageUrl = baseURL+str;
+                            System.out.println("ccccc" + imageUrl);
+                            addImage(i, imageUrl);
                         }
                         list.add(i,new Helper_roomData(roomNumber, userID, title, address, price, roomKind, roomInfo, fac, lat, lng, sDate, eDate, image[i], isClosed, rUserID));
                     }
@@ -192,11 +188,9 @@ public class Helper_room {
                         image[i] = new ArrayList<String>();
                         for(int j=0; j< 8; j++){
                             String str=response.get("image"+j+"?"+i).toString().trim();
-                            if(str.equals("0")){
                                 String imageUrl = baseURL+str;
                                 System.out.println("ccccc" + imageUrl);
                                 addImage(i, imageUrl);
-                            }
                         }
                         list.add(i, new Helper_roomData(roomNumber, userID, title, address,price,roomKind,roomInfo, fac, lat, lng, sDate,eDate, image[i], isClosed, rUserID) );
                     }
