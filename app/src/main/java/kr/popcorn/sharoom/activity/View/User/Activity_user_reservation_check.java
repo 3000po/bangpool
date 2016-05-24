@@ -54,6 +54,7 @@ public class Activity_user_reservation_check extends FragmentActivity {
 
     private Button callbutton;
     private Button smsbutton;
+    private Button cancel_button;
 
     private int roomnumber;
     private  int imgLength;
@@ -71,13 +72,15 @@ public class Activity_user_reservation_check extends FragmentActivity {
 
         callbutton = (Button) findViewById(R.id.callbutton);
         smsbutton = (Button) findViewById(R.id.smsbutton);
+        cancel_button = (Button) findViewById(R.id.cancel_button);
+
 
         roomName = (TextView)findViewById(R.id.roomName);
-
-
         startDate = (TextView) findViewById(R.id.startDate);
         endDate = (TextView) findViewById(R.id.endDate);
 
+
+        cancel_button.setVisibility(View.GONE);
 
         roomnumber = getIntent().getExtras().getInt("roomNumber");  //룸 넘버
         idx = Helper_room.search_index(roomnumber);
