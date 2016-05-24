@@ -24,7 +24,6 @@ import kr.popcorn.sharoom.activity.TabView.TabView_rentListAdapter;
 import kr.popcorn.sharoom.activity.TabView.TabView_reservationAdapter;
 import kr.popcorn.sharoom.helper.Helper_roomData;
 import kr.popcorn.sharoom.helper.Helper_room;
-import kr.popcorn.sharoom.helper.Helper_roomReserv;
 import kr.popcorn.sharoom.helper.Helper_userData;
 
 public final class TestFragment extends Fragment {
@@ -142,17 +141,6 @@ public final class TestFragment extends Fragment {
         ArrayList<Helper_roomData> roomList = new ArrayList<Helper_roomData>();
         ArrayList<Helper_roomData> reservList = new ArrayList<Helper_roomData>();
 
-        Helper_roomReserv.getReservRoomData(Helper_userData.getInstance().getUserID());
-
-        for(int i=0; i<Helper_room.getInstance().list.size(); i++){
-
-            for(int j=0; Helper_roomReserv.reservRoomList != null && j<Helper_roomReserv.reservRoomList.size(); j++){
-                if( Helper_room.getInstance().list.get(i).roomNumber == Helper_roomReserv.getInstance().get(j).roomNumber ){
-                    reservList.add(Helper_room.getInstance().list.get(i));
-                    break;
-                }
-            }
-        }
         Log.i("roomCount",""+ Helper_room.roomCount);
         for(int i=0; i< Helper_room.roomCount; i++){
             //roomList = Helper_room.getInstance().list;
