@@ -56,7 +56,6 @@ public class TabView_reservationAdapter extends RecyclerView.Adapter<TabView_res
 
     public void onBindViewHolder(ViewHolder holder, int position) {
 
-        Bitmap face = BitmapFactory.decodeResource(mContext.getResources(), R.drawable.app_logo);
         //myface.setImageBitmap(getCircleBitmap(face));
 
         //holder.myface.setImageResource(R.drawable.ic_action_mapview_m);
@@ -124,16 +123,6 @@ public class TabView_reservationAdapter extends RecyclerView.Adapter<TabView_res
 
             }
         }
-
-    }
-    void init(){
-
-        //myface= (ImageView)findViewById(R.id.myface);
-        // myface.getDrawable();
-        // init();
-        // Bitmap face = BitmapFactory.decodeResource(getBaseContext().getResources(),R.drawable.myself_50x50);
-
-        //myface.setImageBitmap(getCircleBitmap(face));
 
     }
 }

@@ -25,6 +25,7 @@ import kr.popcorn.sharoom.activity.TabView.TabView_reservationAdapter;
 import kr.popcorn.sharoom.floatingactionbutton.FloatingActionButton;
 import kr.popcorn.sharoom.helper.Helper_room;
 import kr.popcorn.sharoom.helper.Helper_roomData;
+import kr.popcorn.sharoom.helper.Helper_userData;
 
 public final class H_TestFragment extends Fragment {
     private static final String KEY_CONTENT = "TestFragment:Content";
@@ -121,10 +122,19 @@ public final class H_TestFragment extends Fragment {
         se2.add(second2);
         se2.add(third2);
 */
-        ArrayList<Helper_roomData> list = new ArrayList<Helper_roomData>();
+        ArrayList<Helper_roomData> hostList = new ArrayList<Helper_roomData>();
+        ArrayList<Helper_roomData> hostReservList = new ArrayList<Helper_roomData>();
 
         for(int i = 0; i< Helper_room.roomCount; i++){
-            list.add(i, Helper_room.getInstance().list.get(i));
+            if( Helper_room.getInstance().list.get(i).isClosed==0 &&
+                    Helper_room.getInstance().list.get(i).userID == Helper_userData.getInstance().getUserID()){
+                hostList.add( Helper_room.getInstance().list.get(i));
+            }
+            else if ( Helper_room.getInstance().list.get(i).isClosed==1 &&
+                    Helper_room.getInstance().list.get(i).userID == Helper_userData.getInstance().getUserID() ){
+                hostReservList.add( Helper_room.getInstance().list.get(i) );
+            }
+            //list.add(i, Helper_room.getInstance().list.get(i));
         }
 
         switch (cases){
@@ -133,7 +143,7 @@ public final class H_TestFragment extends Fragment {
                 recyclerView_register.setItemAnimator(new DefaultItemAnimator());
 
                 registerAdapter = new TabView_registerAdapter(getActivity(),
-                        list,
+                        hostList,
                         (LinearLayoutManager) recyclerView_register.getLayoutManager());
                 recyclerView_register.setAdapter(registerAdapter);
                 break;
@@ -142,7 +152,7 @@ public final class H_TestFragment extends Fragment {
                 recyclerView.setItemAnimator(new DefaultItemAnimator());
 
                 reservationAdapter = new TabView_reservationAdapter(getActivity(),
-                        null,
+                        hostReservList,
                         (LinearLayoutManager) recyclerView.getLayoutManager());
                 recyclerView.setAdapter(reservationAdapter);
                 break;

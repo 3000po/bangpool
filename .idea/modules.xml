@@ -3,7 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/bangpool.iml" filepath="$PROJECT_DIR$/bangpool.iml" />
       <module fileurl="file://$PROJECT_DIR$/sharoom.iml" filepath="$PROJECT_DIR$/sharoom.iml" />
     </modules>
   </component>

@@ -26,16 +26,14 @@ public class Helper_roomReserv {
     public Helper_roomReserv() {
     }
 
-    public static void getReservRoomData(final int userID, final int roomNumber) {
+    public static void getReservRoomData(final int userID) {
 
         final RequestParams reservParams = new RequestParams("userID", userID);
-        reservParams.put("roomNumber", roomNumber);
 
-        Helper_server.post("data/getReservRoomData.php", reservParams, new JsonHttpResponseHandler() {
+        Helper_server.post("data/getReservation.php", reservParams, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
 
-                reservRoomList = null;
                 reservRoomList = new ArrayList<Helper_roomReservData>();
 
                 try {
