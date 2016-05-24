@@ -21,6 +21,8 @@ import java.util.List;
 
 import kr.popcorn.sharoom.R;
 import kr.popcorn.sharoom.helper.GlobalApplication;
+import kr.popcorn.sharoom.helper.Helper_room;
+import kr.popcorn.sharoom.helper.Helper_roomData;
 
 public class Activity_largeMap extends FragmentActivity {
 
@@ -28,6 +30,8 @@ public class Activity_largeMap extends FragmentActivity {
     LatLng latLng;
     MarkerOptions markerOptions;
     public static final int SEARCH_RADIUS = 8000;
+    private int idx;
+
 
     //static final LatLng SEOUL = new LatLng(37.56, 126.97);
 
@@ -41,8 +45,11 @@ public class Activity_largeMap extends FragmentActivity {
 
         // Getting a reference to the map
         googleMap = supportMapFragment.getMap();
+        idx = getIntent().getIntExtra("roomNumber",0);  //방리스트 인덱스
+        Helper_roomData roomData = Helper_room.getInstance().list.get(idx);
 
         String location = ((GlobalApplication)this.getApplicationContext()).getGlobalString();
+
         if(location!=null && !location.equals("")){
             new GeocoderTask().execute(location);
         }

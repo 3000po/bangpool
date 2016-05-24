@@ -60,42 +60,33 @@
 
                 </RelativeLayout>
 
-                <!--방주소-->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <EditText
-                        android:id="@+id/et_location"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:inputType="text"
-                        android:hint="@string/hnt_et_location"
-                        android:layout_toLeftOf="@+id/map_button"
-                        android:layout_gravity="center_horizontal"
-                        android:textStyle="bold">
-                        <requestFocus/>
-                    </EditText>
-
-                    <Button
-                        android:id="@+id/map_button"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/map_button" />
-                </LinearLayout>
-
                 <!--방가격-->
-                <TextView
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:text="400,000원/월"
-                    android:id="@+id/roomPrice"
-                    android:layout_gravity="center_horizontal"
-                    android:textStyle="bold"
-                    android:textColor="#000000"
-                    android:textSize="23sp"/>
+                    android:orientation="horizontal"
+                    android:layout_gravity="center">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:text="400,000"
+                        android:id="@+id/roomPrice"
+                        android:layout_gravity="center_horizontal"
+                        android:textStyle="bold"
+                        android:textColor="#000000"
+                        android:textSize="23sp"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:text="원/월"
+                        android:layout_gravity="center_horizontal"
+                        android:textStyle="bold"
+                        android:textColor="#000000"
+                        android:textSize="23sp"/>
+                </LinearLayout>
+
 
 
                 <View

@@ -13,20 +13,17 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.view.MotionEvent;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
@@ -35,14 +32,10 @@ import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-import org.w3c.dom.Text;
-
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import kr.popcorn.sharoom.R;
-import kr.popcorn.sharoom.activity.Activity_FacillitiesInfo;
 import kr.popcorn.sharoom.activity.Activity_largeMap;
 import kr.popcorn.sharoom.helper.GlobalApplication;
 import kr.popcorn.sharoom.helper.Helper_room;
@@ -86,7 +79,6 @@ public class Activity_host_infoRoom extends FragmentActivity {
 
     //public ImageView cFacillities;
     private LinearLayout cFacilities;
-    private Activity_FacillitiesInfo customDialog;
     private ViewGroup layout;
 
     @Override
@@ -98,10 +90,10 @@ public class Activity_host_infoRoom extends FragmentActivity {
 
         //Helper_room.getInstance().list.get(0).address;
 
+
         // Getting a reference to the map
         googleMap = supportMapFragment.getMap();
         // Getting reference to btn_find of the layout activity_main
-        btn_find = (Button) findViewById(R.id.map_button);
 
         bottom_text = (TextView) findViewById(R.id.bottom_text);
         bottom_text.setText("방 정보 변경");
@@ -127,6 +119,7 @@ public class Activity_host_infoRoom extends FragmentActivity {
         position=1; //현재 사진의 인덱스
         Helper_roomData roomData = Helper_room.getInstance().list.get(idx);
         imgLength = Helper_room.getInstance().list.get(idx).image.size();
+        System.out.println("address"+Helper_room.getInstance().list.get(idx).address + "idx " + idx);
 
         if ( imgLength > 1) {
             //if(imgList.size() > 1)
@@ -151,6 +144,20 @@ public class Activity_host_infoRoom extends FragmentActivity {
         }
 
         address.setText(roomData.address);
+
+        String location = address.getText().toString();
+
+        Log.d("address", location);
+        comment.setText(roomData.roomInfo);
+        facilities.setText(roomData.fac);
+
+        GlobalApplication myApp = (GlobalApplication) getApplication();
+        myApp.setGlobalString(location);
+
+        if(location!=null && !location.equals("")){
+            new GeocoderTask().execute(location);
+        }
+
         comment.setText(roomData.roomInfo);
         facilities.setText(roomData.fac);
 
@@ -176,32 +183,7 @@ public class Activity_host_infoRoom extends FragmentActivity {
             }
         });
 
-        // Defining button click event listener for the find button
-        final OnClickListener findClickListener = new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Getting reference to EditText to get the user input location
-                EditText etLocation = (EditText) findViewById(R.id.et_location);
-                etLocation.requestFocus();
-                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                imm.showSoftInput(etLocation, InputMethodManager.SHOW_FORCED);
-
-                // Getting user input location
-                String location = etLocation.getText().toString();
-                GlobalApplication myApp = (GlobalApplication) getApplication();
-                myApp.setGlobalString(location);
-
-
-                if(location!=null && !location.equals("")){
-                    new GeocoderTask().execute(location);
-                }
-            }
-        };
-
-        // Setting button click event listener for the find button
-
-
-        btn_find.setOnClickListener(findClickListener);
+        //btn_find.setOnClickListener(findClickListener);
         googleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
 
             @Override
@@ -211,7 +193,7 @@ public class Activity_host_infoRoom extends FragmentActivity {
             }
         });
 
-        cFacilities = (LinearLayout)findViewById(R.id.ll_facilities);
+        //cFacilities = (LinearLayout)findViewById(R.id.ll_facilities);
         //cFacilities.setBackgroundResource(R.drawable.selector_facilitiesbtn);
         /*Button fbtn = (Button)findViewById(R.id.facilitiesIcon);
         fbtn.setBackgroundResource(R.drawable.selector_facilitiesbtn);
@@ -253,6 +235,7 @@ public class Activity_host_infoRoom extends FragmentActivity {
         });
     }
 
+    /*
     public boolean onTouchEvent(MotionEvent event)
     {
         if(event.getAction() == MotionEvent.ACTION_OUTSIDE){
@@ -272,7 +255,7 @@ public class Activity_host_infoRoom extends FragmentActivity {
                     break;
             }
         }
-    };
+    };*/
 
     public class ImageAdapter extends PagerAdapter {
         Context context;
