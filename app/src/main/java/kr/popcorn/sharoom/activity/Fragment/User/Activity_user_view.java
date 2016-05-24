@@ -54,11 +54,8 @@ public class Activity_user_view extends FragmentActivity {
 
         Helper_userData data = Helper_userData.getInstance();
 
-        System.out.println("aaaaa" + data.getId());
         Activity_login login = (Activity_login) Activity_login.login_Activity; //login_Activity_finish
         login.finish();
-
-        System.out.println("bbbbbbbb" + Helper_room.getInstance().image[0].get(0) + "   " );
 
         AsyncHttpClient client = Helper_server.getInstance();
 
@@ -109,7 +106,6 @@ public class Activity_user_view extends FragmentActivity {
 
             @Override
             public void onPageScrollStateChanged(int state) {
-
 
 
                 switch (mPager.getCurrentItem()){
