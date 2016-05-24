@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
@@ -58,8 +59,7 @@ public class TabView_reservationAdapter extends RecyclerView.Adapter<TabView_res
         //myface.setImageBitmap(getCircleBitmap(face));
 
         //holder.myface.setImageResource(R.drawable.ic_action_mapview_m);
-        Picasso.with(mContext).load(list.get(position).image.get(0)).into(holder.roomimage);
-
+        Glide.with(mContext).load(list.get(position).image.get(0)).into(holder.roomimage);
         holder.roomname.setText(list.get(position).title);
     }
 
