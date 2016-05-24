@@ -137,20 +137,17 @@ public final class TestFragment extends Fragment {
         se3.add(third3);
         */
 
-        Helper_room.refreshRoomData("good");    // 서버로 부터 데이터 다시 받아옴
-
-        ArrayList<Helper_roomData> list = new ArrayList<Helper_roomData>();
+        ArrayList<Helper_roomData> roomList = new ArrayList<Helper_roomData>();
+        ArrayList<Helper_roomData> reservList = new ArrayList<Helper_roomData>();
 
         Log.i("roomCount",""+ Helper_room.roomCount);
         for(int i=0; i< Helper_room.roomCount; i++){
-            //list = Helper_room.getInstance().list;
-            list.add(i, Helper_room.getInstance().list.get(i));
-            //list.addAll(Helper_room.getInstance().list);
-
-
-            Log.i("roomCount1-i= ", ""+i);
-            Log.i("roomCount-title= ", list.get(i).title);
-            Log.i("roomCount-image= ", list.get(i).image.get(i));
+            //roomList = Helper_room.getInstance().list;
+            if( Helper_room.getInstance().list.get(i).isClosed == 0 ) {
+                roomList.add( Helper_room.getInstance().list.get(i) );
+            }else{
+                reservList.add( Helper_room.getInstance().list.get(i) );
+            }
         }
 
         switch (cases){
@@ -159,7 +156,7 @@ public final class TestFragment extends Fragment {
                 recyclerView.setItemAnimator(new DefaultItemAnimator());
 
                 rentListAdapter = new TabView_rentListAdapter(getActivity(),
-                        list,
+                        roomList,
                         (LinearLayoutManager) recyclerView.getLayoutManager());
                 recyclerView.setAdapter(rentListAdapter);
 
@@ -170,7 +167,7 @@ public final class TestFragment extends Fragment {
                 recyclerView.setItemAnimator(new DefaultItemAnimator());
 
                 reservationAdapter = new TabView_reservationAdapter(getActivity(),
-                        null,
+                        reservList,
                         (LinearLayoutManager) recyclerView.getLayoutManager());
                 recyclerView.setAdapter(reservationAdapter);
                 break;
