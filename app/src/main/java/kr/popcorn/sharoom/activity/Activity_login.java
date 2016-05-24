@@ -58,7 +58,6 @@ import kr.popcorn.sharoom.R;
 import kr.popcorn.sharoom.activity.Fragment.User.Activity_user_view;
 import kr.popcorn.sharoom.activity.TabView.Activity_roading;
 import kr.popcorn.sharoom.helper.Helper_room;
-import kr.popcorn.sharoom.helper.Helper_roomReserv;
 import kr.popcorn.sharoom.helper.Helper_server;
 
 public class Activity_login extends Activity {
