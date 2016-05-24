@@ -33,6 +33,8 @@ import cz.msebera.android.httpclient.Header;
 import kr.popcorn.sharoom.R;
 import kr.popcorn.sharoom.activity.Activity_FinishReserv;
 import kr.popcorn.sharoom.activity.Activity_profileView;
+import kr.popcorn.sharoom.helper.Helper_room;
+import kr.popcorn.sharoom.helper.Helper_roomData;
 import kr.popcorn.sharoom.helper.Helper_server;
 import me.yokeyword.imagepicker.adapter.GlideFragmentAdapter;
 
@@ -43,12 +45,15 @@ public class Activity_user_reservation extends Activity {
     private ViewPager viewPager;
     private ViewGroup requestBtn;
     private RelativeLayout reservationBtn;
-    private GlideFragmentAdapter listAdapter;
+
     private ImageAdapter adapter;
+
     private TextView tvCount, startDate, endDate;
     private int mYear, mMonth, mDay;
 
     private String url = "http://i.imgur.com/DvpvklR.png";
+
+    private int idx;
 
     private int position;
     private Paint p;
@@ -59,6 +64,8 @@ public class Activity_user_reservation extends Activity {
     private Button callbutton;
     private Button smsbutton;
     private String today;
+
+    private Helper_roomData roomData;
 
     private int[] imgList = new int[] {
             R.drawable.room1, R.drawable.room2, R.drawable.room3, R.drawable.roomimg
@@ -71,6 +78,9 @@ public class Activity_user_reservation extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reservation);
 
+        idx = getIntent().getIntExtra("roomNumber",0);
+        roomData = Helper_room.getInstance().list.get(idx);
+
         rActivity = Activity_user_reservation.this;
 
         //imageview(view pager)
@@ -82,10 +92,10 @@ public class Activity_user_reservation extends Activity {
 
         position = getIntent().getIntExtra("idx",1);
 
-        if (imgList.length > 1) {
+        if ( roomData.image.size() > 1) {
             //if(imgList.size() > 1)
             //tvCount.setText(position + "/" + imgList.size());
-            tvCount.setText(position + " /" + imageResIds.length);
+            tvCount.setText(position + " /" + roomData.image.size());
         } else {
             tvCount.setText("");
         }
@@ -103,7 +113,7 @@ public class Activity_user_reservation extends Activity {
             @Override
             public void onPageSelected(int position) {
                 //tvCount.setText(position + 1 + "/" + imgList.size());
-                tvCount.setText(position + 1 + " /" + imgList.length);
+                tvCount.setText(position + 1 + " /" + roomData.image.size());
             }
 
             @Override
@@ -335,9 +345,9 @@ public class Activity_user_reservation extends Activity {
             imageView.setScaleType(ImageView.ScaleType.FIT_XY);
             //imageView.setImageResource(imgList[position]);
 
-            Glide.with(context).load(url).into(imageView);
+            Glide.with(context).load(roomData.image.get(position)).into(imageView);
 
-            ((ViewPager) container).addView(imageView, 0);
+            //((ViewPager) container).addView(imageView, 0);
 
             return imageView;
         }
