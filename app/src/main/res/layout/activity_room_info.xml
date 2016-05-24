@@ -60,31 +60,6 @@
 
                 </RelativeLayout>
 
-                <!--프로필-->
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/userName"
-                        android:layout_gravity="center_horizontal"
-                        android:text="유시진"
-                        android:textStyle="bold"
-                        android:textColor="#000000"
-                        android:textSize="23sp"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="님 프로필"
-                        android:textStyle="bold"
-                        android:textColor="#000000"
-                        android:textSize="23sp"/>
-
-                </LinearLayout>
-                <!--프로필 끝-->
-
                 <!--방주소-->
                 <LinearLayout
                     android:layout_width="match_parent"
