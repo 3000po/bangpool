@@ -394,4 +394,39 @@ public class Activity_user_reservation extends FragmentActivity {
 
         }
     }
+
+    public void test(){
+
+        String userID = "find user id";
+        RequestParams params = new RequestParams();
+        params.put("userID", userID);
+
+        Helper_server.post("data/getHostProfile.php", params, new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+
+                try{
+                    String name = response.get("name").toString();
+                    String phoneNumber = response.get("phoneNumber").toString();
+                    String email = response.get("email").toString();
+
+                } catch(JSONException e){
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                super.onFailure(statusCode, headers, responseString, throwable);
+                Log.d("Failed: ", ""+statusCode);
+                Log.d("Error : ", "" + throwable);
+            }
+        });
+
+
+
+
+    }
+
+
 }
