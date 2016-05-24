@@ -21,6 +21,7 @@ public class Helper_roomReserv {
 
     public static int userID;
     public static int roomNumber;
+    public static int roomCount;
 
     public Helper_roomReserv() {
     }
@@ -38,7 +39,7 @@ public class Helper_roomReserv {
                 reservRoomList = new ArrayList<Helper_roomReservData>();
 
                 try {
-                    int roomCount = Integer.parseInt(response.get("num").toString().trim());
+                    roomCount = Integer.parseInt(response.get("num").toString().trim());
 
                     for (int i = 0; i < roomCount; i++) {
                         int roomNumber = Integer.parseInt(response.get("roomNumber" + i).toString().trim());
