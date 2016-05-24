@@ -276,7 +276,7 @@ public class Activity_user_infoRoom extends FragmentActivity {
         }
         @Override
         public int getCount() {
-            return imgList.length;
+            return imgLength;
         }
 
         @Override
