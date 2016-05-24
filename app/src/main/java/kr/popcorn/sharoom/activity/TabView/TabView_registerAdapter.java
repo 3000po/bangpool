@@ -98,6 +98,7 @@ public class TabView_registerAdapter extends RecyclerView.Adapter<TabView_regist
         @Override
         public void onClick(View v) {
             Intent intent = new Intent(mContext, Activity_host_infoRoom.class);
+            intent.putExtra("roomNumber", getAdapterPosition());
             mContext.startActivity(intent);
         }
 
