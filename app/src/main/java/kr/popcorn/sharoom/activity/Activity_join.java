@@ -206,7 +206,7 @@ public class Activity_join extends Activity {
                     String phoneNumber = form_basic.et_phoneNumber.getText().toString();
                     String email = form_basic.et_email.getText().toString();
 
-                    if (!Helper_checker.validJoin(Activity_join.this, email, name, id, password)) {
+                    if (!Helper_checker.validJoin(Activity_join.this, email, name, id, password, phoneNumber)) {
                         return;
                     }
                     if(!ck_service.isChecked())
@@ -298,7 +298,7 @@ public class Activity_join extends Activity {
                                                              String email = form_basic.et_email.getText().toString();
 
 
-                                                             if (!Helper_checker.validJoin(Activity_join.this, email, name, id, password)) {
+                                                             if (!Helper_checker.validJoin(Activity_join.this, email, name, id, password,phoneNumber)) {
                                                                  return false;
                                                              }
 
