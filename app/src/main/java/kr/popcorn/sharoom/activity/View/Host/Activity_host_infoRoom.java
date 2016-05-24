@@ -53,7 +53,7 @@ public class Activity_host_infoRoom extends FragmentActivity {
     private MarkerOptions markerOptions;
     private LatLng latLng;
     public static final int SEARCH_RADIUS = 8000;
-    private String url = "http://i.imgur.com/DvpvklR.png";
+    private String url = "http://imageshack.com/a/img922/7286/fUYUWw.jpg";
 
     private ViewPager viewPager;
     private Button btn_find;
