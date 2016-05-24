@@ -1,6 +1,5 @@
 package kr.popcorn.sharoom.activity.View.User;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.Context;
@@ -26,15 +25,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
-import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -268,7 +264,9 @@ public class Activity_user_reservation extends FragmentActivity {
 
                                                         Helper_room.refreshRoomData("refresh",Activity_user_reservation.this);
                                                         Intent finishReservIntent = new Intent(Activity_user_reservation.this, Activity_FinishReserv.class);
+                                                        finishReservIntent.putExtra("roomnumber", roomData.roomNumber);
                                                         startActivity(finishReservIntent);
+                                                        finish();
                                                     }
                                                     else{
                                                         //이미 예약되었습니다.
