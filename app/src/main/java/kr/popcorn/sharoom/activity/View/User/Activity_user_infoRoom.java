@@ -145,7 +145,7 @@ public class Activity_user_infoRoom extends FragmentActivity {
 
         address.setText(roomData.address);
         comment.setText(roomData.roomInfo);
-        facilities.setText(roomData. "차후 수정");
+        facilities.setText( "차후 수정");
 
 
         //listAdapter = new GlideFragmentAdapter( getSupportFragmentManager(), facillitiesList);
