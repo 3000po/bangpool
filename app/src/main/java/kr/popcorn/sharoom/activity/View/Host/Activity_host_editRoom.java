@@ -4,8 +4,11 @@ package kr.popcorn.sharoom.activity.View.Host;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -25,6 +28,9 @@ import com.loopj.android.http.RequestParams;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -32,7 +38,10 @@ import java.util.List;
 
 import cz.msebera.android.httpclient.Header;
 import kr.popcorn.sharoom.R;
+import kr.popcorn.sharoom.helper.Helper_room;
+import kr.popcorn.sharoom.helper.Helper_roomData;
 import kr.popcorn.sharoom.helper.Helper_server;
+import kr.popcorn.sharoom.helper.Helper_userData;
 import me.yokeyword.imagepicker.ImagePicker;
 import me.yokeyword.imagepicker.callback.CallbackForCamera;
 import me.yokeyword.imagepicker.callback.CallbackForImagePicker;
@@ -72,6 +81,10 @@ public class Activity_host_editRoom extends Activity  implements View.OnClickLis
     private String today;
     private TextView toptext;
 
+    private int idx;
+    int position;
+    int imgLength;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -98,6 +111,11 @@ public class Activity_host_editRoom extends Activity  implements View.OnClickLis
 
         toptext.setText("방 수정하기");
 
+        idx = getIntent().getIntExtra("roomNumber",0);  //방리스트 인덱스
+        position=1; //현재 사진의 인덱스
+        Helper_roomData roomData = Helper_room.getInstance().list.get(idx);
+        imgLength = Helper_room.getInstance().list.get(idx).image.size();
+
 
         mImagePicker = new ImagePicker(this);
         loadData();
@@ -112,6 +130,12 @@ public class Activity_host_editRoom extends Activity  implements View.OnClickLis
         roomtype2 = (CheckBox) findViewById(R.id.ck_roomtype2);
         roomtype3 = (CheckBox) findViewById(R.id.ck_roomtype3);
         roomtype4 = (CheckBox) findViewById(R.id.ck_roomtype4);
+
+        et_title.setText(roomData.getTitle());
+        et_address.setText(roomData.getAddress());
+        et_price.setText(roomData.getPrice());
+        et_roomInfo.setText(roomData.getRoomInfo());
+        et_facilities.setText(roomData.fac);
 
         if(roomtype1.isChecked()==true)
         {
@@ -323,13 +347,16 @@ public class Activity_host_editRoom extends Activity  implements View.OnClickLis
         });
 
         tv_register = (TextView) findViewById(R.id.bottomtext);
+        tv_register.setText("수정 하기");
         tv_register.setOnClickListener(new TextView.OnClickListener(){
             public void onClick(View v) {
+
+                //TODO 기상아 여기가 수정하기 버튼이야
                 Log.d("buttonClick", "okokokokok");
                 for(int i=0; i<list.size(); i++){
                     Log.d("buttonList", list.get(i));
                 }
-                postImage(list);
+                //postImage(list);
             }
         });
 
@@ -480,33 +507,50 @@ public class Activity_host_editRoom extends Activity  implements View.OnClickLis
         list = arrayList;
 
         if( list.size() > 0 ) {
-            picButton.setImageURI( Uri.fromFile( new File(list.get(0))));
+            try {
+                Bitmap bitmap = decodeUri(getApplicationContext(), Uri.fromFile(new File(list.get(0))), 100);
+                picButton.setImageBitmap(bitmap);
+            }catch (FileNotFoundException e){
+                Log.e("ddddd","fuck");
+            }
         }else{
             picButton.setImageResource(R.drawable.roompicture);
         }
     }
 
+    public void postImage(ArrayList<String> list, String title, String address, String price, String roomKind, String roomInfo, String sDate, String eDate, double mLat, double mLng){
 
-    public static void postImage(ArrayList<String> list){
+        //아이디 가져옴.
+        int userID = Helper_userData.getInstance().getUserID();
+        String storage = getFilesDir().toString();
         RequestParams params = new RequestParams();
-        params.put("size", list.size());
+        params.put("userID",userID);
+        params.put("size", list.size()); //이미지 크기.
+
         for (int i = 0; i < list.size(); i++) {
             System.out.println("sibalbalblabl_imageLink : " + list.get(i));
-            String imagePath =list.get(i);
-            File f = new File(imagePath);
-            System.out.println("sibalbalImagePath : " + imagePath);
+
+            String imagePath = storage + i+".jpg";
 
             try{
-                params.put("file" + i, f);
+                params.put("file" + i, SaveBitmapToFileCache(decodeUri(getApplicationContext(), Uri.fromFile(new File(list.get(i))), 100), imagePath));
                 //params.put("path", "aaa");
             }
             catch(FileNotFoundException e){
                 System.out.println("sibalbal fileNotFound");
             }
         }
+        params.put("title", title);
+        params.put("address", address);
+        params.put("price", price);
+        params.put("roomKind", roomKind);
+        params.put("roomInfo", roomInfo);
+        params.put("sDate", sDate);
+        params.put("eDate", eDate);
+        params.put("lat", mLat);
+        params.put("lng", mLat);
 
-        Helper_server.post("image/save1.php", params, new AsyncHttpResponseHandler() {
-
+        Helper_server.post("data/insert_roomdata.php", params, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 System.out.println("statusCode "+statusCode);//statusCode 200
@@ -517,6 +561,60 @@ public class Activity_host_editRoom extends Activity  implements View.OnClickLis
                 System.out.println("sibalbalblabl_onFailure");
             }
         });
+    }
+
+
+    public static Bitmap decodeUri(Context c, Uri uri, final int requiredSize)
+            throws FileNotFoundException {
+        BitmapFactory.Options o = new BitmapFactory.Options();
+        o.inJustDecodeBounds = true;
+        BitmapFactory.decodeStream(c.getContentResolver().openInputStream(uri), null, o);
+
+        int width_tmp = o.outWidth
+                , height_tmp = o.outHeight;
+        int scale = 1;
+
+        while(true) {
+            if(width_tmp / 2 < requiredSize || height_tmp / 2 < requiredSize)
+                break;
+            width_tmp /= 2;
+            height_tmp /= 2;
+            scale *= 2;
+        }
+
+        BitmapFactory.Options o2 = new BitmapFactory.Options();
+        o2.inSampleSize = scale;
+        return BitmapFactory.decodeStream(c.getContentResolver().openInputStream(uri), null, o2);
+    }
+
+    private File SaveBitmapToFileCache(Bitmap bitmap, String strFilePath) {
+
+        File fileCacheItem = new File(strFilePath);
+        OutputStream out = null;
+
+        try
+        {
+            fileCacheItem.createNewFile();
+            out = new FileOutputStream(fileCacheItem);
+
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, out);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+        finally
+        {
+            try
+            {
+                out.close();
+            }
+            catch (IOException e)
+            {
+                e.printStackTrace();
+            }
+        }
+        return fileCacheItem;
     }
 }
 

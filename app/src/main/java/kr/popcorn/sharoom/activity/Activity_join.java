@@ -48,6 +48,7 @@ public class Activity_join extends Activity {
     private Activity_personal_info_agree agreeDialog;
 
     private form_basic form_basic;
+
     class form_basic {
         EditText et_id;
         EditText et_password;
@@ -205,7 +206,7 @@ public class Activity_join extends Activity {
                     String phoneNumber = form_basic.et_phoneNumber.getText().toString();
                     String email = form_basic.et_email.getText().toString();
 
-                    if (!Helper_checker.validJoin(Activity_join.this, email, name, id, password)) {
+                    if (!Helper_checker.validJoin(Activity_join.this, email, name, id, password, phoneNumber)) {
                         return;
                     }
                     if(!ck_service.isChecked())
@@ -218,6 +219,8 @@ public class Activity_join extends Activity {
                         Toast.makeText(getApplicationContext(), "개인정보 수집 및 이름에 대한 동의에 동의해주세요.", Toast.LENGTH_SHORT).show();
                         return;
                     }
+
+
                     if(id_check_ok==false) {
                         RequestParams idParams = new RequestParams();
                         idParams.put("id", id);
@@ -295,7 +298,7 @@ public class Activity_join extends Activity {
                                                              String email = form_basic.et_email.getText().toString();
 
 
-                                                             if (!Helper_checker.validJoin(Activity_join.this, email, name, id, password)) {
+                                                             if (!Helper_checker.validJoin(Activity_join.this, email, name, id, password,phoneNumber)) {
                                                                  return false;
                                                              }
 

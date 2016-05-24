@@ -96,6 +96,7 @@ public class Activity_user_infoRoom extends FragmentActivity {
         googleMap = supportMapFragment.getMap();
         // Getting reference to btn_find of the layout activity_main
         btn_find = (Button) findViewById(R.id.map_button);
+
         //imageview(view pager)
         viewPager = (ViewPager)findViewById(R.id.pager);
         tvCount = (TextView) findViewById(R.id.tv_count);
@@ -235,6 +236,7 @@ public class Activity_user_infoRoom extends FragmentActivity {
                     case R.id.reservationBar:
                         //Toast.makeText(MainActivity.this, "예약버튼이 눌렸습니다.", Toast.LENGTH_SHORT).show();
                         Intent reservationIntent = new Intent(Activity_user_infoRoom.this, Activity_user_reservation.class);
+                        reservationIntent.putExtra("roomNumber", idx);
                         startActivity(reservationIntent);
                         finish();
                 }
@@ -262,44 +264,6 @@ public class Activity_user_infoRoom extends FragmentActivity {
             }
         }
     };
-
-    public class ImageAdapter extends PagerAdapter {
-        Context context;
-
-        ImageAdapter(Context context){
-            this.context=context;
-        }
-        @Override
-        public int getCount() {
-            return imgLength;
-        }
-
-        @Override
-        public boolean isViewFromObject(View view, Object object) {
-            return view == ((ImageView) object);
-        }
-
-        @Override
-        public Object instantiateItem(ViewGroup container, int p) {
-
-            ImageView imageView = new ImageView(context);
-            imageView.setScaleType(ImageView.ScaleType.FIT_XY);
-
-            //imageView.setImageBitmap((decodeSampledBitmapFromResource(getResources(), imgList[p], 100, 100)));
-            //Glide.with(context).load("http://몰라씨").into(imageView);
-
-
-            ((ViewPager) container).addView(imageView, 0);
-
-            return imageView;
-        }
-
-        @Override
-        public void destroyItem(ViewGroup container, int position, Object object) {
-            ((ViewPager) container).removeView((ImageView) object);
-        }
-    }
-
 
     // An AsyncTask class for accessing the GeoCoding Web Service
     private class GeocoderTask extends AsyncTask<String, Void, List<Address>>{
