@@ -8,6 +8,7 @@ import android.widget.Toast;
 
 import kr.popcorn.sharoom.R;
 import kr.popcorn.sharoom.activity.View.User.Activity_user_infoRoom;
+import kr.popcorn.sharoom.activity.View.User.Activity_user_reservation;
 
 public class Activity_FinishReserv extends Activity {
     private TextView checkReserv;

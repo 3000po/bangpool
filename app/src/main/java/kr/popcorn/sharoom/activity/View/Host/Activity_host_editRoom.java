@@ -356,8 +356,6 @@ public class Activity_host_editRoom extends Activity  implements View.OnClickLis
         }
 
 
-
-
         tv_register = (TextView) findViewById(R.id.bottomtext);
         tv_register.setText("수정 하기");
         tv_register.setOnClickListener(new TextView.OnClickListener(){
