@@ -12,6 +12,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -25,7 +26,9 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
+import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
@@ -43,10 +46,9 @@ import me.yokeyword.imagepicker.adapter.GlideFragmentAdapter;
  */
 public class Activity_user_reservation extends Activity {
     private ViewPager viewPager;
+    private ViewPagerAdapter adapter;
     private ViewGroup requestBtn;
     private RelativeLayout reservationBtn;
-
-    private ImageAdapter adapter;
 
     private TextView tvCount, startDate, endDate;
     private int mYear, mMonth, mDay;
@@ -66,12 +68,6 @@ public class Activity_user_reservation extends Activity {
     private String today;
 
     private Helper_roomData roomData;
-
-    private int[] imgList = new int[] {
-            R.drawable.room1, R.drawable.room2, R.drawable.room3, R.drawable.roomimg
-    };
-    private final static Integer[] imageResIds = new Integer[] {
-            R.drawable.room1, R.drawable.room2, R.drawable.room3, R.drawable.roomimg};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,15 +89,12 @@ public class Activity_user_reservation extends Activity {
         position = getIntent().getIntExtra("idx",1);
 
         if ( roomData.image.size() > 1) {
-            //if(imgList.size() > 1)
-            //tvCount.setText(position + "/" + imgList.size());
             tvCount.setText(position + " /" + roomData.image.size());
         } else {
             tvCount.setText("");
         }
 
-        adapter = new ImageAdapter(this);
-        viewPager.setAdapter(adapter);
+        adapter = new ViewPagerAdapter(getApplicationContext(), roomData.image);
         viewPager.setCurrentItem(0);
 
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -112,7 +105,6 @@ public class Activity_user_reservation extends Activity {
 
             @Override
             public void onPageSelected(int position) {
-                //tvCount.setText(position + 1 + "/" + imgList.size());
                 tvCount.setText(position + 1 + " /" + roomData.image.size());
             }
 
@@ -193,18 +185,6 @@ public class Activity_user_reservation extends Activity {
                 }
             }
         });
-
-        /*peopleNum = (Spinner)findViewById(R.id.peopleNum);
-        List<String> list = new ArrayList<String>();
-        list.add("1");
-        list.add("2");
-        list.add("3");
-        list.add("4");
-
-        ArrayAdapter<String> mMyadapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, list);
-        mMyadapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
-        peopleNum.setAdapter(mMyadapter);
-        */
 
         reservationBtn = (RelativeLayout)findViewById(R.id.reservationBtn);
         reservationBtn.setOnClickListener(new Button.OnClickListener() {
@@ -320,42 +300,50 @@ public class Activity_user_reservation extends Activity {
                     endDate.setText(String.format("%d/%d/%d", mYear, mMonth+1, mDay));
                 }
             };
-    
 
-    public class ImageAdapter extends PagerAdapter {
+    public class ViewPagerAdapter extends PagerAdapter {
+        // Declare Variables
         Context context;
+        ArrayList<String> list;
+        LayoutInflater inflater;
 
-        ImageAdapter(Context context){
-            this.context=context;
+        public ViewPagerAdapter(Context context, ArrayList<String> list) {
+            this.context = context;
+            this.list = list;
         }
+
         @Override
         public int getCount() {
-            return imgList.length;
+            return list.size();
         }
 
         @Override
         public boolean isViewFromObject(View view, Object object) {
-            return view == ((ImageView) object);
+            return view == ((RelativeLayout) object);
         }
 
         @Override
         public Object instantiateItem(ViewGroup container, int position) {
 
+            // Declare Variables
+            ImageView imgflag;
+
             ImageView imageView = new ImageView(context);
             imageView.setScaleType(ImageView.ScaleType.FIT_XY);
-            //imageView.setImageResource(imgList[position]);
 
-            Glide.with(context).load(roomData.image.get(position)).into(imageView);
+            Glide.with(context).load(list.get(position)).into(imageView);
 
-            //((ViewPager) container).addView(imageView, 0);
+            // Add viewpager_item.xml to ViewPager
+            ((ViewPager) container).addView(imageView);
 
             return imageView;
         }
 
         @Override
         public void destroyItem(ViewGroup container, int position, Object object) {
-            ((ViewPager) container).removeView((ImageView) object);
+            // Remove viewpager_item.xml from ViewPager
+            ((ViewPager) container).removeView((RelativeLayout) object);
+
         }
     }
-
 }
