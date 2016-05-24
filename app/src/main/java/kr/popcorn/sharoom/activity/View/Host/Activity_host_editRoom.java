@@ -356,7 +356,7 @@ public class Activity_host_editRoom extends Activity  implements View.OnClickLis
                 for(int i=0; i<list.size(); i++){
                     Log.d("buttonList", list.get(i));
                 }
-                postImage(list);
+                //postImage(list);
             }
         });
 
