@@ -80,7 +80,7 @@ public class Activity_host_editRoom extends Activity  implements View.OnClickLis
     private String _roomKind;
     private double lat, lng;
 
-    public TextView tv_register;
+    public TextView tv_register, tv_delete;
     private int mYear, mMonth, mDay;
     private TextView startDate, endDate;
     private String start, end;
@@ -355,6 +355,13 @@ public class Activity_host_editRoom extends Activity  implements View.OnClickLis
             e.printStackTrace();
         }
 
+        tv_delete = (TextView) findViewById(R.id.tv_delete);
+        tv_delete.setOnClickListener(new TextView.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                
+            }
+        });
 
         tv_register = (TextView) findViewById(R.id.bottomtext);
         tv_register.setText("수정 하기");
@@ -430,6 +437,7 @@ public class Activity_host_editRoom extends Activity  implements View.OnClickLis
         });
 
     }
+
     DatePickerDialog.OnDateSetListener mDateSetListener1 =
             new DatePickerDialog.OnDateSetListener(){
 

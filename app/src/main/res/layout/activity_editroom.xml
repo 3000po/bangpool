@@ -17,7 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:text="방 등록하기"
+            android:text="방 수정하기"
             android:textSize="23sp"
             android:textStyle="bold"
             android:textColor="#FFFFFF">
@@ -306,7 +306,8 @@
                             android:hint="국민대학교 정문에서 걸어서 10분정도 걸리는 거리에 위치한 원룸입니다. 2달 정도 방을 비워야 할일이 생겨서 같은 학교 학생분께 저렴한 가격에 대여해드리고 싶습니다. 연락주세요."
                             android:textColor="#ffffff"
                             android:textColorHint="#ffffff"
-                            android:textSize="20sp"/>
+                            android:textSize="20sp"
+                            android:layout_marginBottom="20dp"/>
                     </LinearLayout>
                     <LinearLayout
                         android:id="@+id/ll_footer"
@@ -314,18 +315,39 @@
                         android:layout_height="50dp"
                         android:layout_gravity="center_vertical"
                         android:layout_margin="@dimen/activity_layout_footer_margin"
-                        android:background="@color/bangpoolColor"
-                        android:orientation="vertical">
-                        <TextView
-                            android:id="@+id/bottomtext"
+                        android:orientation="horizontal">
+                        <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:gravity="center"
-                            android:text="등록하기"
-                            android:textSize="23sp"
-                            android:textStyle="bold"
-                            android:textColor="#FFFFFF">
-                        </TextView>
+                            android:background="@color/bangpoolColor"
+                            android:layout_weight="1">
+                            <TextView
+                                android:id="@+id/bottomtext"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:text="수정하기"
+                                android:layout_gravity="center"
+                                android:textSize="23sp"
+                                android:textStyle="bold"
+                                android:textColor="#FFFFFF">
+                            </TextView>
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="#ff0000"
+                            android:layout_weight="1">
+                            <TextView
+                                android:id="@+id/tv_delete"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:text="삭제하기"
+                                android:layout_gravity="center"
+                                android:textSize="23sp"
+                                android:textStyle="bold"
+                                android:textColor="#FFFFFF">
+                            </TextView>
+                        </LinearLayout>
 
                     </LinearLayout>
                 </LinearLayout>

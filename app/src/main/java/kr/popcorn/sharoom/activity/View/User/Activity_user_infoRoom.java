@@ -241,7 +241,11 @@ public class Activity_user_infoRoom extends FragmentActivity {
             imageView.setScaleType(ImageView.ScaleType.FIT_XY);
 
             //imageView.setImageBitmap((decodeSampledBitmapFromResource(getResources(), imgList[p], 100, 100)));
-            Glide.with(context).load(mimage).into(imageView);
+            for(int i=0; i<mimage.size(); i++)
+            {
+                Glide.with(context).load(mimage.get(i)).into(imageView);
+
+            }
 
 
             ((ViewPager) container).addView(imageView, 0);
