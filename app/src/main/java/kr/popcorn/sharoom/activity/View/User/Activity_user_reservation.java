@@ -12,6 +12,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,6 +29,7 @@ import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.squareup.picasso.Picasso;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -332,6 +334,7 @@ public class Activity_user_reservation extends Activity {
             imageView.setScaleType(ImageView.ScaleType.FIT_XY);
 
             Glide.with(context).load(list.get(position)).into(imageView);
+            Log.i("baba",list.get(position));
 
             // Add viewpager_item.xml to ViewPager
             ((ViewPager) container).addView(imageView);
