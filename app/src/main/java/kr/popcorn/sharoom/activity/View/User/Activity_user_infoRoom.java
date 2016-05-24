@@ -100,6 +100,7 @@ public class Activity_user_infoRoom extends FragmentActivity {
         googleMap = supportMapFragment.getMap();
         // Getting reference to btn_find of the layout activity_main
         btn_find = (Button) findViewById(R.id.map_button);
+
         //imageview(view pager)
         viewPager = (ViewPager)findViewById(R.id.pager);
         tvCount = (TextView) findViewById(R.id.tv_count);

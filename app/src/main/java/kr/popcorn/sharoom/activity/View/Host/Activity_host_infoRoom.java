@@ -20,6 +20,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -35,6 +36,8 @@ import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import org.w3c.dom.Text;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -43,40 +46,45 @@ import kr.popcorn.sharoom.R;
 import kr.popcorn.sharoom.activity.Activity_FacillitiesInfo;
 import kr.popcorn.sharoom.activity.Activity_largeMap;
 import kr.popcorn.sharoom.helper.GlobalApplication;
+import kr.popcorn.sharoom.helper.Helper_room;
+import kr.popcorn.sharoom.helper.Helper_roomData;
 import me.yokeyword.imagepicker.adapter.GlideFragmentAdapter;
 
 
 public class Activity_host_infoRoom extends FragmentActivity {
 
     public static Activity_host_infoRoom rActivity;
+
     private GoogleMap googleMap;
     private MarkerOptions markerOptions;
     private LatLng latLng;
     public static final int SEARCH_RADIUS = 8000;
-    private String url = "http://imageshack.com/a/img922/7286/fUYUWw.jpg";
+
 
     private ViewPager viewPager;
     private Button btn_find;
-
     private TextView bottom_text;
 
-    private int[] imgList = new int[] {
-            R.drawable.room1, R.drawable.room2, R.drawable.room3, R.drawable.roomimg
-    };
-    private ArrayList<String> facilitiesList = new ArrayList<>();
-
-    //private ArrayList<String> imgList = new ArrayList<>();
-    //private ArrayList<Integer> imgList = new ArrayList<>();
-
-    private final static Integer[] imageResIds = new Integer[] {
-            R.drawable.room1, R.drawable.room2, R.drawable.room3, R.drawable.roomimg};
-
-
     private GlideFragmentAdapter listAdapter;
-    private ImageAdapter adapter;
 
     private TextView tvCount;
+    private TextView roomPrice;
+    private TextView startDate;
+    private TextView endDate;
+
+    private CheckBox type1;
+    private CheckBox type2;
+    private CheckBox type3;
+    private CheckBox type4;
+
+    private TextView address;
+    private TextView comment;
+    private TextView facilities;
+
     private int position;
+    private int imgLength;
+    private int idx;
+
     //public ImageView cFacillities;
     private LinearLayout cFacilities;
     private Activity_FacillitiesInfo customDialog;
@@ -91,30 +99,62 @@ public class Activity_host_infoRoom extends FragmentActivity {
 
         // Getting a reference to the map
         googleMap = supportMapFragment.getMap();
-
         // Getting reference to btn_find of the layout activity_main
         btn_find = (Button) findViewById(R.id.map_button);
 
         bottom_text = (TextView) findViewById(R.id.bottom_text);
+        bottom_text.setText("방 정보 변경");
 
         //imageview(view pager)
         viewPager = (ViewPager)findViewById(R.id.pager);
         tvCount = (TextView) findViewById(R.id.tv_count);
-        position = getIntent().getIntExtra("idx",1);
 
-        if (imgList.length > 1) {
+        roomPrice = (TextView)findViewById(R.id.roomPrice);
+        startDate = (TextView)findViewById(R.id.startDate);
+        endDate = (TextView)findViewById(R.id.endDate);
+
+        type1 = (CheckBox)findViewById(R.id.ck_roomtype1);
+        type2 = (CheckBox)findViewById(R.id.ck_roomtype2);
+        type3 = (CheckBox)findViewById(R.id.ck_roomtype3);
+        type4 = (CheckBox)findViewById(R.id.ck_roomtype4);
+
+        address = (TextView)findViewById(R.id.address);
+        comment = (TextView)findViewById(R.id.comment);
+        facilities = (TextView)findViewById(R.id.facilities);
+
+        idx = getIntent().getIntExtra("roomNumber",0);  //방리스트 인덱스
+        position=1; //현재 사진의 인덱스
+        Helper_roomData roomData = Helper_room.getInstance().list.get(idx);
+        imgLength = Helper_room.getInstance().list.get(idx).image.size();
+
+        if ( imgLength > 1) {
             //if(imgList.size() > 1)
             //tvCount.setText(position + "/" + imgList.size());
-            tvCount.setText(position + " /" + imageResIds.length);
+            tvCount.setText( position + " /" + imgLength );
         } else {
             tvCount.setText("");
         }
 
-        bottom_text.setText("방 정보 변경");
+        roomPrice.setText( roomData.price );
+        startDate.setText( roomData.sDate );
+        endDate.setText( roomData.eDate );
 
-        //listAdapter = new GlideFragmentAdapter( getSupportFragmentManager(), facillitiesList);
-        adapter = new ImageAdapter(this);
-        viewPager.setAdapter(adapter);
+        if( roomData.roomKind.equals("원룸") ){
+            type1.setChecked(true);
+        }else if( roomData.roomKind.equals("하숙") ){
+            type2.setChecked(true);
+        }else if( roomData.roomKind.equals("자취") ){
+            type3.setChecked(true);
+        }else {
+            type4.setChecked(true);
+        }
+
+        address.setText(roomData.address);
+        comment.setText(roomData.roomInfo);
+        facilities.setText(roomData.fac);
+
+        listAdapter = new GlideFragmentAdapter( getSupportFragmentManager(), roomData.image);
+        viewPager.setAdapter(listAdapter);
         viewPager.setCurrentItem(0);
 
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -126,7 +166,7 @@ public class Activity_host_infoRoom extends FragmentActivity {
             @Override
             public void onPageSelected(int position) {
                 //tvCount.setText(position + 1 + "/" + imgList.size());
-                tvCount.setText(position + 1 + " /" + imgList.length);
+                tvCount.setText(position + 1 + " /" + imgLength);
             }
 
             @Override
@@ -146,7 +186,7 @@ public class Activity_host_infoRoom extends FragmentActivity {
                 imm.showSoftInput(etLocation, InputMethodManager.SHOW_FORCED);
 
                 // Getting user input location
-                String location = etLocation.getText().toString(); //location에 주소를 넣으면 됨.
+                String location = etLocation.getText().toString();
                 GlobalApplication myApp = (GlobalApplication) getApplication();
                 myApp.setGlobalString(location);
 
@@ -174,11 +214,10 @@ public class Activity_host_infoRoom extends FragmentActivity {
         //cFacilities.setBackgroundResource(R.drawable.selector_facilitiesbtn);
         Button fbtn = (Button)findViewById(R.id.facilitiesIcon);
         fbtn.setBackgroundResource(R.drawable.selector_facilitiesbtn);
-        cFacilities.setOnClickListener(new OnClickListener() {
+        cFacilities.setOnClickListener(new Button.OnClickListener() {
 
             @Override
             public void onClick(View arg0) {
-
                 switch (arg0.getId()) {
                     case R.id.ll_facilities:
                         StateListDrawable states = new StateListDrawable();
@@ -186,9 +225,7 @@ public class Activity_host_infoRoom extends FragmentActivity {
                         customDialog = new Activity_FacillitiesInfo(Activity_host_infoRoom.this, cancelListener);
                         customDialog.setCanceledOnTouchOutside(true);
                         customDialog.show();
-
                         break;
-
                 }
 
             }
@@ -205,8 +242,9 @@ public class Activity_host_infoRoom extends FragmentActivity {
                 //startActivity(intent);
                 switch (v.getId()) {
                     case R.id.reservationBar:
-                        //방 정보 변경 버튼
+                        //Toast.makeText(MainActivity.this, "예약버튼이 눌렸습니다.", Toast.LENGTH_SHORT).show();
                         Intent reservationIntent = new Intent(Activity_host_infoRoom.this, Activity_host_editRoom.class);
+                        reservationIntent.putExtra("roomNumber", idx);
                         startActivity(reservationIntent);
                         finish();
                 }
@@ -224,7 +262,7 @@ public class Activity_host_infoRoom extends FragmentActivity {
     }
 
 
-    private OnClickListener cancelListener = new OnClickListener(){
+    private View.OnClickListener cancelListener = new View.OnClickListener(){
         @Override
         public void onClick(View v) {
             switch (v.getId()){
@@ -243,7 +281,7 @@ public class Activity_host_infoRoom extends FragmentActivity {
         }
         @Override
         public int getCount() {
-            return imgList.length;
+            return imgLength;
         }
 
         @Override
@@ -258,7 +296,7 @@ public class Activity_host_infoRoom extends FragmentActivity {
             imageView.setScaleType(ImageView.ScaleType.FIT_XY);
 
             //imageView.setImageBitmap((decodeSampledBitmapFromResource(getResources(), imgList[p], 100, 100)));
-            Glide.with(context).load(url).into(imageView);
+            //Glide.with(context).load("http://몰라씨").into(imageView);
 
 
             ((ViewPager) container).addView(imageView, 0);
@@ -274,7 +312,7 @@ public class Activity_host_infoRoom extends FragmentActivity {
 
 
     // An AsyncTask class for accessing the GeoCoding Web Service
-    final class GeocoderTask extends AsyncTask<String, Void, List<Address>>{
+    private class GeocoderTask extends AsyncTask<String, Void, List<Address>>{
 
         @Override
         protected List<Address> doInBackground(String... locationName) {
@@ -308,7 +346,7 @@ public class Activity_host_infoRoom extends FragmentActivity {
                 Address address = (Address) addresses.get(i);
 
                 // Creating an instance of GeoPoint, to display in Google Map
-                latLng = new LatLng(address.getLatitude(), address.getLongitude()); //Latitude:위도, Longitude:경도
+                latLng = new LatLng(address.getLatitude(), address.getLongitude());
                 String addressText = String.format("%s, %s",
                         address.getMaxAddressLineIndex() > 0 ? address.getAddressLine(0) : "",
                         address.getCountryName());
