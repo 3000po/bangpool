@@ -33,8 +33,6 @@ public class Helper_room {
 
 
     public static ArrayList<String>[] image = new ArrayList[MAX];
-    ArrayList<Helper_roomData> hostList = new ArrayList<Helper_roomData>();
-    public static boolean hostListOk = false;
 
     public Helper_room(){
 
@@ -144,64 +142,6 @@ public class Helper_room {
             }
         });
 
-    }
-
-    public ArrayList<Helper_roomData> getHostRoomData(final String id) {
-
-        final RequestParams idParams = new RequestParams("userID", id);
-
-        Helper_server.post("data/getHostRoom.php", idParams, new JsonHttpResponseHandler() {
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-
-                try {
-
-                    int roomCount = Integer.parseInt(response.get("num").toString().trim());
-
-                    for (int i = 0; i < roomCount; i++) {
-                        int roomNumber = Integer.parseInt(response.get("roomNumber" + i).toString().trim());
-                        int userID = Integer.parseInt(response.get("userID" + i).toString().trim());
-                        String title = response.get("title" + i).toString().trim();
-                        String address = response.get("address" + i).toString().trim();
-                        String price = response.get("price" + i).toString().trim();
-                        String roomKind = response.get("roomKind" + i).toString().trim();
-                        String roomInfo = response.get("roomInfo" + i).toString().trim();
-                        String fac = response.get("fac" + i).toString().trim();
-                        double lat = Double.parseDouble(response.get("lat" + i).toString().trim());
-                        double lng = Double.parseDouble(response.get("lng" + i).toString().trim());
-                        String sDate = response.get("sDate" + i).toString().trim();
-                        String eDate = response.get("eDate" + i).toString().trim();
-                        int isClosed = Integer.parseInt(response.get("isClosed" + i).toString().trim());
-                        int rUserID = Integer.parseInt(response.get("rUserID" + i).toString().trim());
-
-                        ArrayList<String>[] img = new ArrayList[MAX];
-                        img[i] = new ArrayList<String>();
-                        for(int j=0; j< 8; j++){
-                            String imageUrl = baseURL+response.get("image"+j+"?"+i).toString().trim();
-                            System.out.println("ccccc" + imageUrl);
-                            img[i].add(imageUrl);
-                        }
-                        hostList.add(i, new Helper_roomData(roomNumber, userID, title, address, price, roomKind, roomInfo,fac , lat, lng, sDate, eDate, img[i], isClosed, rUserID));
-                    }
-                    System.out.println("ListData finish");
-                    hostListOk = true;
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-            }
-
-            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-                super.onFailure(statusCode, headers, responseString, throwable);
-                Log.d("Failed: ", "myself " + statusCode);
-                Log.d("Error : ", "myself " + throwable);
-            }
-        });
-        return hostList;
-    }
-    public static boolean getHostListOK(){
-        return hostListOk;
     }
 
     public static void refreshRoomData(final String id) {
