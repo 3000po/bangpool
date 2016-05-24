@@ -87,7 +87,7 @@ public class Activity_user_reservation extends FragmentActivity {
 
 
         idx = getIntent().getExtras().getInt("index");  //룸 넘버
-        //roomData = Helper_room.getInstance().list.get(idx);
+        roomData = Helper_room.getInstance().list.get(idx);
 
         idx = 0;
 
@@ -100,7 +100,7 @@ public class Activity_user_reservation extends FragmentActivity {
         callbutton = (Button) findViewById(R.id.callbutton);
         smsbutton = (Button) findViewById(R.id.smsbutton);
 
-        position = getIntent().getIntExtra("idx",1);
+        position = 1; //현재사진의 인덱스
 
         if ( roomData.image.size() > 1) {
             tvCount.setText(position + " /" + roomData.image.size());

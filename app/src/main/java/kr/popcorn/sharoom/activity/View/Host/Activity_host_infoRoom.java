@@ -76,6 +76,7 @@ public class Activity_host_infoRoom extends FragmentActivity {
     private int position;
     private int imgLength;
     private int idx;
+    private  int roomnumber;
 
     //public ImageView cFacillities;
     private LinearLayout cFacilities;
@@ -115,7 +116,13 @@ public class Activity_host_infoRoom extends FragmentActivity {
         comment = (TextView)findViewById(R.id.comment);
         facilities = (TextView)findViewById(R.id.facilities);
 
-        idx = getIntent().getIntExtra("roomNumber",0);  //방리스트 인덱스
+
+        roomnumber = getIntent().getExtras().getInt("roomNumber");  //룸 넘버
+        idx = Helper_room.search_index(roomnumber);
+
+        position=1; //현재 사진의 인덱스
+
+
         position=1; //현재 사진의 인덱스
         Helper_roomData roomData = Helper_room.getInstance().list.get(idx);
         imgLength = Helper_room.getInstance().list.get(idx).image.size();
