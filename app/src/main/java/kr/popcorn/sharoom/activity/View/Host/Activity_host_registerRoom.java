@@ -4,6 +4,7 @@ package kr.popcorn.sharoom.activity.View.Host;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -434,11 +435,6 @@ public class Activity_host_registerRoom extends Activity  implements View.OnClic
                     //endDate.setText(today);
                 }
                 else{
-
-                    Intent intent = new Intent(getApplication(), Activity_server_roading.class);
-                    intent.putExtra("main","등록중 입니다.");
-                    startActivity(intent); // 서버 정보 받을 동안 보여줄 activity
-
                     postImage(list, title, address, price, roomKind, roomInfo, sDate, eDate, mLat, mLng);
 
                     SharedPreferences mPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
@@ -640,23 +636,34 @@ public class Activity_host_registerRoom extends Activity  implements View.OnClic
         params.put("lat", mLat);
         params.put("lng", mLat);
 
+        final ProgressDialog progressDialog = new ProgressDialog(Activity_host_registerRoom.this);
+        progressDialog.setIndeterminate(true);
+        progressDialog.setCancelable(false);
+        progressDialog.setCanceledOnTouchOutside(false);
+        progressDialog.setTitle("방 등록중입니다.");
+        progressDialog.show();
+
         Helper_server.post("data/insert_roomdata.php", params, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                progressDialog.dismiss();
+
                 System.out.println("statusCode "+statusCode);//statusCode 200
                 Toast.makeText(getApplicationContext(), "방 등록에 성공 하셨습니다.", Toast.LENGTH_LONG).show();
-                Helper_room.refreshRoomData("refresh");
+                Helper_room.refreshRoomData("refresh",Activity_host_registerRoom.this);
 
-                Intent intent = new Intent(getApplication(), Activity_server_roading.class);
-                intent.putExtra("main","화면을 재구성 중입니다.");
-                startActivity(intent); // 서버 정보 받을 동안 보여줄 activity
+                finish();
+            }
 
+            @Override
+            public void onProgress(long bytesWritten, long totalSize) {
+                super.onProgress(bytesWritten, totalSize);
             }
 
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
                 Toast.makeText(getApplicationContext(), "방 등록이 실패 하셨습니다.", Toast.LENGTH_LONG).show();
-
+                progressDialog.dismiss();
                 System.out.println("sibalbalblabl_onFailure");
             }
         });

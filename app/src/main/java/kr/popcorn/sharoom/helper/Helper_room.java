@@ -1,8 +1,12 @@
 package kr.popcorn.sharoom.helper;
 
 
+import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
@@ -15,6 +19,7 @@ import java.util.ArrayList;
 import cz.msebera.android.httpclient.Header;
 import kr.popcorn.sharoom.activity.Fragment.Host.Activity_host_view;
 import kr.popcorn.sharoom.activity.TabView.Activity_roading;
+import kr.popcorn.sharoom.activity.TabView.Activity_server_roading;
 
 /**
  * Created by user on 16. 3. 2.
@@ -141,10 +146,15 @@ public class Helper_room {
                 Log.d("Error : ", "myself " + throwable);
             }
         });
-
     }
 
-    public static void refreshRoomData(final String id) {
+    public static void refreshRoomData(final String id, final Context mContext) {
+
+        Intent intent = new Intent(mContext, Activity_server_roading.class);
+        intent.putExtra("main","서버와 연결 중입니다.");
+        mContext.startActivity(intent); // 서버 정보 받을 동안 보여줄 activity
+
+        final Activity_server_roading activity_server_roading = (Activity_server_roading) Activity_server_roading.activity_server_roading;
 
         final RequestParams idParams = new RequestParams("userID", id);
         Helper_server.post("data/getRoomData.php", idParams, new JsonHttpResponseHandler() {
@@ -181,9 +191,8 @@ public class Helper_room {
                         }
                         list.add(i, new Helper_roomData(roomNumber, userID, title, address,price,roomKind,roomInfo, fac, lat, lng, sDate,eDate, image[i], isClosed, rUserID) );
                     }
+                    ((Activity)Activity_server_roading.activity_server_roading).finish();
                     System.out.println("ListData finish");
-
-
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -193,6 +202,8 @@ public class Helper_room {
                 super.onFailure(statusCode, headers, responseString, throwable);
                 Log.d("Failed: ", "myself " + statusCode);
                 Log.d("Error : ", "myself " + throwable);
+                ((Activity)Activity_server_roading.activity_server_roading).finish();
+                Toast.makeText(mContext, "서버에 연결을 실패했습니다.", Toast.LENGTH_SHORT).show();
             }
         });
 

@@ -41,8 +41,6 @@ public class Activity_user_view extends FragmentActivity {
 
         mAdapter = new TestFragmentAdapter(getSupportFragmentManager());
         mPager.setAdapter(mAdapter);
-        mPager.setCurrentItem(1);
-
     }
 
     @Override
