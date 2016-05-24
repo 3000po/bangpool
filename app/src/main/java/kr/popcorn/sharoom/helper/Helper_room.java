@@ -194,7 +194,7 @@ public class Helper_room {
                         }
                         list.add(i, new Helper_roomData(roomNumber, userID, title, address,price,roomKind,roomInfo, fac, lat, lng, sDate,eDate, image[i], isClosed, rUserID) );
                     }
-                    ((Activity)Activity_server_roading.activity_server_roading).finish();
+                    //((Activity)Activity_server_roading.activity_server_roading).finish();
                     System.out.println("ListData finish");
                 } catch (JSONException e) {
                     e.printStackTrace();

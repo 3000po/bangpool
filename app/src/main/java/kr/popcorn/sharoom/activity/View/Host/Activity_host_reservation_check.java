@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -24,6 +25,8 @@ import java.util.GregorianCalendar;
 
 import kr.popcorn.sharoom.R;
 import kr.popcorn.sharoom.activity.Activity_profileView;
+import kr.popcorn.sharoom.helper.Helper_room;
+import kr.popcorn.sharoom.helper.Helper_roomData;
 
 /**
  * Created by parknature on 16. 5. 6..
@@ -39,10 +42,16 @@ public class Activity_host_reservation_check extends FragmentActivity {
 
     private String url = "http://i.imgur.com/DvpvklR.png";
 
+    private int imgLength;
+    private int roomnumber;
+    private int idx;
     private int position;
     private Spinner peopleNum;
     private Activity_profileView customDialog;
     private String today;
+
+    private Helper_roomData roomData;
+
 
     private int[] imgList = new int[] {
             R.drawable.room1, R.drawable.room2, R.drawable.room3, R.drawable.roomimg
@@ -59,12 +68,23 @@ public class Activity_host_reservation_check extends FragmentActivity {
         viewPager = (ViewPager)findViewById(R.id.pager);
         tvCount = (TextView) findViewById(R.id.tv_count);
 
-        position = getIntent().getIntExtra("idx",1);
+        position = 1;
+
+        roomnumber = getIntent().getExtras().getInt("roomNumber");  //룸 넘버
+        idx = Helper_room.search_index(roomnumber);
+        roomData = Helper_room.getInstance().list.get(idx);
+
+        imgLength = 0;
+        for(int i = 0; i< 8; i ++){
+            if(roomData.getImage().get(i).equals("http://14.63.227.200/0"))
+                break;
+            imgLength++;
+        }
 
         if (imgList.length > 1) {
             //if(imgList.size() > 1)
             //tvCount.setText(position + "/" + imgList.size());
-            tvCount.setText(position + " /" + imageResIds.length);
+            tvCount.setText(position + " /" + imgLength);
         } else {
             tvCount.setText("");
         }
@@ -84,7 +104,7 @@ public class Activity_host_reservation_check extends FragmentActivity {
             @Override
             public void onPageSelected(int position) {
                 //tvCount.setText(position + 1 + "/" + imgList.size());
-                tvCount.setText(position + 1 + " /" + imgList.length);
+                tvCount.setText(position + 1 + " /" + imgLength);
             }
 
             @Override
@@ -232,9 +252,10 @@ public class Activity_host_reservation_check extends FragmentActivity {
         ImageAdapter(Context context){
             this.context=context;
         }
+
         @Override
         public int getCount() {
-            return imgList.length;
+            return imgLength;
         }
 
         @Override
@@ -249,7 +270,7 @@ public class Activity_host_reservation_check extends FragmentActivity {
             imageView.setScaleType(ImageView.ScaleType.FIT_XY);
             //imageView.setImageResource(imgList[position]);
 
-            Glide.with(context).load(url).into(imageView);
+            Glide.with(context).load(roomData.getImage().get(position)).into(imageView);
 
             ((ViewPager) container).addView(imageView, 0);
 
