@@ -61,6 +61,7 @@ public class Activity_user_reservation extends FragmentActivity {
     private GlideFragmentAdapter listAdapter;
 
     private TextView tvCount, startDate, endDate;
+    private  TextView roomName;
     private int mYear, mMonth, mDay;
 
     private String url = "http://i.imgur.com/DvpvklR.png";
@@ -85,12 +86,6 @@ public class Activity_user_reservation extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reservation);
 
-
-        idx = getIntent().getExtras().getInt("index");  //룸 넘버
-        roomData = Helper_room.getInstance().list.get(idx);
-
-        idx = 0;
-
         rActivity = Activity_user_reservation.this;
 
         //imageview(view pager)
@@ -100,13 +95,25 @@ public class Activity_user_reservation extends FragmentActivity {
         callbutton = (Button) findViewById(R.id.callbutton);
         smsbutton = (Button) findViewById(R.id.smsbutton);
 
+        roomName = (TextView)findViewById(R.id.roomName);
+
         position = 1; //현재사진의 인덱스
+
+
+
+        idx = getIntent().getExtras().getInt("index");  //룸 넘버
+        roomData = Helper_room.getInstance().list.get(idx);
 
         if ( roomData.image.size() > 1) {
             tvCount.setText(position + " /" + roomData.image.size());
         } else {
             tvCount.setText("");
         }
+
+        roomName.setText(roomData.getTitle());
+        startDate.setText(roomData.getsDate());
+        endDate.setText(roomData.geteDate());
+
 
 
         listAdapter = new GlideFragmentAdapter( getSupportFragmentManager(), roomData.image);
@@ -256,6 +263,7 @@ public class Activity_user_reservation extends FragmentActivity {
                                                         e.printStackTrace();
                                                     }
                                                     if(reserv == true) {
+
                                                         Helper_room.refreshRoomData("refresh",Activity_user_reservation.this);
                                                         Intent finishReservIntent = new Intent(Activity_user_reservation.this, Activity_FinishReserv.class);
                                                         startActivity(finishReservIntent);
