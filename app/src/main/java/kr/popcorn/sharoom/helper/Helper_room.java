@@ -209,6 +209,25 @@ public class Helper_room {
 
     }
 
+    //룸 넘버의 list index 찾기
+    public static int search_index(int rn){
+        for(int i = 0 ; i < roomCount ; i++){
+            if(list.get(i).getRoomNumber() == rn)
+                return i;
+        }
+        Log.e("인덱스를 찾을 수 없습니다. ", "<search_index> "+ rn);
+        return -1;
+    }
+
+    //룸 넘버의 주인 찾기
+    public static int search_host(int rn){
+        for(int i = 0 ; i < roomCount ; i++){
+            if(list.get(i).getRoomNumber() == rn)
+                return list.get(i).getUserID();
+        }
+        Log.e("인덱스를 찾을 수 없습니다. ", "<search_host> "+ rn);
+        return -1;
+    }
 
     public static Helper_room getInstance(){
         return roomData;

@@ -39,8 +39,12 @@ public class Activity_user_view extends FragmentActivity {
     protected void onResume() {
         super.onResume();
 
+        int n = mPager.getCurrentItem();
+
+        mToptext.setText("방 리스트");
         mAdapter = new TestFragmentAdapter(getSupportFragmentManager());
         mPager.setAdapter(mAdapter);
+        mPager.setCurrentItem(n);
     }
 
     @Override
@@ -83,8 +87,7 @@ public class Activity_user_view extends FragmentActivity {
             public void onClick(View v) {
                 switch (v.getId()){
                     case R.id.mapMenu:
-                        mAdapter = new TestFragmentAdapter(getSupportFragmentManager());
-                        mPager.setAdapter(mAdapter);
+                        Helper_room.refreshRoomData("aa",Activity_user_view.this);
                         //Intent mapIntent = new Intent(Activity_user_view.this, Activity_mapMenu.class);
                         //startActivity(mapIntent);
                 }
@@ -113,10 +116,10 @@ public class Activity_user_view extends FragmentActivity {
                         mapMenu.setVisibility(View.VISIBLE);
                         break;
                     case 1 : mToptext.setText("예약 확인");
-                        //mapMenu.setVisibility(View.GONE);
+                        mapMenu.setVisibility(View.GONE);
                         break;
                     case 2 : mToptext.setText("내 정보");
-                        //mapMenu.setVisibility(View.GONE);
+                        mapMenu.setVisibility(View.GONE);
                         break;
                 }
             }
