@@ -92,6 +92,11 @@ public class Activity_user_reservation extends FragmentActivity {
         viewPager = (ViewPager)findViewById(R.id.pager);
         tvCount = (TextView) findViewById(R.id.tv_count);
 
+        startDate = (TextView) findViewById(R.id.startDate);
+        endDate = (TextView) findViewById(R.id.endDate);
+        reservationBtn = (RelativeLayout)findViewById(R.id.reservationBtn);
+
+
         callbutton = (Button) findViewById(R.id.callbutton);
         smsbutton = (Button) findViewById(R.id.smsbutton);
 
@@ -140,7 +145,6 @@ public class Activity_user_reservation extends FragmentActivity {
         p = new Paint();
         p.setColor(Color.rgb(32, 197, 137));
 
-        startDate = (TextView) findViewById(R.id.startDate);
         //SpannableString content = new SpannableString("2016/2/14");
         //content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
         //startDate.setHint("년/월/일");
@@ -149,7 +153,6 @@ public class Activity_user_reservation extends FragmentActivity {
 //      startDate.setText("2016/2/14");
 
 
-        endDate = (TextView) findViewById(R.id.endDate);
 
         Calendar cal = new GregorianCalendar();
         mYear = cal.get(Calendar.YEAR);
@@ -210,7 +213,6 @@ public class Activity_user_reservation extends FragmentActivity {
             }
         });
 
-        reservationBtn = (RelativeLayout)findViewById(R.id.reservationBtn);
         reservationBtn.setOnClickListener(new Button.OnClickListener() {
 
             @Override
