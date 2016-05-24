@@ -6,7 +6,6 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.graphics.drawable.StateListDrawable;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.AsyncTask;
@@ -88,6 +87,8 @@ public class Activity_host_infoRoom extends FragmentActivity {
         setContentView(R.layout.activity_room_info);
         SupportMapFragment supportMapFragment = (SupportMapFragment)
                 getSupportFragmentManager().findFragmentById(R.id.mapView);
+
+        //Helper_room.getInstance().list.get(0).address;
 
         // Getting a reference to the map
         googleMap = supportMapFragment.getMap();
@@ -172,7 +173,7 @@ public class Activity_host_infoRoom extends FragmentActivity {
 
         cFacilities = (LinearLayout)findViewById(R.id.ll_facilities);
         //cFacilities.setBackgroundResource(R.drawable.selector_facilitiesbtn);
-        Button fbtn = (Button)findViewById(R.id.facilitiesIcon);
+        /*Button fbtn = (Button)findViewById(R.id.facilitiesIcon);
         fbtn.setBackgroundResource(R.drawable.selector_facilitiesbtn);
         cFacilities.setOnClickListener(new OnClickListener() {
 
@@ -193,7 +194,7 @@ public class Activity_host_infoRoom extends FragmentActivity {
 
             }
 
-        });
+        });*/
 
         layout = (ViewGroup) findViewById(R.id.reservationBar);
         layout.setOnClickListener(new OnClickListener() {
