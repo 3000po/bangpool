@@ -1,6 +1,5 @@
 package kr.popcorn.sharoom.activity.View.User;
 
-import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -59,12 +58,7 @@ public class Activity_user_reservation_check extends FragmentActivity {
     private int roomnumber;
     private  int imgLength;
 
-    private int[] imgList = new int[] {
-            R.drawable.room1, R.drawable.room2, R.drawable.room3, R.drawable.roomimg
-    };
-    private final static Integer[] imageResIds = new Integer[] {
-            R.drawable.room1, R.drawable.room2, R.drawable.room3, R.drawable.roomimg};
-
+    private Helper_roomData roomData;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -90,23 +84,26 @@ public class Activity_user_reservation_check extends FragmentActivity {
 
         position=1; //현재 사진의 인덱스
 
-        Helper_roomData roomData = Helper_room.getInstance().list.get(idx);
-        imgLength = Helper_room.getInstance().list.get(idx).image.size();
+        roomData = Helper_room.getInstance().list.get(idx);
+        imgLength = 0;
 
-        roomName.setText(roomData.getTitle());
-        startDate.setText(roomData.getsDate());
-        endDate.setText(roomData.geteDate());
-
+        for(int i = 0; i< 8; i ++){
+            if(roomData.getImage().get(i).equals("http://14.63.227.200/0"))
+                break;
+            imgLength++;
+        }
 
         if (imgLength > 1) {
             //if(imgList.size() > 1)
             //tvCount.setText(position + "/" + imgList.size());
-            tvCount.setText(position + " /" + imageResIds.length);
+            tvCount.setText(position + " /" + imgLength);
         } else {
             tvCount.setText("");
         }
 
-
+        roomName.setText(roomData.getTitle());
+        startDate.setText(roomData.getsDate());
+        endDate.setText(roomData.geteDate());
 
         adapter = new ImageAdapter(this);
         viewPager.setAdapter(adapter);
@@ -165,34 +162,8 @@ public class Activity_user_reservation_check extends FragmentActivity {
         mDay = cal.get(Calendar.DAY_OF_MONTH);
         startDate.setText(String.format("%d/%d/%d", mYear, mMonth+1, mDay));
         endDate.setText(String.format("%d/%d/%d", mYear, mMonth+1, mDay));
-/*
-        //달력 입력을 받기 위한 다이얼로그
-        startDate.setOnClickListener(new TextView.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                switch(v.getId()){
-                    case R.id.startDate:
-                        new DatePickerDialog(Activity_user_reservation_check.this, mDateSetListener1, mYear, mMonth, mDay).show();
-                        break;
 
-                }
-            }
-        });
-
-        endDate.setOnClickListener(new TextView.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                switch(v.getId()){
-                    case R.id.endDate:
-                        new DatePickerDialog(Activity_user_reservation_check.this, mDateSetListener2, mYear, mMonth, mDay).show();
-                        break;
-
-                }
-            }
-        });
-
-*/
-        /*peopleNum = (Spinner)findViewById(R.id.peopleNum);
+  /*peopleNum = (Spinner)findViewById(R.id.peopleNum);
         List<String> list = new ArrayList<String>();
         list.add("1");
         list.add("2");
@@ -275,7 +246,7 @@ public class Activity_user_reservation_check extends FragmentActivity {
         }
         @Override
         public int getCount() {
-            return imgList.length;
+            return imgLength;
         }
 
         @Override
@@ -288,10 +259,11 @@ public class Activity_user_reservation_check extends FragmentActivity {
 
             ImageView imageView = new ImageView(context);
             imageView.setScaleType(ImageView.ScaleType.FIT_XY);
-            //imageView.setImageResource(imgList[position]);
 
+            Glide.with(context).load(roomData.getImage().get(position)).into(imageView);
 
             ((ViewPager) container).addView(imageView, 0);
+
 
             return imageView;
         }

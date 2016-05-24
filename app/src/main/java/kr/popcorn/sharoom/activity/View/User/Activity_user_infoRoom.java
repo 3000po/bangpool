@@ -86,6 +86,7 @@ public class Activity_user_infoRoom extends FragmentActivity {
     private Activity_FacillitiesInfo customDialog;
     private ViewGroup layout;
     private ImageAdapter adapter;
+    private Helper_roomData roomData;
     private ArrayList<String> mimage;
 
 
@@ -123,13 +124,19 @@ public class Activity_user_infoRoom extends FragmentActivity {
 
         position=1; //현재 사진의 인덱스
 
-        Helper_roomData roomData = Helper_room.getInstance().list.get(idx);
-        imgLength = Helper_room.getInstance().list.get(idx).image.size();
+        roomData = Helper_room.getInstance().list.get(idx);
+        imgLength = 0;
 
-        if ( imgLength > 1) {
+        for(int i = 0; i< 8; i ++){
+            if(roomData.getImage().get(i).equals("http://14.63.227.200/0"))
+                break;
+            imgLength++;
+        }
+
+        if (imgLength > 1) {
             //if(imgList.size() > 1)
             //tvCount.setText(position + "/" + imgList.size());
-            tvCount.setText( position + " /" + imgLength );
+            tvCount.setText(position + " /" + imgLength);
         } else {
             tvCount.setText("");
         }
@@ -165,11 +172,28 @@ public class Activity_user_infoRoom extends FragmentActivity {
         //listAdapter = new GlideFragmentAdapter( getSupportFragmentManager(), roomData.image);
 
         mimage = roomData.getImage();
-        Log.d("image", mimage.toString());
+
         adapter = new ImageAdapter(this);
 
         viewPager.setAdapter(adapter);
         viewPager.setCurrentItem(0);
+
+        imgLength = 0;
+        for(int i = 0; i< 8; i ++){
+            if(roomData.getImage().get(i).equals("http://14.63.227.200/0"))
+                break;
+            imgLength++;
+        }
+
+        if (imgLength > 1) {
+            //if(imgList.size() > 1)
+            //tvCount.setText(position + "/" + imgList.size());
+            tvCount.setText(position + " /" + imgLength);
+        } else {
+            tvCount.setText("");
+        }
+
+
 
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -236,18 +260,12 @@ public class Activity_user_infoRoom extends FragmentActivity {
         }
 
         @Override
-        public Object instantiateItem(ViewGroup container, int p) {
+        public Object instantiateItem(ViewGroup container, int position) {
 
             ImageView imageView = new ImageView(context);
             imageView.setScaleType(ImageView.ScaleType.FIT_XY);
 
-            //imageView.setImageBitmap((decodeSampledBitmapFromResource(getResources(), imgList[p], 100, 100)));
-            for(int i=0; i<mimage.size(); i++)
-            {
-                Glide.with(context).load(mimage.get(i).toString()).into(imageView);
-                Log.d("image111", mimage.get(i).toString());
-            }
-
+            Glide.with(context).load(roomData.getImage().get(position)).into(imageView);
 
             ((ViewPager) container).addView(imageView, 0);
 

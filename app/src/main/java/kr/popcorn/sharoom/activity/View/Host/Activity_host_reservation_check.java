@@ -1,13 +1,11 @@
 package kr.popcorn.sharoom.activity.View.Host;
 
-import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -52,13 +50,6 @@ public class Activity_host_reservation_check extends FragmentActivity {
 
     private Helper_roomData roomData;
 
-
-    private int[] imgList = new int[] {
-            R.drawable.room1, R.drawable.room2, R.drawable.room3, R.drawable.roomimg
-    };
-    private final static Integer[] imageResIds = new Integer[] {
-            R.drawable.room1, R.drawable.room2, R.drawable.room3, R.drawable.roomimg};
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -81,7 +72,7 @@ public class Activity_host_reservation_check extends FragmentActivity {
             imgLength++;
         }
 
-        if (imgList.length > 1) {
+        if (imgLength > 1) {
             //if(imgList.size() > 1)
             //tvCount.setText(position + "/" + imgList.size());
             tvCount.setText(position + " /" + imgLength);

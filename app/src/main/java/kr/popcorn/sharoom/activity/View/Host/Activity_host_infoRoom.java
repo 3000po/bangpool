@@ -24,6 +24,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
@@ -81,6 +82,8 @@ public class Activity_host_infoRoom extends FragmentActivity {
     //public ImageView cFacillities;
     private LinearLayout cFacilities;
     private ViewGroup layout;
+    private Helper_roomData roomData;
+    private ImageAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -122,16 +125,19 @@ public class Activity_host_infoRoom extends FragmentActivity {
 
         position=1; //현재 사진의 인덱스
 
+        roomData = Helper_room.getInstance().list.get(idx);
 
-        position=1; //현재 사진의 인덱스
-        Helper_roomData roomData = Helper_room.getInstance().list.get(idx);
-        imgLength = Helper_room.getInstance().list.get(idx).image.size();
-        System.out.println("address"+Helper_room.getInstance().list.get(idx).address + "idx " + idx);
+        imgLength = 0;
+        for(int i = 0; i< 8; i ++){
+            if(roomData.getImage().get(i).equals("http://14.63.227.200/0"))
+                break;
+            imgLength++;
+        }
 
-        if ( imgLength > 1) {
+        if (imgLength > 1) {
             //if(imgList.size() > 1)
             //tvCount.setText(position + "/" + imgList.size());
-            tvCount.setText( position + " /" + imgLength );
+            tvCount.setText(position + " /" + imgLength);
         } else {
             tvCount.setText("");
         }
@@ -168,8 +174,8 @@ public class Activity_host_infoRoom extends FragmentActivity {
         comment.setText(roomData.roomInfo);
         facilities.setText(roomData.fac);
 
-        listAdapter = new GlideFragmentAdapter( getSupportFragmentManager(), roomData.image);
-        viewPager.setAdapter(listAdapter);
+        adapter = new ImageAdapter(this);
+        viewPager.setAdapter(adapter);
         viewPager.setCurrentItem(0);
 
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -281,14 +287,12 @@ public class Activity_host_infoRoom extends FragmentActivity {
         }
 
         @Override
-        public Object instantiateItem(ViewGroup container, int p) {
+        public Object instantiateItem(ViewGroup container, int position) {
 
             ImageView imageView = new ImageView(context);
             imageView.setScaleType(ImageView.ScaleType.FIT_XY);
 
-            //imageView.setImageBitmap((decodeSampledBitmapFromResource(getResources(), imgList[p], 100, 100)));
-            //Glide.with(context).load("http://몰라씨").into(imageView);
-
+            Glide.with(context).load(roomData.getImage().get(position)).into(imageView);
 
             ((ViewPager) container).addView(imageView, 0);
 

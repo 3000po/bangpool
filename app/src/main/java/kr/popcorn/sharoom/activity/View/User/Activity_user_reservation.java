@@ -5,7 +5,6 @@ import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.net.Uri;
 import android.os.Bundle;
@@ -13,7 +12,6 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -31,7 +29,6 @@ import com.loopj.android.http.RequestParams;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
@@ -50,7 +47,6 @@ import me.yokeyword.imagepicker.adapter.GlideFragmentAdapter;
  */
 public class Activity_user_reservation extends FragmentActivity {
     private ViewPager viewPager;
-    private ViewPagerAdapter adapter;
     private ViewGroup requestBtn;
     private RelativeLayout reservationBtn;
 
@@ -75,7 +71,11 @@ public class Activity_user_reservation extends FragmentActivity {
     private Button smsbutton;
     private String today;
 
+
+    private  int imgLength;
     private Helper_roomData roomData;
+    private ImageAdapter adapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,13 +100,38 @@ public class Activity_user_reservation extends FragmentActivity {
 
         position = 1; //현재사진의 인덱스
 
+        roomData = Helper_room.getInstance().list.get(idx);
+        imgLength = 0;
+
+        for(int i = 0; i< 8; i ++){
+            if(roomData.getImage().get(i).equals("http://14.63.227.200/0"))
+                break;
+            imgLength++;
+        }
+
+        if (imgLength > 1) {
+            //if(imgList.size() > 1)
+            //tvCount.setText(position + "/" + imgList.size());
+            tvCount.setText(position + " /" + imgLength);
+        } else {
+            tvCount.setText("");
+        }
 
 
         idx = getIntent().getExtras().getInt("index");  //룸 넘버
         roomData = Helper_room.getInstance().list.get(idx);
+        imgLength = 0;
 
-        if ( roomData.image.size() > 1) {
-            tvCount.setText(position + " /" + roomData.image.size());
+        for(int i = 0; i< 8; i ++){
+            if(roomData.getImage().get(i).equals("http://14.63.227.200/0"))
+                break;
+            imgLength++;
+        }
+
+        if (imgLength > 1) {
+            //if(imgList.size() > 1)
+            //tvCount.setText(position + "/" + imgList.size());
+            tvCount.setText(position + " /" + imgLength);
         } else {
             tvCount.setText("");
         }
@@ -130,7 +155,7 @@ public class Activity_user_reservation extends FragmentActivity {
 
             @Override
             public void onPageSelected(int position) {
-                tvCount.setText(position + 1 + " /" + roomData.image.size());
+                tvCount.setText(position + 1 + " /" +  imgLength);
             }
 
             @Override
@@ -138,17 +163,11 @@ public class Activity_user_reservation extends FragmentActivity {
 
             }
         });
-        p = new Paint();
-        p.setColor(Color.rgb(32, 197, 137));
-
-        //SpannableString content = new SpannableString("2016/2/14");
-        //content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
-        //startDate.setHint("년/월/일");
 
 
-//      startDate.setText("2016/2/14");
-
-
+        adapter = new ImageAdapter(this);
+        viewPager.setAdapter(adapter);
+        viewPager.setCurrentItem(0);
 
         Calendar cal = new GregorianCalendar();
         mYear = cal.get(Calendar.YEAR);
@@ -346,50 +365,38 @@ public class Activity_user_reservation extends FragmentActivity {
                 }
             };
 
-    public class ViewPagerAdapter extends PagerAdapter {
-        // Declare Variables
+    public class ImageAdapter extends PagerAdapter {
         Context context;
-        ArrayList<String> list;
-        LayoutInflater inflater;
 
-        public ViewPagerAdapter(Context context, ArrayList<String> list) {
-            this.context = context;
-            this.list = list;
+        ImageAdapter(Context context){
+            this.context=context;
         }
-
         @Override
         public int getCount() {
-            return list.size();
+            return imgLength;
         }
 
         @Override
         public boolean isViewFromObject(View view, Object object) {
-            return view == ((RelativeLayout) object);
+            return view == ((ImageView) object);
         }
 
         @Override
         public Object instantiateItem(ViewGroup container, int position) {
 
-            // Declare Variables
-            ImageView imgflag;
-
             ImageView imageView = new ImageView(context);
             imageView.setScaleType(ImageView.ScaleType.FIT_XY);
 
-            Glide.with(context).load(list.get(position)).into(imageView);
-            Log.i("baba",list.get(position));
+            Glide.with(context).load(roomData.getImage().get(position)).into(imageView);
 
-            // Add viewpager_item.xml to ViewPager
-            ((ViewPager) container).addView(imageView);
+            ((ViewPager) container).addView(imageView, 0);
 
             return imageView;
         }
 
         @Override
         public void destroyItem(ViewGroup container, int position, Object object) {
-            // Remove viewpager_item.xml from ViewPager
-            ((ViewPager) container).removeView((RelativeLayout) object);
-
+            ((ViewPager) container).removeView((ImageView) object);
         }
     }
 
