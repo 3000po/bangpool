@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.View;
@@ -27,7 +28,7 @@ import kr.popcorn.sharoom.activity.Activity_profileView;
 /**
  * Created by parknature on 16. 5. 6..
  */
-public class Activity_host_reservation_check extends Activity {
+public class Activity_host_reservation_check extends FragmentActivity {
 
     private ViewPager viewPager;
     private ViewGroup requestBtn;
