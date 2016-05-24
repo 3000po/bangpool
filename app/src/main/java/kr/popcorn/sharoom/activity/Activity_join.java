@@ -48,6 +48,7 @@ public class Activity_join extends Activity {
     private Activity_personal_info_agree agreeDialog;
 
     private form_basic form_basic;
+
     class form_basic {
         EditText et_id;
         EditText et_password;
@@ -218,6 +219,8 @@ public class Activity_join extends Activity {
                         Toast.makeText(getApplicationContext(), "개인정보 수집 및 이름에 대한 동의에 동의해주세요.", Toast.LENGTH_SHORT).show();
                         return;
                     }
+
+
                     if(id_check_ok==false) {
                         RequestParams idParams = new RequestParams();
                         idParams.put("id", id);

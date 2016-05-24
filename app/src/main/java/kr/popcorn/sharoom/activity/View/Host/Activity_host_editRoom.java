@@ -32,6 +32,8 @@ import java.util.List;
 
 import cz.msebera.android.httpclient.Header;
 import kr.popcorn.sharoom.R;
+import kr.popcorn.sharoom.helper.Helper_room;
+import kr.popcorn.sharoom.helper.Helper_roomData;
 import kr.popcorn.sharoom.helper.Helper_server;
 import me.yokeyword.imagepicker.ImagePicker;
 import me.yokeyword.imagepicker.callback.CallbackForCamera;
@@ -72,6 +74,10 @@ public class Activity_host_editRoom extends Activity  implements View.OnClickLis
     private String today;
     private TextView toptext;
 
+    private int idx;
+    int position;
+    int imgLength;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -98,6 +104,11 @@ public class Activity_host_editRoom extends Activity  implements View.OnClickLis
 
         toptext.setText("방 수정하기");
 
+        idx = getIntent().getIntExtra("roomNumber",0);  //방리스트 인덱스
+        position=1; //현재 사진의 인덱스
+        Helper_roomData roomData = Helper_room.getInstance().list.get(idx);
+        imgLength = Helper_room.getInstance().list.get(idx).image.size();
+
 
         mImagePicker = new ImagePicker(this);
         loadData();
@@ -112,6 +123,12 @@ public class Activity_host_editRoom extends Activity  implements View.OnClickLis
         roomtype2 = (CheckBox) findViewById(R.id.ck_roomtype2);
         roomtype3 = (CheckBox) findViewById(R.id.ck_roomtype3);
         roomtype4 = (CheckBox) findViewById(R.id.ck_roomtype4);
+
+        et_title.setText(roomData.getTitle());
+        et_address.setText(roomData.getAddress());
+        et_price.setText(roomData.getPrice());
+        et_roomInfo.setText(roomData.getRoomInfo());
+        et_facilities.setText(roomData.fac);
 
         if(roomtype1.isChecked()==true)
         {
@@ -323,8 +340,11 @@ public class Activity_host_editRoom extends Activity  implements View.OnClickLis
         });
 
         tv_register = (TextView) findViewById(R.id.bottomtext);
+        tv_register.setText("수정 하기");
         tv_register.setOnClickListener(new TextView.OnClickListener(){
             public void onClick(View v) {
+
+                //TODO 기상아 여기가 수정하기 버튼이야
                 Log.d("buttonClick", "okokokokok");
                 for(int i=0; i<list.size(); i++){
                     Log.d("buttonList", list.get(i));
