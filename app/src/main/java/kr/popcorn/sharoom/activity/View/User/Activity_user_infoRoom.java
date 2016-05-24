@@ -65,7 +65,6 @@ public class Activity_user_infoRoom extends FragmentActivity {
     private Button btn_find;
 
     private GlideFragmentAdapter listAdapter;
-    private ImageAdapter adapter;
 
     private TextView tvCount;
     private TextView roomPrice;
@@ -149,9 +148,8 @@ public class Activity_user_infoRoom extends FragmentActivity {
         comment.setText(roomData.roomInfo);
         facilities.setText(roomData.fac);
 
-        //listAdapter = new GlideFragmentAdapter( getSupportFragmentManager(), facillitiesList);
-        adapter = new ImageAdapter(this);
-        viewPager.setAdapter(adapter);
+        listAdapter = new GlideFragmentAdapter( getSupportFragmentManager(), roomData.image);
+        viewPager.setAdapter(listAdapter);
         viewPager.setCurrentItem(0);
 
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -292,7 +290,7 @@ public class Activity_user_infoRoom extends FragmentActivity {
             imageView.setScaleType(ImageView.ScaleType.FIT_XY);
 
             //imageView.setImageBitmap((decodeSampledBitmapFromResource(getResources(), imgList[p], 100, 100)));
-            Glide.with(context).load("http://몰라씨").into(imageView);
+            //Glide.with(context).load("http://몰라씨").into(imageView);
 
 
             ((ViewPager) container).addView(imageView, 0);
