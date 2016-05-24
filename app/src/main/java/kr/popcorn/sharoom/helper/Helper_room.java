@@ -25,7 +25,7 @@ import kr.popcorn.sharoom.activity.TabView.Activity_roading;
 public class Helper_room {
 
     private static Helper_room roomData = null;
-    final static String baseURL = "14.63.227.200/";
+    final static String baseURL = "http://14.63.227.200/";
 
     public static ArrayList<Helper_roomData> list = new ArrayList<Helper_roomData>();
 
