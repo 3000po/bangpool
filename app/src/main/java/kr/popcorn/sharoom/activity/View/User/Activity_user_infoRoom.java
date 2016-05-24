@@ -6,7 +6,6 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.graphics.drawable.StateListDrawable;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.AsyncTask;
@@ -36,10 +35,7 @@ import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-import org.w3c.dom.Text;
-
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import kr.popcorn.sharoom.R;
@@ -207,7 +203,7 @@ public class Activity_user_infoRoom extends FragmentActivity {
             }
         });
 
-        cFacilities = (LinearLayout)findViewById(R.id.ll_facilities);
+        /*cFacilities = (LinearLayout)findViewById(R.id.ll_facilities);
         //cFacilities.setBackgroundResource(R.drawable.selector_facilitiesbtn);
         Button fbtn = (Button)findViewById(R.id.facilitiesIcon);
         fbtn.setBackgroundResource(R.drawable.selector_facilitiesbtn);
@@ -227,7 +223,7 @@ public class Activity_user_infoRoom extends FragmentActivity {
 
             }
 
-        });
+        });*/
 
         layout = (ViewGroup) findViewById(R.id.reservationBar);
         layout.setOnClickListener(new OnClickListener() {
