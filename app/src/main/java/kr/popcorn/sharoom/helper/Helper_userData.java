@@ -45,17 +45,6 @@ public class Helper_userData {
         this.isHost = isHost;
     }
 
-    public Helper_userData(int userID, String id, String name, String phoneNumber, String email, String facebook, String kakaotalk, int isHost) {
-        this.userID = userID;
-        this.id = id;
-        this.name = name;
-        this.phoneNumber = phoneNumber;
-        this.email = email;
-        this.facebook = facebook;
-        this.kakaotalk = kakaotalk;
-        this.isHost = isHost;
-    }
-
     public Helper_userData(int userID, String id, String name, String phoneNumber, String email, String facebook, String kakaotalk, String sessionKey, int isHost) {
         this.userID = userID;
         this.id = id;

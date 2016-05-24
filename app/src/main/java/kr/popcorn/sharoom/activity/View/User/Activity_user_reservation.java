@@ -26,8 +26,12 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.squareup.picasso.Picasso;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -41,6 +45,7 @@ import kr.popcorn.sharoom.activity.Activity_profileView;
 import kr.popcorn.sharoom.helper.Helper_room;
 import kr.popcorn.sharoom.helper.Helper_roomData;
 import kr.popcorn.sharoom.helper.Helper_server;
+import kr.popcorn.sharoom.helper.Helper_userData;
 import me.yokeyword.imagepicker.adapter.GlideFragmentAdapter;
 
 /**
@@ -64,6 +69,7 @@ public class Activity_user_reservation extends Activity {
     private Spinner peopleNum;
     private Activity_profileView customDialog;
     public static Activity_user_reservation rActivity;
+    public boolean reserv = false;
 
     private Button callbutton;
     private Button smsbutton;
@@ -223,18 +229,37 @@ public class Activity_user_reservation extends Activity {
                                         @Override
                                         public void onClick(DialogInterface dialog, int which) {
                                             RequestParams params = new RequestParams();
-                                            params.put("roomNumber", position);     //TODO 이 포지션이 룸넘버인지 확인해야 함.
-                                            Helper_server.post("data/reserv_room.php", params, new AsyncHttpResponseHandler() {
+                                            params.put("roomNumber", roomData.roomNumber);
+                                            params.put("userID", Helper_userData.getInstance().getUserID());
+                                            System.out.println("position" + roomData.roomNumber);
+                                            System.out.println("position" + roomData.isClosed);
+                                            System.out.println("position" + Helper_userData.getInstance().getUserID());
+
+                                            Helper_server.post("data/reserv_room.php", params, new JsonHttpResponseHandler() {
                                                 @Override
-                                                public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-                                                    System.out.println("statusCode "+statusCode);//statusCode 200
-                                                    Intent finishReservIntent = new Intent(Activity_user_reservation.this, Activity_FinishReserv.class);
-                                                    startActivity(finishReservIntent);
+                                                public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+
+                                                    try{
+                                                        String ok = response.get("ok").toString();
+                                                        if(ok.equals("true")) reserv =  true;
+                                                        else reserv = false;
+                                                    } catch(JSONException e){
+                                                        e.printStackTrace();
+                                                    }
+                                                    if(reserv == true) {
+                                                        Intent finishReservIntent = new Intent(Activity_user_reservation.this, Activity_FinishReserv.class);
+                                                        startActivity(finishReservIntent);
+                                                    }
+                                                    else{
+
+                                                    }
                                                 }
 
                                                 @Override
-                                                public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-                                                    System.out.println("sibalbalblabl_onFailure");
+                                                public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                                                    super.onFailure(statusCode, headers, responseString, throwable);
+                                                    Log.d("Failed: ", ""+statusCode);
+                                                    Log.d("Error : ", "" + throwable);
                                                 }
                                             });
                                         }
