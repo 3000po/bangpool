@@ -53,6 +53,7 @@ public class Activity_user_view extends FragmentActivity {
         setContentView(R.layout.main_user_view);
 
         Helper_userData data = Helper_userData.getInstance();
+
         System.out.println("aaaaa" + data.getId());
         Activity_login login = (Activity_login) Activity_login.login_Activity; //login_Activity_finish
         login.finish();

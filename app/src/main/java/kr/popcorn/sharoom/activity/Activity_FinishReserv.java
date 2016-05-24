@@ -8,6 +8,7 @@ import android.widget.Toast;
 
 import kr.popcorn.sharoom.R;
 import kr.popcorn.sharoom.activity.View.User.Activity_user_infoRoom;
+import kr.popcorn.sharoom.activity.View.User.Activity_user_reservation;
 
 public class Activity_FinishReserv extends Activity {
     private TextView checkReserv;
@@ -15,6 +16,7 @@ public class Activity_FinishReserv extends Activity {
 
     Activity_user_reservation activity = (Activity_user_reservation) Activity_user_reservation.rActivity;
     Activity_user_infoRoom rActivity = (Activity_user_infoRoom) Activity_user_infoRoom.rActivity;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -110,8 +110,6 @@ public class Activity_user_infoRoom extends FragmentActivity {
         comment = (TextView)findViewById(R.id.comment);
         facilities = (TextView)findViewById(R.id.facilities);
 
-        String main = getIntent().getExtras().getString("main");
-
         roomnumber = getIntent().getExtras().getInt("roomNumber");  //룸 넘버
         idx = Helper_room.search_index(roomnumber);
 
@@ -202,7 +200,7 @@ public class Activity_user_infoRoom extends FragmentActivity {
                     case R.id.reservationBar:
                         //Toast.makeText(MainActivity.this, "예약버튼이 눌렸습니다.", Toast.LENGTH_SHORT).show();
                         Intent reservationIntent = new Intent(Activity_user_infoRoom.this, Activity_user_reservation.class);
-                        reservationIntent.putExtra("listIndex", idx);
+                        reservationIntent.putExtra("index", idx);
                         startActivity(reservationIntent);
                         finish();
                 }
