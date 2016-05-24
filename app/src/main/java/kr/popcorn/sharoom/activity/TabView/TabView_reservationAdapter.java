@@ -111,14 +111,15 @@ public class TabView_reservationAdapter extends RecyclerView.Adapter<TabView_res
             String str = "" + mContext.getClass();
             if (str.contains("Activity_user_view")) {
                 Intent intent = new Intent(mContext, Activity_user_reservation_check.class);
+                intent.putExtra("roomNumber", list.get(getAdapterPosition()).getRoomNumber());
                 mContext.startActivity(intent);
+
             } else if (str.contains("Activity_host_view")) {
                 //방 상태에 따라 바로 예약확인 이냐 예약완료냐
                 Intent intent = new Intent(mContext, Activity_host_reservation_check.class);  // <- 예약 확인
+                intent.putExtra("roomNumber", list.get(getAdapterPosition()).getRoomNumber());
                 mContext.startActivity(intent);
 
-                //Intent intent = new Intent(mContext, Activity_host_reservation_check.class);  // <- 예약 완료
-                //mContext.startActivity(intent);
 
             }
         }

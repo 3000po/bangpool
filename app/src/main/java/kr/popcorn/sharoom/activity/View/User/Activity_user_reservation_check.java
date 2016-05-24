@@ -8,6 +8,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.View;
@@ -26,11 +27,13 @@ import java.util.GregorianCalendar;
 
 import kr.popcorn.sharoom.R;
 import kr.popcorn.sharoom.activity.Activity_profileView;
+import kr.popcorn.sharoom.helper.Helper_room;
+import kr.popcorn.sharoom.helper.Helper_roomData;
 
 /**
  * Created by parknature on 16. 5. 6..
  */
-public class Activity_user_reservation_check extends Activity {
+public class Activity_user_reservation_check extends FragmentActivity {
 
     private ViewPager viewPager;
     private ViewGroup requestBtn;
@@ -38,8 +41,12 @@ public class Activity_user_reservation_check extends Activity {
     private ImageAdapter adapter;
     private TextView tvCount, startDate, endDate;
     private int mYear, mMonth, mDay;
+    private TextView roomName;
 
     private String url = "http://i.imgur.com/DvpvklR.png";
+
+    private int idx;
+
 
     private int position;
     private Paint p;
@@ -48,6 +55,9 @@ public class Activity_user_reservation_check extends Activity {
 
     private Button callbutton;
     private Button smsbutton;
+
+    private int roomnumber;
+    private  int imgLength;
 
     private int[] imgList = new int[] {
             R.drawable.room1, R.drawable.room2, R.drawable.room3, R.drawable.roomimg
@@ -68,13 +78,35 @@ public class Activity_user_reservation_check extends Activity {
         callbutton = (Button) findViewById(R.id.callbutton);
         smsbutton = (Button) findViewById(R.id.smsbutton);
 
-        if (imgList.length > 1) {
+        roomName = (TextView)findViewById(R.id.roomName);
+
+
+        startDate = (TextView) findViewById(R.id.startDate);
+        endDate = (TextView) findViewById(R.id.endDate);
+
+
+        roomnumber = getIntent().getExtras().getInt("roomNumber");  //룸 넘버
+        idx = Helper_room.search_index(roomnumber);
+
+        position=1; //현재 사진의 인덱스
+
+        Helper_roomData roomData = Helper_room.getInstance().list.get(idx);
+        imgLength = Helper_room.getInstance().list.get(idx).image.size();
+
+        roomName.setText(roomData.getTitle());
+        startDate.setText(roomData.getsDate());
+        endDate.setText(roomData.geteDate());
+
+
+        if (imgLength > 1) {
             //if(imgList.size() > 1)
             //tvCount.setText(position + "/" + imgList.size());
             tvCount.setText(position + " /" + imageResIds.length);
         } else {
             tvCount.setText("");
         }
+
+
 
         adapter = new ImageAdapter(this);
         viewPager.setAdapter(adapter);
@@ -89,7 +121,7 @@ public class Activity_user_reservation_check extends Activity {
             @Override
             public void onPageSelected(int position) {
                 //tvCount.setText(position + 1 + "/" + imgList.size());
-                tvCount.setText(position + 1 + " /" + imgList.length);
+                tvCount.setText(position + 1 + " /" + imgLength);
             }
 
             @Override
@@ -127,9 +159,6 @@ public class Activity_user_reservation_check extends Activity {
                 }
             }
         });
-        startDate = (TextView) findViewById(R.id.startDate);
-        endDate = (TextView) findViewById(R.id.endDate);
-
         Calendar cal = new GregorianCalendar();
         mYear = cal.get(Calendar.YEAR);
         mMonth = cal.get(Calendar.MONTH);
@@ -261,7 +290,6 @@ public class Activity_user_reservation_check extends Activity {
             imageView.setScaleType(ImageView.ScaleType.FIT_XY);
             //imageView.setImageResource(imgList[position]);
 
-            Glide.with(context).load(url).into(imageView);
 
             ((ViewPager) container).addView(imageView, 0);
 

@@ -70,9 +70,9 @@ public final class TestFragment extends Fragment {
         Log.i("roomCount",""+ Helper_room.roomCount);
         for(int i=0; i< Helper_room.roomCount; i++){
             //roomList = Helper_room.getInstance().list;
-            if( Helper_room.getInstance().list.get(i).isClosed == 0 ) {
+            if( Helper_room.getInstance().list.get(i).isClosed == 0 && Helper_room.getInstance().list.get(i).getUserID() != Helper_userData.getInstance().getUserID()) {
                 roomList.add( Helper_room.getInstance().list.get(i) );
-            }else if( Helper_room.getInstance().list.get(i).getUserID() == Helper_userData.getInstance().getUserID() ){
+            }else if( Helper_room.getInstance().list.get(i).rUserID == Helper_userData.getInstance().getUserID() ){
                 reservList.add( Helper_room.getInstance().list.get(i) );
             }
         }

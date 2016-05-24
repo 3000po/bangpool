@@ -104,7 +104,6 @@ public class TabView_rentListAdapter extends RecyclerView.Adapter<TabView_rentLi
             //when user click the roomlist, it show the room information about index!!!
             Intent intent = new Intent(mContext, Activity_user_infoRoom.class);
             intent.putExtra("roomNumber", list.get(getAdapterPosition()).getRoomNumber());
-            Log.i("getRoomNumber()",""+ list.get(getAdapterPosition()).getRoomNumber());
             mContext.startActivity(intent);
         }
 
