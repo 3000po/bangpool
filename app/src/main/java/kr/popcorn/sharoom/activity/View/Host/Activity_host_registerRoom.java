@@ -46,6 +46,7 @@ import cz.msebera.android.httpclient.Header;
 import kr.popcorn.sharoom.R;
 import kr.popcorn.sharoom.activity.TabView.Activity_server_roading;
 import kr.popcorn.sharoom.helper.GlobalApplication;
+import kr.popcorn.sharoom.helper.Helper_room;
 import kr.popcorn.sharoom.helper.Helper_server;
 import kr.popcorn.sharoom.helper.Helper_userData;
 import me.yokeyword.imagepicker.ImagePicker;
@@ -364,7 +365,6 @@ public class Activity_host_registerRoom extends Activity  implements View.OnClic
         tv_register.setOnClickListener(new TextView.OnClickListener(){
             public void onClick(View v) {
 
-                startActivity(new Intent(getApplication(), Activity_server_roading.class)); // 서버 정보 받을 동안 보여줄 activity
 
                 Log.d("buttonClick", "okokokokok");
                 for(int i=0; i<list.size(); i++){
@@ -390,11 +390,14 @@ public class Activity_host_registerRoom extends Activity  implements View.OnClic
                 }
                 else{
                     Toast.makeText(Activity_host_registerRoom.this, "방유형을 선택해주세요.", Toast.LENGTH_LONG).show();
+                    return;
                 }
+
                 final String title = et_title.getText().toString();
                 final String address = et_address.getText().toString();
                 final String price = et_price.getText().toString();
                 final String roomKind = _roomKind;
+
                 Log.d("roomKindnString", roomKind);
 
                 final String roomInfo = et_roomInfo.getText().toString();
@@ -431,6 +434,11 @@ public class Activity_host_registerRoom extends Activity  implements View.OnClic
                     //endDate.setText(today);
                 }
                 else{
+
+                    Intent intent = new Intent(getApplication(), Activity_server_roading.class);
+                    intent.putExtra("main","등록중 입니다.");
+                    startActivity(intent); // 서버 정보 받을 동안 보여줄 activity
+
                     postImage(list, title, address, price, roomKind, roomInfo, sDate, eDate, mLat, mLng);
 
                     SharedPreferences mPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
@@ -636,10 +644,19 @@ public class Activity_host_registerRoom extends Activity  implements View.OnClic
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 System.out.println("statusCode "+statusCode);//statusCode 200
+                Toast.makeText(getApplicationContext(), "방 등록에 성공 하셨습니다.", Toast.LENGTH_LONG).show();
+                Helper_room.refreshRoomData("refresh");
+
+                Intent intent = new Intent(getApplication(), Activity_server_roading.class);
+                intent.putExtra("main","화면을 재구성 중입니다.");
+                startActivity(intent); // 서버 정보 받을 동안 보여줄 activity
+
             }
 
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+                Toast.makeText(getApplicationContext(), "방 등록이 실패 하셨습니다.", Toast.LENGTH_LONG).show();
+
                 System.out.println("sibalbalblabl_onFailure");
             }
         });

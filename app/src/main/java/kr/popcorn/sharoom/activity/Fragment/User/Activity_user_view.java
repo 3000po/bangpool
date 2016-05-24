@@ -36,6 +36,16 @@ public class Activity_user_view extends FragmentActivity {
     public static Activity AActivty;
 
     @Override
+    protected void onResume() {
+        super.onResume();
+
+        mAdapter = new TestFragmentAdapter(getSupportFragmentManager());
+        mPager.setAdapter(mAdapter);
+        mPager.setCurrentItem(1);
+
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_user_view);
@@ -179,3 +189,4 @@ public class Activity_user_view extends FragmentActivity {
         }
     }
 }
+

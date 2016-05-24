@@ -42,9 +42,19 @@ public class GlobalApplication extends Application {
         super.onCreate();
         mInstance = this;
         KakaoSDK.init(new KakaoSDKAdapter());
+        server_info = 0;
     }
 
     private String mGlobalString;
+    private int server_info;
+
+    public void setServer_info(int n){
+        server_info = n;
+    }
+
+    public int getServer_info(){
+        return  server_info;
+    }
 
     public String getGlobalString()
     {

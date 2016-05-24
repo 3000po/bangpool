@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -27,6 +28,15 @@ public class Activity_host_view extends FragmentActivity {
     TextView mToptext;
 
     private ImageView mapMenu;
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mAdapter = new H_TestFragmentAdapter(getSupportFragmentManager());
+        mPager.setAdapter(mAdapter);
+        Log.i("resume","adad");
+
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

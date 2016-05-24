@@ -33,6 +33,7 @@ public class Activity_server_roading extends Activity {
 
     private class splashhandler implements Runnable{
         public void run() {
+
             Activity_server_roading.this.finish(); // 로딩페이지 Activity Stack에서 제거
 
         }
