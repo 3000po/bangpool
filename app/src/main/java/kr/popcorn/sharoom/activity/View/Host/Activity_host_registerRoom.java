@@ -391,6 +391,7 @@ public class Activity_host_registerRoom extends Activity  implements View.OnClic
                 Log.d("roomKindnString", roomKind);
 
                 final String roomInfo = et_roomInfo.getText().toString();
+                final String fac = et_facilities.getText().toString();
                 String sDate = startDate.getText().toString();
                 String eDate = endDate.getText().toString();
                 final double mLat = lat;
@@ -416,7 +417,7 @@ public class Activity_host_registerRoom extends Activity  implements View.OnClic
                     //endDate.setText(today);
                 }
                 else{
-                    postImage(list, title, address, price, roomKind, roomInfo, sDate, eDate, mLat, mLng);
+                    postImage(list, title, address, price, roomKind, fac, roomInfo, sDate, eDate, mLat, mLng);
 
                     SharedPreferences mPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
                     SharedPreferences.Editor editor = mPref.edit();
@@ -585,7 +586,7 @@ public class Activity_host_registerRoom extends Activity  implements View.OnClic
     }
 
 
-    public void postImage(ArrayList<String> list, String title, String address, String price, String roomKind, String roomInfo, String sDate, String eDate, double mLat, double mLng){
+    public void postImage(ArrayList<String> list, String title, String address, String price,  String roomKind, String fac, String roomInfo, String sDate, String eDate, double mLat, double mLng){
 
         //아이디 가져옴.
         int userID = Helper_userData.getInstance().getUserID();
@@ -611,6 +612,7 @@ public class Activity_host_registerRoom extends Activity  implements View.OnClic
         params.put("address", address);
         params.put("price", price);
         params.put("roomKind", roomKind);
+        params.put("fac", fac);
         params.put("roomInfo", roomInfo);
         params.put("sDate", sDate);
         params.put("eDate", eDate);
