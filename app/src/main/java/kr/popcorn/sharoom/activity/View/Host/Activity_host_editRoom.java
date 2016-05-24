@@ -9,8 +9,11 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.location.Address;
+import android.location.Geocoder;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -38,6 +41,8 @@ import java.util.List;
 
 import cz.msebera.android.httpclient.Header;
 import kr.popcorn.sharoom.R;
+import kr.popcorn.sharoom.activity.TabView.Activity_server_roading;
+import kr.popcorn.sharoom.helper.GlobalApplication;
 import kr.popcorn.sharoom.helper.Helper_room;
 import kr.popcorn.sharoom.helper.Helper_roomData;
 import kr.popcorn.sharoom.helper.Helper_server;
@@ -73,6 +78,7 @@ public class Activity_host_editRoom extends Activity  implements View.OnClickLis
     private CheckBox roomtype1, roomtype2, roomtype3, roomtype4;
     private String mRoomKind[] = { "원룸", "하숙", "자취", "고시원" };
     private String _roomKind;
+    private double lat, lng;
 
     public TextView tv_register;
     private int mYear, mMonth, mDay;
@@ -80,6 +86,7 @@ public class Activity_host_editRoom extends Activity  implements View.OnClickLis
     private String start, end;
     private String today;
     private TextView toptext;
+
 
     private int idx;
     int position;
@@ -137,25 +144,6 @@ public class Activity_host_editRoom extends Activity  implements View.OnClickLis
         et_roomInfo.setText(roomData.getRoomInfo());
         et_facilities.setText(roomData.fac);
 
-        if(roomtype1.isChecked()==true)
-        {
-            _roomKind = mRoomKind[0];
-        }
-        else if(roomtype2.isChecked()==true)
-        {
-            _roomKind = mRoomKind[1];
-        }
-        else if(roomtype3.isChecked()==true)
-        {
-            _roomKind = mRoomKind[2];
-        }
-        else if(roomtype4.isChecked()==true)
-        {
-            _roomKind = mRoomKind[3];
-        }
-        else{
-            Toast.makeText(Activity_host_editRoom.this, "방유형을 선택해주세요.", Toast.LENGTH_LONG).show();
-        }
         et_title.setOnFocusChangeListener(new View.OnFocusChangeListener() {
                                               @Override
                                               public void onFocusChange(View v, boolean hasFocus) {
@@ -346,17 +334,100 @@ public class Activity_host_editRoom extends Activity  implements View.OnClickLis
             }
         });
 
+        String location = et_address.getText().toString();
+        GlobalApplication myApp = (GlobalApplication) getApplication();
+        myApp.setGlobalString(location);
+
+        Geocoder geocoder = new Geocoder(this);
+        Address addr;
+
+        try {
+            List<Address> listAddress = geocoder.getFromLocationName(location, 1);
+            if (listAddress.size() > 0) { // 주소값이 존재 하면
+                addr = listAddress.get(0); // Address형태로
+                //lat = (int) (addr.getLatitude() * 1E6);
+                //lng = (int) (addr.getLongitude() * 1E6);
+                lat = addr.getLatitude();
+                lng = addr.getLongitude();
+
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+
+
         tv_register = (TextView) findViewById(R.id.bottomtext);
         tv_register.setText("수정 하기");
         tv_register.setOnClickListener(new TextView.OnClickListener(){
             public void onClick(View v) {
 
-                //TODO 기상아 여기가 수정하기 버튼이야
+                startActivity(new Intent(getApplication(), Activity_server_roading.class)); // 서버 정보 받을 동안 보여줄 activity
+
                 Log.d("buttonClick", "okokokokok");
                 for(int i=0; i<list.size(); i++){
                     Log.d("buttonList", list.get(i));
                 }
-                //postImage(list);
+
+
+                if(roomtype1.isChecked())
+                {
+                    _roomKind = mRoomKind[0];
+                }
+                else if(roomtype2.isChecked())
+                {
+                    _roomKind = mRoomKind[1];
+                }
+                else if(roomtype3.isChecked())
+                {
+                    _roomKind = mRoomKind[2];
+                }
+                else if(roomtype4.isChecked())
+                {
+                    _roomKind = mRoomKind[3];
+                }
+                else{
+                    Toast.makeText(Activity_host_editRoom.this, "방유형을 선택해주세요.", Toast.LENGTH_LONG).show();
+                }
+                final String title = et_title.getText().toString();
+                final String address = et_address.getText().toString();
+                final String price = et_price.getText().toString();
+                final String roomKind = _roomKind;
+                Log.d("roomKindnString", roomKind);
+
+                final String roomInfo = et_roomInfo.getText().toString();
+                final String fac = et_facilities.getText().toString();
+                String sDate = startDate.getText().toString();
+                String eDate = endDate.getText().toString();
+                final double mLat = lat;
+                final double mLng = lng;
+
+                System.out.println(sDate);
+
+                System.out.println(eDate);
+                // Log.i("jihyun1", end);)
+
+                if(sDate == null) {
+                    startDate.setText(today);
+                    Toast.makeText(Activity_host_editRoom.this, "시작 날짜를 입력해주세요.", Toast.LENGTH_LONG).show();
+                }
+                else if(eDate == null)
+                {
+                    endDate.setText(today);
+                    Toast.makeText(Activity_host_editRoom.this, "종료 날짜를 입력해주세요.", Toast.LENGTH_LONG).show();
+                }
+                else if(sDate.compareTo(eDate)>0){
+                    Toast.makeText(Activity_host_editRoom.this, "입력 날짜를 확인해주세요.", Toast.LENGTH_LONG).show();
+                }
+                else{
+                    postImage(list, title, address, price, roomKind, fac, roomInfo, sDate, eDate, mLat, mLng);
+
+                    SharedPreferences mPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                    SharedPreferences.Editor editor = mPref.edit();
+                    editor.clear();
+                    editor.commit();
+                }
             }
         });
 
@@ -518,12 +589,14 @@ public class Activity_host_editRoom extends Activity  implements View.OnClickLis
         }
     }
 
-    public void postImage(ArrayList<String> list, String title, String address, String price, String roomKind, String roomInfo, String sDate, String eDate, double mLat, double mLng){
+    public void postImage(ArrayList<String> list, String title, String address, String price,  String roomKind, String fac, String roomInfo, String sDate, String eDate, double mLat, double mLng){
 
         //아이디 가져옴.
         int userID = Helper_userData.getInstance().getUserID();
         String storage = getFilesDir().toString();
         RequestParams params = new RequestParams();
+        params.put("roomNumber",  Helper_room.getInstance().list.get(idx).roomNumber);
+        System.out.println("aaaaaa" + Helper_room.getInstance().list.get(idx).roomNumber);
         params.put("userID",userID);
         params.put("size", list.size()); //이미지 크기.
 
@@ -544,13 +617,14 @@ public class Activity_host_editRoom extends Activity  implements View.OnClickLis
         params.put("address", address);
         params.put("price", price);
         params.put("roomKind", roomKind);
+        params.put("fac", fac);
         params.put("roomInfo", roomInfo);
         params.put("sDate", sDate);
         params.put("eDate", eDate);
         params.put("lat", mLat);
         params.put("lng", mLat);
 
-        Helper_server.post("data/insert_roomdata.php", params, new AsyncHttpResponseHandler() {
+        Helper_server.post("data/edit_roomdata.php", params, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 System.out.println("statusCode "+statusCode);//statusCode 200

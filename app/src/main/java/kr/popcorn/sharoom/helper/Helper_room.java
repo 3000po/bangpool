@@ -242,6 +242,8 @@ public class Helper_room {
                         list.add(i, new Helper_roomData(roomNumber, userID, title, address,price,roomKind,roomInfo, fac, lat, lng, sDate,eDate, image[i], isClosed, rUserID) );
                     }
                     System.out.println("ListData finish");
+
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
