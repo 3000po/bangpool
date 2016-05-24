@@ -82,7 +82,10 @@ public class Activity_user_reservation extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reservation);
 
-        idx = getIntent().getIntExtra("roomNumber",0);
+
+        idx = getIntent().getIntExtra("listIndex",0);
+        //roomnumber = getIntent().getExtras().getInt("roomNumber");  //룸 넘버
+
         roomData = Helper_room.getInstance().list.get(idx);
 
         rActivity = Activity_user_reservation.this;
@@ -247,11 +250,12 @@ public class Activity_user_reservation extends Activity {
                                                         e.printStackTrace();
                                                     }
                                                     if(reserv == true) {
+                                                        Helper_room.refreshRoomData("refresh",Activity_user_reservation.this);
                                                         Intent finishReservIntent = new Intent(Activity_user_reservation.this, Activity_FinishReserv.class);
                                                         startActivity(finishReservIntent);
                                                     }
                                                     else{
-
+                                                        //이미 예약되었습니다.
                                                     }
                                                 }
 

@@ -202,7 +202,7 @@ public class Activity_user_infoRoom extends FragmentActivity {
                     case R.id.reservationBar:
                         //Toast.makeText(MainActivity.this, "예약버튼이 눌렸습니다.", Toast.LENGTH_SHORT).show();
                         Intent reservationIntent = new Intent(Activity_user_infoRoom.this, Activity_user_reservation.class);
-                        reservationIntent.putExtra("roomNumber", idx);
+                        reservationIntent.putExtra("listIndex", idx);
                         startActivity(reservationIntent);
                         finish();
                 }
