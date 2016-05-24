@@ -165,9 +165,10 @@ public class Activity_user_infoRoom extends FragmentActivity {
         //listAdapter = new GlideFragmentAdapter( getSupportFragmentManager(), roomData.image);
 
         mimage = roomData.getImage();
+        Log.d("image", mimage.toString());
         adapter = new ImageAdapter(this);
 
-        viewPager.setAdapter(listAdapter);
+        viewPager.setAdapter(adapter);
         viewPager.setCurrentItem(0);
 
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -243,8 +244,8 @@ public class Activity_user_infoRoom extends FragmentActivity {
             //imageView.setImageBitmap((decodeSampledBitmapFromResource(getResources(), imgList[p], 100, 100)));
             for(int i=0; i<mimage.size(); i++)
             {
-                Glide.with(context).load(mimage.get(i)).into(imageView);
-
+                Glide.with(context).load(mimage.get(i).toString()).into(imageView);
+                Log.d("image111", mimage.get(i).toString());
             }
 
 

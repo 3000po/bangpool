@@ -45,7 +45,6 @@ import java.util.List;
 
 import cz.msebera.android.httpclient.Header;
 import kr.popcorn.sharoom.R;
-import kr.popcorn.sharoom.activity.TabView.Activity_server_roading;
 import kr.popcorn.sharoom.helper.GlobalApplication;
 import kr.popcorn.sharoom.helper.Helper_room;
 import kr.popcorn.sharoom.helper.Helper_server;
@@ -80,6 +79,7 @@ public class Activity_host_registerRoom extends Activity  implements View.OnClic
     private EditText et_facilities;
 
     public TextView tv_register;
+    public LinearLayout delete;
     private int mYear, mMonth, mDay;
     private TextView startDate, endDate;
     private CheckBox roomtype1, roomtype2, roomtype3, roomtype4;
@@ -361,6 +361,8 @@ public class Activity_host_registerRoom extends Activity  implements View.OnClic
             e.printStackTrace();
         }
         */
+        delete = (LinearLayout) findViewById(R.id.ll_delete);
+        delete.setVisibility(View.GONE);
 
         tv_register = (TextView) findViewById(R.id.bottomtext);
         tv_register.setOnClickListener(new TextView.OnClickListener(){
