@@ -16,6 +16,7 @@ public class Activity_FinishReserv extends Activity {
 
     Activity_user_reservation activity = (Activity_user_reservation) Activity_user_reservation.rActivity;
     Activity_user_infoRoom rActivity = (Activity_user_infoRoom) Activity_user_infoRoom.rActivity;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

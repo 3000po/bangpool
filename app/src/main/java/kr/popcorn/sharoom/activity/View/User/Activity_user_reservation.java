@@ -10,6 +10,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
@@ -51,11 +52,13 @@ import me.yokeyword.imagepicker.adapter.GlideFragmentAdapter;
 /**
  * Created by parknature on 16. 5. 6..
  */
-public class Activity_user_reservation extends Activity {
+public class Activity_user_reservation extends FragmentActivity {
     private ViewPager viewPager;
     private ViewPagerAdapter adapter;
     private ViewGroup requestBtn;
     private RelativeLayout reservationBtn;
+
+    private GlideFragmentAdapter listAdapter;
 
     private TextView tvCount, startDate, endDate;
     private int mYear, mMonth, mDay;
@@ -83,10 +86,10 @@ public class Activity_user_reservation extends Activity {
         setContentView(R.layout.activity_reservation);
 
 
-        idx = getIntent().getIntExtra("listIndex",0);
-        //roomnumber = getIntent().getExtras().getInt("roomNumber");  //룸 넘버
+        idx = getIntent().getExtras().getInt("index");  //룸 넘버
+        //roomData = Helper_room.getInstance().list.get(idx);
 
-        roomData = Helper_room.getInstance().list.get(idx);
+        idx = 0;
 
         rActivity = Activity_user_reservation.this;
 
@@ -105,7 +108,10 @@ public class Activity_user_reservation extends Activity {
             tvCount.setText("");
         }
 
-        adapter = new ViewPagerAdapter(getApplicationContext(), roomData.image);
+
+        listAdapter = new GlideFragmentAdapter( getSupportFragmentManager(), roomData.image);
+
+        viewPager.setAdapter(listAdapter);
         viewPager.setCurrentItem(0);
 
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {

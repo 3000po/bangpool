@@ -49,7 +49,7 @@ public class Activity_User_to_Host_animation extends Activity {
 
     private class splashhandler implements Runnable{
         public void run() {
-            Helper_room.refreshRoomData("good",Activity_User_to_Host_animation.this);    // 서버로 부터 데이터 다시 받아옴
+            //Helper_room.refreshRoomData("good",Activity_User_to_Host_animation.this);    // 서버로 부터 데이터 다시 받아옴
 
             startActivity(new Intent(getApplication(), Activity_host_view.class)); // 로딩이 끝난후 이동할 Activity
             Activity_User_to_Host_animation.this.finish(); // 로딩페이지 Activity Stack에서 제거
