@@ -28,7 +28,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -124,7 +128,7 @@ public class Activity_host_editRoom extends Activity  implements View.OnClickLis
         position=1; //현재 사진의 인덱스
         Helper_roomData roomData = Helper_room.getInstance().list.get(idx);
         imgLength = Helper_room.getInstance().list.get(idx).image.size();
-
+        final int roomNumber = roomData.roomNumber;
 
         mImagePicker = new ImagePicker(this);
         loadData();
@@ -365,6 +369,31 @@ public class Activity_host_editRoom extends Activity  implements View.OnClickLis
             @Override
             public void onClick(View v) {
 
+                RequestParams params = new RequestParams();
+                params.put("roomNumber", roomNumber);
+                System.out.println("roomNumber aaaa : " + roomNumber);
+                params.put("userID", Helper_userData.getInstance().getUserID());
+                System.out.println("userData aaaa : " + Helper_userData.getInstance().getUserID());
+                Helper_server.post("data/deleteRoom.php", params, new JsonHttpResponseHandler() {
+                    @Override
+                    public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+
+                        try{
+                            String ok= response.get("complite").toString();
+                            if( ok.equals("ok") ) System.out.println("삭제됬다"); //TODO 삭제시 이동 필요.
+
+                        } catch(JSONException e){
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                        super.onFailure(statusCode, headers, responseString, throwable);
+                        Log.d("Failed: ", ""+statusCode);
+                        Log.d("Error : ", "" + throwable);
+                    }
+                });
             }
         });
 
