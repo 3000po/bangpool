@@ -145,8 +145,7 @@ public class Activity_user_infoRoom extends FragmentActivity {
 
         address.setText(roomData.address);
         comment.setText(roomData.roomInfo);
-        facilities.setText( "차후 수정");
-
+        facilities.setText(roomData.fac);
 
         //listAdapter = new GlideFragmentAdapter( getSupportFragmentManager(), facillitiesList);
         adapter = new ImageAdapter(this);
@@ -291,7 +290,7 @@ public class Activity_user_infoRoom extends FragmentActivity {
             imageView.setScaleType(ImageView.ScaleType.FIT_XY);
 
             //imageView.setImageBitmap((decodeSampledBitmapFromResource(getResources(), imgList[p], 100, 100)));
-            Glide.with(context).load(url).into(imageView);
+            Glide.with(context).load("http://몰라씨").into(imageView);
 
 
             ((ViewPager) container).addView(imageView, 0);
