@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import kr.popcorn.sharoom.R;
 import kr.popcorn.sharoom.activity.Fragment.User.Activity_user_view;
+import kr.popcorn.sharoom.helper.GlobalApplication;
 import kr.popcorn.sharoom.helper.Helper_room;
 
 import static android.support.v4.app.ActivityCompat.startActivity;
@@ -36,6 +37,13 @@ public class Activity_server_roading extends Activity {
 
         progressBar.incrementProgressBy(1);
         main_text.setText(main);
+
+        GlobalApplication serverInfo = (GlobalApplication)getApplication();
+
+        if (serverInfo.getServer_info() == 1) {
+            serverInfo.setServer_info(0);
+            Activity_server_roading.this.finish(); // 로딩페이지 Activity Stack에서 제거
+        }
 
         Handler handler = new Handler();
         handler.postDelayed(new splashhandler(), 30000);

@@ -2,6 +2,7 @@ package kr.popcorn.sharoom.helper;
 
 
 import android.app.Activity;
+import android.app.Application;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -150,7 +151,7 @@ public class Helper_room {
         });
     }
 
-    public static void refreshRoomData(final String id, final Context mContext) {
+    public static void refreshRoomData(final String id, final Context mContext, final Application application) {
 
         Intent intent = new Intent(mContext, Activity_server_roading.class);
         intent.putExtra("main","서버와 연결 중입니다.");
@@ -194,7 +195,13 @@ public class Helper_room {
                         }
                         list.add(i, new Helper_roomData(roomNumber, userID, title, address,price,roomKind,roomInfo, fac, lat, lng, sDate,eDate, image[i], isClosed, rUserID) );
                     }
-                    //((Activity)Activity_server_roading.activity_server_roading).finish();
+                    if((Activity)Activity_server_roading.activity_server_roading == null) {
+                        Log.e("너무빨라","null");
+                        GlobalApplication serverInfo = (GlobalApplication)application;
+                        serverInfo.setServer_info(1);
+                    }
+                    else ((Activity)Activity_server_roading.activity_server_roading).finish();
+
                     System.out.println("ListData finish");
                 } catch (JSONException e) {
                     e.printStackTrace();

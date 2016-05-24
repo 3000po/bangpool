@@ -69,8 +69,14 @@ public class Activity_user_reservation extends FragmentActivity {
 
     private Button callbutton;
     private Button smsbutton;
-    private String today;
 
+    private TextView tv_hostName;
+
+    private String today;
+    private int hostID;
+    private String hostName;
+    private String hostPhone;
+    private String hostEmail;
 
     private  int imgLength;
     private Helper_roomData roomData;
@@ -92,11 +98,11 @@ public class Activity_user_reservation extends FragmentActivity {
         endDate = (TextView) findViewById(R.id.endDate);
         reservationBtn = (RelativeLayout)findViewById(R.id.reservationBtn);
 
-
         callbutton = (Button) findViewById(R.id.callbutton);
         smsbutton = (Button) findViewById(R.id.smsbutton);
 
         roomName = (TextView)findViewById(R.id.roomName);
+        tv_hostName = (TextView)findViewById(R.id.hostname);
 
         position = 1; //현재사진의 인덱스
 
@@ -136,11 +142,12 @@ public class Activity_user_reservation extends FragmentActivity {
             tvCount.setText("");
         }
 
+        hostID = roomData.getUserID();
         roomName.setText(roomData.getTitle());
         startDate.setText(roomData.getsDate());
         endDate.setText(roomData.geteDate());
 
-
+        seach_user_info(hostID);
 
         listAdapter = new GlideFragmentAdapter( getSupportFragmentManager(), roomData.image);
 
@@ -281,7 +288,7 @@ public class Activity_user_reservation extends FragmentActivity {
                                                     }
                                                     if(reserv == true) {
 
-                                                        Helper_room.refreshRoomData("refresh",Activity_user_reservation.this);
+                                                        Helper_room.refreshRoomData("refresh",Activity_user_reservation.this,getApplication());
                                                         Intent finishReservIntent = new Intent(Activity_user_reservation.this, Activity_FinishReserv.class);
                                                         finishReservIntent.putExtra("roomnumber", roomData.roomNumber);
                                                         startActivity(finishReservIntent);
@@ -329,6 +336,7 @@ public class Activity_user_reservation extends FragmentActivity {
                     case R.id.requestInfo:
                         //Toast.makeText(Activity_Reservation.this, "문의요청버튼 누름.", Toast.LENGTH_LONG).show();
                         customDialog = new Activity_profileView(Activity_user_reservation.this);
+                        customDialog.setProfile(hostName,hostPhone,hostEmail);
                         customDialog.setCanceledOnTouchOutside(true);
                         customDialog.show();
 
@@ -400,9 +408,8 @@ public class Activity_user_reservation extends FragmentActivity {
         }
     }
 
-    public void test(){
+    public void seach_user_info(int userID){
 
-        String userID = "find user id";
         RequestParams params = new RequestParams();
         params.put("userID", userID);
 
@@ -411,9 +418,12 @@ public class Activity_user_reservation extends FragmentActivity {
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
 
                 try{
-                    String name = response.get("name").toString();
-                    String phoneNumber = response.get("phoneNumber").toString();
-                    String email = response.get("email").toString();
+                    hostName = response.get("name").toString();
+                    hostPhone = response.get("phoneNumber").toString();
+                    hostEmail = response.get("email").toString();
+                    Log.d("hostName : ",hostName);
+
+                    tv_hostName.setText(hostName);
 
                 } catch(JSONException e){
                     e.printStackTrace();

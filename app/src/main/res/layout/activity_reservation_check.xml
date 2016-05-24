@@ -279,6 +279,29 @@
         </TextView>
     </RelativeLayout>
 
+    <!--취소 버튼-->
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/requestButtons"
+        android:id="@+id/cancelButtons"
+        android:layout_marginTop="10dp">
+
+        <LinearLayout
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <Button
+                android:id="@+id/cancel_button"
+                android:layout_width="240dp"
+                android:layout_height="50dp"
+                android:background="@drawable/btn_color_selector_red"
+                android:text="취소 하기"/>
+        </LinearLayout>
+    </RelativeLayout>
+
+
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
