@@ -12,6 +12,7 @@ import android.graphics.BitmapFactory;
 import android.location.Address;
 import android.location.Geocoder;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
@@ -27,6 +28,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.model.LatLng;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
@@ -84,6 +86,7 @@ public class Activity_host_registerRoom extends Activity  implements View.OnClic
     private LinearLayout registerBtn;
     private String mRoomKind[] = { "원룸", "하숙", "자취", "고시원" };
     private String _roomKind;
+    private LatLng latLng;
     private double lat, lng;
 
     @Override
@@ -134,7 +137,7 @@ public class Activity_host_registerRoom extends Activity  implements View.OnClic
                                                       imm.showSoftInput(et_title, InputMethodManager.SHOW_IMPLICIT);
                                                   } else {
                                                       et_title.setHint("주말 빌려드립니다! 연락주세요!");
-                                                    }
+                                                  }
                                               }
                                           }
         );
@@ -331,7 +334,7 @@ public class Activity_host_registerRoom extends Activity  implements View.OnClic
         }*/
 
         // Getting user input location
-        String location = et_address.getText().toString();
+        /*String location = et_address.getText().toString();
         GlobalApplication myApp = (GlobalApplication) getApplication();
         myApp.setGlobalString(location);
 
@@ -340,18 +343,22 @@ public class Activity_host_registerRoom extends Activity  implements View.OnClic
 
         try {
             List<Address> listAddress = geocoder.getFromLocationName(location, 1);
+            Log.d("addr", "1111");
             if (listAddress.size() > 0) { // 주소값이 존재 하면
                 addr = listAddress.get(0); // Address형태로
-                //lat = (int) (addr.getLatitude() * 1E6);
-                //lng = (int) (addr.getLongitude() * 1E6);
-                lat = addr.getLatitude();
-                lng = addr.getLongitude();
+                lat = (addr.getLatitude() * 1E6);
+                lng = (addr.getLongitude() * 1E6);
+                //lat = addr.getLatitude();
+                //lng = addr.getLongitude();
+                Log.d("addr", lat+"/"+lng);
+
+
 
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
-
+        */
 
         tv_register = (TextView) findViewById(R.id.bottomtext);
         tv_register.setOnClickListener(new TextView.OnClickListener(){
@@ -391,9 +398,16 @@ public class Activity_host_registerRoom extends Activity  implements View.OnClic
                 Log.d("roomKindnString", roomKind);
 
                 final String roomInfo = et_roomInfo.getText().toString();
-                final String fac = et_facilities.getText().toString();
                 String sDate = startDate.getText().toString();
                 String eDate = endDate.getText().toString();
+
+                GlobalApplication myApp = (GlobalApplication) getApplication();
+                myApp.setGlobalString(address);
+
+
+                if(address!=null && !address.equals("")){
+                    new GeocoderTask().execute(address);
+                }
                 final double mLat = lat;
                 final double mLng = lng;
 
@@ -417,7 +431,7 @@ public class Activity_host_registerRoom extends Activity  implements View.OnClic
                     //endDate.setText(today);
                 }
                 else{
-                    postImage(list, title, address, price, roomKind, fac, roomInfo, sDate, eDate, mLat, mLng);
+                    postImage(list, title, address, price, roomKind, roomInfo, sDate, eDate, mLat, mLng);
 
                     SharedPreferences mPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
                     SharedPreferences.Editor editor = mPref.edit();
@@ -586,7 +600,7 @@ public class Activity_host_registerRoom extends Activity  implements View.OnClic
     }
 
 
-    public void postImage(ArrayList<String> list, String title, String address, String price,  String roomKind, String fac, String roomInfo, String sDate, String eDate, double mLat, double mLng){
+    public void postImage(ArrayList<String> list, String title, String address, String price, String roomKind, String roomInfo, String sDate, String eDate, double mLat, double mLng){
 
         //아이디 가져옴.
         int userID = Helper_userData.getInstance().getUserID();
@@ -612,7 +626,6 @@ public class Activity_host_registerRoom extends Activity  implements View.OnClic
         params.put("address", address);
         params.put("price", price);
         params.put("roomKind", roomKind);
-        params.put("fac", fac);
         params.put("roomInfo", roomInfo);
         params.put("sDate", sDate);
         params.put("eDate", eDate);
@@ -630,6 +643,72 @@ public class Activity_host_registerRoom extends Activity  implements View.OnClic
                 System.out.println("sibalbalblabl_onFailure");
             }
         });
+    }
+    // An AsyncTask class for accessing the GeoCoding Web Service
+    final class GeocoderTask extends AsyncTask<String, Void, List<Address>> {
+
+        @Override
+        protected List<Address> doInBackground(String... locationName) {
+            // Creating an instance of Geocoder class
+            Geocoder geocoder = new Geocoder(getBaseContext());
+            List<Address> addresses = null;
+
+            try {
+                // Getting a maximum of 3 Address that matches the input text
+                addresses = geocoder.getFromLocationName(locationName[0], 3);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return addresses;
+        }
+
+
+        @Override
+        protected void onPostExecute(List<Address> addresses) {
+
+            if(addresses==null || addresses.size()==0){
+                Toast.makeText(getBaseContext(), "No Location found", Toast.LENGTH_SHORT).show();
+            }
+
+            // Adding Markers on Google Map for each matching address
+            for(int i=0;i<addresses.size();i++){
+
+                Address address = (Address) addresses.get(i);
+                //lat = address.getLatitude();
+                //lng = address.getLongitude(); //Latitude:위도, Longitude:경도
+                latLng = new LatLng(address.getLatitude(), address.getLongitude()); //Latitude:위도, Longitude:경도
+
+                //lat = (double)latLng.latitude;
+                lat = Double.parseDouble(String.valueOf(latLng.latitude));
+                lng = Double.parseDouble(String.valueOf(latLng.longitude));
+            }
+
+
+        }
+    }
+
+    // image resize!!!!!!
+    public static int calculateInSampleSize(
+            BitmapFactory.Options options, int reqWidth, int reqHeight) {
+        // Raw height and width of image
+        final int height = options.outHeight;
+        final int width = options.outWidth;
+        int inSampleSize = 1;
+
+        if (height > reqHeight || width > reqWidth) {
+
+            final int halfHeight = height / 2;
+            final int halfWidth = width / 2;
+
+            // Calculate the largest inSampleSize value that is a power of 2 and keeps both
+            // height and width larger than the requested height and width.
+            while ((halfHeight / inSampleSize) > reqHeight
+                    && (halfWidth / inSampleSize) > reqWidth) {
+                inSampleSize *= 2;
+            }
+        }
+
+        return inSampleSize;
     }
 
 
