@@ -80,6 +80,7 @@ public class Activity_host_editRoom extends Activity  implements View.OnClickLis
     private EditText et_roomInfo;
     private EditText et_facilities;
     private CheckBox roomtype1, roomtype2, roomtype3, roomtype4;
+
     private String mRoomKind[] = { "원룸", "하숙", "자취", "고시원" };
     private String _roomKind;
     private double lat, lng;
@@ -142,6 +143,8 @@ public class Activity_host_editRoom extends Activity  implements View.OnClickLis
         roomtype2 = (CheckBox) findViewById(R.id.ck_roomtype2);
         roomtype3 = (CheckBox) findViewById(R.id.ck_roomtype3);
         roomtype4 = (CheckBox) findViewById(R.id.ck_roomtype4);
+
+        roomtype1.setChecked(true);
 
         et_title.setText(roomData.getTitle());
         et_address.setText(roomData.getAddress());
@@ -408,26 +411,54 @@ public class Activity_host_editRoom extends Activity  implements View.OnClickLis
                     Log.d("buttonList", list.get(i));
                 }
 
-
+                int count = 0;
                 if(roomtype1.isChecked())
                 {
-                    _roomKind = mRoomKind[0];
+                    if(roomtype2.isChecked() || roomtype3.isChecked() || roomtype4.isChecked())
+                    {
+                        Toast.makeText(Activity_host_editRoom.this, "방유형을 한가지만 선택해주세요.", Toast.LENGTH_LONG).show();
+                        return;
+                    }
+                    else
+                        _roomKind = mRoomKind[0];
                 }
                 else if(roomtype2.isChecked())
                 {
-                    _roomKind = mRoomKind[1];
+
+                    if(roomtype1.isChecked() || roomtype3.isChecked() || roomtype4.isChecked())
+                    {
+                        Toast.makeText(Activity_host_editRoom.this, "방유형을 한가지만 선택해주세요.", Toast.LENGTH_LONG).show();
+                        return;
+                    }
+                    else
+                        _roomKind = mRoomKind[1];
                 }
                 else if(roomtype3.isChecked())
                 {
-                    _roomKind = mRoomKind[2];
+
+                    if(roomtype1.isChecked() || roomtype2.isChecked() || roomtype4.isChecked())
+                    {
+                        Toast.makeText(Activity_host_editRoom.this, "방유형을 한가지만 선택해주세요.", Toast.LENGTH_LONG).show();
+                        return;
+                    }
+                    else _roomKind = mRoomKind[2];
                 }
                 else if(roomtype4.isChecked())
                 {
-                    _roomKind = mRoomKind[3];
+
+                    if(roomtype1.isChecked() || roomtype2.isChecked() || roomtype3.isChecked())
+                    {
+                        Toast.makeText(Activity_host_editRoom.this, "방유형을 한가지만 선택해주세요.", Toast.LENGTH_LONG).show();
+                        return;
+                    }
+                    else _roomKind = mRoomKind[3];
                 }
-                else{
+                else if(!roomtype1.isChecked() && !roomtype2.isChecked() && !roomtype3.isChecked() && !roomtype4.isChecked()){
                     Toast.makeText(Activity_host_editRoom.this, "방유형을 선택해주세요.", Toast.LENGTH_LONG).show();
+                    return;
                 }
+                
+                Log.d("count", String.valueOf(count));
                 final String title = et_title.getText().toString();
                 final String address = et_address.getText().toString();
                 final String price = et_price.getText().toString();
