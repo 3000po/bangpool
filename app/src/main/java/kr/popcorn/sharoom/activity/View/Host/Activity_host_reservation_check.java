@@ -140,18 +140,6 @@ public class Activity_host_reservation_check extends FragmentActivity {
             }
         });
 
-
-        /*peopleNum = (Spinner)findViewById(R.id.peopleNum);
-        List<String> list = new ArrayList<String>();
-        list.add("1");
-        list.add("2");
-        list.add("3");
-        list.add("4");
-
-        ArrayAdapter<String> mMyadapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, list);
-        mMyadapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
-        peopleNum.setAdapter(mMyadapter);
-        */
         sureBtn = (RelativeLayout)findViewById(R.id.sure);
 
         sureBtn.setOnClickListener(new RelativeLayout.OnClickListener() {
