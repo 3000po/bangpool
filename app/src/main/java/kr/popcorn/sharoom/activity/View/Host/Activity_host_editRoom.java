@@ -732,10 +732,13 @@ public class Activity_host_editRoom extends Activity  implements View.OnClickLis
                 System.out.println("statusCode "+statusCode);//statusCode 200
                 Activity_host_editRoom.this.finish();
                 Helper_room.refreshRoomData("host_editRoom", getApplicationContext());
+                Toast.makeText(Activity_host_editRoom.this, "방 수정 성공.", Toast.LENGTH_LONG).show();
+
             }
 
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+                Toast.makeText(Activity_host_editRoom.this, "방 수정 실패.", Toast.LENGTH_LONG).show();
                 System.out.println("sibalbalblabl_onFailure");
             }
         });

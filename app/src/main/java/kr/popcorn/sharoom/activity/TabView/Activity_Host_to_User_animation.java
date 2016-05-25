@@ -10,6 +10,8 @@ import android.os.Handler;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+
 import kr.popcorn.sharoom.R;
 import kr.popcorn.sharoom.activity.Fragment.User.Activity_user_view;
 import kr.popcorn.sharoom.helper.Helper_room;
@@ -28,21 +30,28 @@ public class Activity_Host_to_User_animation extends Activity {
         text = (TextView)findViewById(R.id.maintext);
         loading_img = (ImageView)findViewById(R.id.loading_img);
 
+        Glide.with(this)
+                .load(R.drawable.home_gif)
+                .asGif()
+                .placeholder(R.drawable.home_gif)
+                .crossFade()
+                .into(loading_img);
+
         text.setText("유저 모드로 전환 중 입니다 ");
 
         Handler handler = new Handler();
         handler.postDelayed(new splashhandler(), 2000);
     }
-
-    @Override
-    public void onWindowFocusChanged(boolean hasFocus) {
-        super.onWindowFocusChanged(hasFocus);
-
-        loading_img = (ImageView)findViewById(R.id.loading_img);
-        loading_img.setBackgroundResource(R.drawable.roading_animation);
-        mAnimationDrawable_1 = (AnimationDrawable)loading_img.getBackground();
-        mAnimationDrawable_1.run();
-    }
+//
+//    @Override
+//    public void onWindowFocusChanged(boolean hasFocus) {
+//        super.onWindowFocusChanged(hasFocus);
+//
+//        loading_img = (ImageView)findViewById(R.id.loading_img);
+//        loading_img.setBackgroundResource(R.drawable.roading_animation);
+//        mAnimationDrawable_1 = (AnimationDrawable)loading_img.getBackground();
+//        mAnimationDrawable_1.run();
+//    }
 
     private class splashhandler implements Runnable{
         public void run() {

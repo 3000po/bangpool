@@ -7,6 +7,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
 import android.graphics.drawable.AnimationDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Base64;
@@ -17,6 +18,11 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.GlideDrawableImageViewTarget;
+
+import java.net.URI;
+import java.net.URL;
 import java.security.MessageDigest;
 
 import kr.popcorn.sharoom.R;
@@ -43,36 +49,22 @@ public class Activity_intro extends Activity {
         getAppKeyHash();
 
         boolean isLogined = false;
-/*
-        AsyncHttpClient client = Helper_server.getInstance();
-        final PersistentCookieStore myCookieStore = new PersistentCookieStore(this);
-        client.setCookieStore(myCookieStore);
 
-        //자동 로그인 파트.
-        //배치 변경 필요.
-        if (Helper_server.login(myCookieStore)) {
-            Log.i("abde", "what the!! ");
-            String id = Helper_server.getCookieValue(myCookieStore,"id");
-            open_UserView_Activity(id, getApplicationContext());
-            isLogined = true;
-        }else if( Session.getCurrentSession().isOpened() ) {
-            String id = Helper_server.getCookieValue(myCookieStore,"id");
-            open_UserView_Activity(id, getApplicationContext(),0);
-            isLogined = true;
-        }else
-        { //페이스북 자동로그인 파트
-            FacebookSdk.sdkInitialize(getApplicationContext());
-            AccessToken accessToken = AccessToken.getCurrentAccessToken();
-            if (accessToken == null) {
-                Log.d("abde", ">>>" + "Signed Out");
-            } else {
-                Log.d("abde", ">>>" + "Signed In");
-                String id = Helper_server.getCookieValue(myCookieStore,"id");
-                open_UserView_Activity(id, getApplicationContext(),1);
-                isLogined = true;
-            }
-        }
-*/
+        loading_img = (ImageView)findViewById(R.id.loading_img);
+//        GlideDrawableImageViewTarget imageViewTarget = new GlideDrawableImageViewTarget(loading_img);
+//
+//        Uri uri=Uri.parse("ic_action_notice");
+//        Z
+//        Glide.with(this).load(uri).asGif().into(loading_img);
+
+
+        Glide.with(this)
+                .load(R.drawable.home_gif)
+                .asGif()
+                .placeholder(R.drawable.home_gif)
+                .crossFade()
+                .into(loading_img);
+
         if( !isLogined ) {
             // 주 쓰레드를 실행
             start_thread();
@@ -167,18 +159,6 @@ public class Activity_intro extends Activity {
         }
 
     }
-
-
-    @Override
-    public void onWindowFocusChanged(boolean hasFocus) {
-        super.onWindowFocusChanged(hasFocus);
-
-        loading_img = (ImageView)findViewById(R.id.loading_img);
-        loading_img.setBackgroundResource(R.drawable.roading_animation);
-        mAnimationDrawable_1 = (AnimationDrawable)loading_img.getBackground();
-        mAnimationDrawable_1.run();
-    }
-
 
     //get App hash key
     private void getAppKeyHash() {
