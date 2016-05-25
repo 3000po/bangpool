@@ -38,31 +38,19 @@ public class Activity_server_roading extends Activity {
         progressBar.incrementProgressBy(1);
         main_text.setText(main);
 
-        int num = 1;
-        num = getIntent().getExtras().getInt("exit");  //룸 넘버
-        Log.e("refresh","rerere" + num);
-        if(num == 0) finish();
-
-        GlobalApplication serverInfo = (GlobalApplication)getApplication();
-
-        if (serverInfo.getServer_info() == 1) {
-            serverInfo.setServer_info(0);
-            Activity_server_roading.this.finish(); // 로딩페이지 Activity Stack에서 제거
-        }
-
         Handler handler = new Handler();
-        handler.postDelayed(new splashhandler(), 30000);
+        handler.postDelayed(new splashhandler(), 1000);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
 
-        int num = 1;
-        num = getIntent().getExtras().getInt("exit");  //룸 넘버
-
-        Log.e("refresh","rerere" + num);
-        if(num == 0) finish();
+//        int num = 1;
+//        num = getIntent().getExtras().getInt("exit");  //룸 넘버
+//
+//        Log.e("refresh","rerere" + num);
+//        if(num == 0) finish();
     }
 
     private class splashhandler implements Runnable{

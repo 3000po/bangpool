@@ -625,7 +625,7 @@ public class Activity_host_registerRoom extends Activity  implements View.OnClic
 
                 System.out.println("statusCode "+statusCode);//statusCode 200
                 Toast.makeText(Activity_host_registerRoom.this, "방 등록에 성공 하셨습니다.", Toast.LENGTH_LONG).show();
-                Helper_room.refreshRoomData("refresh", getApplication(), getApplication());
+                Helper_room.refreshRoomData("refresh", getApplicationContext());
 
                 finish();
             }

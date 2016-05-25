@@ -1,5 +1,6 @@
 package kr.popcorn.sharoom.activity.Fragment.Host;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -15,6 +16,7 @@ import com.loopj.android.http.AsyncHttpClient;
 import java.util.ArrayList;
 
 import kr.popcorn.sharoom.R;
+import kr.popcorn.sharoom.activity.TabView.Activity_server_roading;
 import kr.popcorn.sharoom.helper.Helper_room;
 import kr.popcorn.sharoom.helper.Helper_roomData;
 import kr.popcorn.sharoom.helper.Helper_server;
@@ -33,6 +35,7 @@ public class Activity_host_view extends FragmentActivity {
     protected void onResume() {
         super.onResume();
 
+        Log.e("host_onResume","bb");
         int n = mPager.getCurrentItem();
         mToptext.setText("방 리스트");
         mAdapter = new H_TestFragmentAdapter(getSupportFragmentManager());
@@ -46,6 +49,7 @@ public class Activity_host_view extends FragmentActivity {
         setContentView(R.layout.main_host_view);
 
         AsyncHttpClient client = Helper_server.getInstance();
+        Log.e("host_onCreate","aa");
 
         mAdapter = new H_TestFragmentAdapter(getSupportFragmentManager());
 
@@ -143,6 +147,7 @@ public class Activity_host_view extends FragmentActivity {
     private void init() {
     }
 
+    //취소 버튼
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         switch(keyCode) {
             case KeyEvent.KEYCODE_BACK:
@@ -151,6 +156,7 @@ public class Activity_host_view extends FragmentActivity {
                         .setMessage("종료 하시겠어요?")
                         .setPositiveButton("예", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int whichButton) {
+                               if((Activity) Activity_server_roading.activity_server_roading!=null) ((Activity)Activity_server_roading.activity_server_roading).finish();
                                 finish();
                             }
                         })
