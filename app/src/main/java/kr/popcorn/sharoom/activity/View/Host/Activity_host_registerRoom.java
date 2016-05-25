@@ -176,21 +176,6 @@ public class Activity_host_registerRoom extends Activity  implements View.OnClic
                 }
             }
         });
-        /*et_roomKind.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (hasFocus) {
-                    et_roomKind.setHint("");
-                    InputMethodManager imm = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
-                    imm.showSoftInput(et_roomKind, InputMethodManager.SHOW_IMPLICIT);
-
-                } else{
-                    et_roomKind.setHint("원룸, 자취방, 하숙집...etc");
-                }
-            }
-        });
-        */
-
         et_facilities.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
@@ -359,6 +344,7 @@ public class Activity_host_registerRoom extends Activity  implements View.OnClic
                 Log.d("roomKindnString", roomKind);
 
                 final String roomInfo = et_roomInfo.getText().toString();
+                final String fac = et_facilities.getText().toString();
                 String sDate = startDate.getText().toString();
                 String eDate = endDate.getText().toString();
 
@@ -390,9 +376,18 @@ public class Activity_host_registerRoom extends Activity  implements View.OnClic
                     Toast.makeText(Activity_host_registerRoom.this, "입력 날짜를 확인해주세요.", Toast.LENGTH_LONG).show();
                     //startDate.setText(today);
                     //endDate.setText(today);
-                }
-                else{
-                    postImage(list, title, address, price, roomKind, roomInfo, sDate, eDate, mLat, mLng);
+                }else if( list.size() < 1 ){
+                    Toast.makeText(Activity_host_registerRoom.this, "사진을 추가하세요!", Toast.LENGTH_LONG).show();
+                }else if( title.length() < 1 || title.contains("\'") || title.contains("\"")){
+                    Toast.makeText(Activity_host_registerRoom.this, "방 제목을 입력하세요! (방 제목에는 \'와 \"를 입력 할 수 없어요!", Toast.LENGTH_LONG).show();
+                }else if( address.length() < 1 || address.contains("\'") || address.contains("\"") ){
+                    Toast.makeText(Activity_host_registerRoom.this, "주소를 입력하세요! (주소에는 \'와 \"를 입력 할 수 없어요!", Toast.LENGTH_LONG).show();
+                }else if( price.length() < 1 || price.contains("\'") || price.contains("\"") ){
+                    Toast.makeText(Activity_host_registerRoom.this, "값을 입력하세요!", Toast.LENGTH_LONG).show();
+                }else if( roomInfo.length() < 1 || roomInfo.contains("\'") || roomInfo.contains("\"") ){
+                    Toast.makeText(Activity_host_registerRoom.this, "방 정보를 입력하세요! (방 정보에는 \'와 \"를 입력 할 수 없어요!", Toast.LENGTH_LONG).show();
+                }else{
+                    postImage(list, title, address, price, roomKind, roomInfo, fac, sDate, eDate, mLat, mLng);
                 }
             }
         });
@@ -453,7 +448,7 @@ public class Activity_host_registerRoom extends Activity  implements View.OnClic
 
                     @Override
                     public void onCancel(String imagePath) {
-                        Toast.makeText(getApplicationContext(), "실패..", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(Activity_host_registerRoom.this, "실패..", Toast.LENGTH_SHORT).show();
 
                         File tempFile = new File(imagePath);
                         if (tempFile.exists()) {
@@ -556,7 +551,7 @@ public class Activity_host_registerRoom extends Activity  implements View.OnClic
     }
 
 
-    public void postImage(ArrayList<String> list, String title, String address, String price, String roomKind, String roomInfo, String sDate, String eDate, double mLat, double mLng){
+    public void postImage(ArrayList<String> list, String title, String address, String price, String roomKind, String roomInfo, String fac, String sDate, String eDate, double mLat, double mLng){
 
         //아이디 가져옴.
         int userID = Helper_userData.getInstance().getUserID();
@@ -579,23 +574,6 @@ public class Activity_host_registerRoom extends Activity  implements View.OnClic
             }
         }
 
-        if( list.size() < 1 ){
-            Toast.makeText(getApplicationContext(), "사진을 추가하세요!", Toast.LENGTH_LONG);
-            return ;
-        }else if( title.length() < 1 || title.contains("\'") || title.contains("\"")){
-            Toast.makeText(getApplicationContext(), "방 제목을 입력하세요! (방 제목에는 \'와 \"를 입력 할 수 없어요!", Toast.LENGTH_LONG);
-            return ;
-        }else if( address.length() < 1 || address.contains("\'") || address.contains("\"") ){
-            Toast.makeText(getApplicationContext(), "주소를 입력하세요! (주소에는 \'와 \"를 입력 할 수 없어요!", Toast.LENGTH_LONG);
-            return ;
-        }else if( price.length() < 1 || price.contains("\'") || price.contains("\"") ){
-            Toast.makeText(getApplicationContext(), "값을 입력하세요!", Toast.LENGTH_LONG);
-            return ;
-        }else if( roomInfo.length() < 1 || roomInfo.contains("\'") || roomInfo.contains("\"") ){
-            Toast.makeText(getApplicationContext(), "방 정보를 입력하세요! (방 정보에는 \'와 \"를 입력 할 수 없어요!", Toast.LENGTH_LONG);
-            return ;
-        }
-
         params.put("title", title);
         params.put("address", address);
         params.put("price", price);
@@ -603,6 +581,7 @@ public class Activity_host_registerRoom extends Activity  implements View.OnClic
         params.put("roomInfo", roomInfo);
         params.put("sDate", sDate);
         params.put("eDate", eDate);
+        params.put("fac", fac);
         params.put("lat", mLat);
         params.put("lng", mLat);
 
@@ -621,7 +600,7 @@ public class Activity_host_registerRoom extends Activity  implements View.OnClic
                 progressDialog.dismiss();
 
                 System.out.println("statusCode "+statusCode);//statusCode 200
-                Toast.makeText(getApplicationContext(), "방 등록에 성공 하셨습니다.", Toast.LENGTH_LONG).show();
+                Toast.makeText(Activity_host_registerRoom.this, "방 등록에 성공 하셨습니다.", Toast.LENGTH_LONG).show();
                 Helper_room.refreshRoomData("refresh", getApplication(), getApplication());
 
                 finish();
@@ -634,7 +613,7 @@ public class Activity_host_registerRoom extends Activity  implements View.OnClic
 
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-                Toast.makeText(getApplicationContext(), "방 등록이 실패 하셨습니다.", Toast.LENGTH_LONG).show();
+                Toast.makeText(Activity_host_registerRoom.this, "방 등록이 실패 하셨습니다.", Toast.LENGTH_LONG).show();
                 progressDialog.dismiss();
                 System.out.println("sibalbalblabl_onFailure");
             }
@@ -663,7 +642,7 @@ public class Activity_host_registerRoom extends Activity  implements View.OnClic
         protected void onPostExecute(List<Address> addresses) {
 
             if(addresses==null || addresses.size()==0){
-                Toast.makeText(getBaseContext(), "No Location found", Toast.LENGTH_SHORT).show();
+                Toast.makeText(Activity_host_registerRoom.this, "No Location found", Toast.LENGTH_SHORT).show();
             }
 
             // Adding Markers on Google Map for each matching address
