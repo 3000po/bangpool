@@ -1,11 +1,16 @@
 package kr.popcorn.sharoom.activity.View.Host;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -17,14 +22,24 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.loopj.android.http.JsonHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
+import cz.msebera.android.httpclient.Header;
 import kr.popcorn.sharoom.R;
+import kr.popcorn.sharoom.activity.Activity_FinishReserv;
 import kr.popcorn.sharoom.activity.Activity_profileView;
+import kr.popcorn.sharoom.activity.Fragment.Host.Activity_host_view;
 import kr.popcorn.sharoom.helper.Helper_room;
 import kr.popcorn.sharoom.helper.Helper_roomData;
+import kr.popcorn.sharoom.helper.Helper_server;
+import kr.popcorn.sharoom.helper.Helper_userData;
 
 /**
  * Created by parknature on 16. 5. 6..
@@ -34,19 +49,27 @@ public class Activity_host_reservation_check extends FragmentActivity {
     private ViewPager viewPager;
     private ViewGroup requestBtn;
     private RelativeLayout sureBtn;
+    private Button callbutton;
+    private Button smsbutton;
     private ImageAdapter adapter;
     private TextView tvCount, startDate, endDate;
     private int mYear, mMonth, mDay;
 
-    private String url = "http://i.imgur.com/DvpvklR.png";
+    private Button cancel_button;
 
     private int imgLength;
     private int roomnumber;
     private int idx;
     private int position;
-    private Spinner peopleNum;
     private Activity_profileView customDialog;
+
+    private TextView tv_guestName;
+
     private String today;
+    private int guestID;
+    private String guestName;
+    private String guestPhone;
+    private String guestEmail;
 
     private Helper_roomData roomData;
 
@@ -58,12 +81,20 @@ public class Activity_host_reservation_check extends FragmentActivity {
         //imageview(view pager)
         viewPager = (ViewPager)findViewById(R.id.pager);
         tvCount = (TextView) findViewById(R.id.tv_count);
+        cancel_button = (Button) findViewById(R.id.cancel_button);
+        callbutton = (Button) findViewById(R.id.callbutton);
+        smsbutton = (Button) findViewById(R.id.smsbutton);
+
+        tv_guestName = (TextView)findViewById(R.id.hostname);
 
         position = 1;
 
         roomnumber = getIntent().getExtras().getInt("roomNumber");  //룸 넘버
         idx = Helper_room.search_index(roomnumber);
         roomData = Helper_room.getInstance().list.get(idx);
+
+        guestID = roomData.rUserID;
+        search_user_info(guestID);
 
         imgLength = 0;
         for(int i = 0; i< 8; i ++){
@@ -83,15 +114,11 @@ public class Activity_host_reservation_check extends FragmentActivity {
         adapter = new ImageAdapter(this);
         viewPager.setAdapter(adapter);
         viewPager.setCurrentItem(0);
-
-
-
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
             }
-
             @Override
             public void onPageSelected(int position) {
                 //tvCount.setText(position + 1 + "/" + imgList.size());
@@ -112,8 +139,8 @@ public class Activity_host_reservation_check extends FragmentActivity {
         mYear = cal.get(Calendar.YEAR);
         mMonth = cal.get(Calendar.MONTH);
         mDay = cal.get(Calendar.DAY_OF_MONTH);
-        startDate.setText(String.format("%d/%d/%d", mYear, mMonth+1, mDay));
-        endDate.setText(String.format("%d/%d/%d", mYear, mMonth+1, mDay));
+        startDate.setText(roomData.getsDate());
+        endDate.setText(roomData.geteDate());
 
         //달력 입력을 받기 위한 다이얼로그
         startDate.setOnClickListener(new TextView.OnClickListener() {
@@ -174,7 +201,6 @@ public class Activity_host_reservation_check extends FragmentActivity {
                         else finish();
                         break;
                 }
-
             }
 
         });
@@ -191,6 +217,87 @@ public class Activity_host_reservation_check extends FragmentActivity {
                         customDialog.setCanceledOnTouchOutside(true);
                         customDialog.show();
 
+                        break;
+                }
+            }
+        });
+
+        cancel_button.setOnClickListener(new Button.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                switch(v.getId()){
+                    case R.id.cancel_button:
+                        AlertDialog.Builder aDialog = new AlertDialog.Builder(Activity_host_reservation_check.this);
+                        aDialog.setTitle("예약 취소 하기"); //타이틀바 제목
+                        aDialog.setMessage("정말로 예약을 취소시키겠습니까?");
+
+                        aDialog.setPositiveButton("확인",
+                                new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        RequestParams params = new RequestParams();
+                                        params.put("roomNumber", roomData.roomNumber);
+
+                                        Helper_server.post("data/reserv_room.php", params, new JsonHttpResponseHandler() {
+                                            @Override
+                                            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+
+                                                try{
+                                                    String ok = response.get("ok").toString();
+                                                } catch(JSONException e){
+                                                    e.printStackTrace();
+                                                }
+                                                Helper_room.refreshRoomData("refresh",Activity_host_reservation_check.this,getApplication());
+                                                Intent finishReservIntent = new Intent(Activity_host_reservation_check.this, Activity_host_view.class);
+                                                finishReservIntent.putExtra("roomnumber", roomData.roomNumber);
+                                                startActivity(finishReservIntent);
+                                                finish();
+                                            }
+
+                                            @Override
+                                            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                                                super.onFailure(statusCode, headers, responseString, throwable);
+                                                Log.d("Failed: ", ""+statusCode);
+                                                Log.d("Error : ", "" + throwable);
+                                            }
+                                        });
+                                    }
+                                }).setNegativeButton("취소",
+                                new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        // 'No'
+                                        return;
+                                    }
+                                });
+                        aDialog.show();
+                        break;
+                }
+            }
+        });
+
+        callbutton.setOnClickListener(new Button.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                switch(v.getId()){
+                    case R.id.callbutton:
+                        Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:"+guestPhone));
+                        startActivity(intent);
+                        break;
+
+                }
+            }
+        });
+
+        smsbutton.setOnClickListener(new Button.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                switch(v.getId()){
+                    case R.id.smsbutton:
+                        Uri uri = Uri.parse("smsto:"+guestPhone);
+                        Intent it = new Intent(Intent.ACTION_SENDTO, uri);
+                        it.putExtra("sms_body", "The SMS text");
+                        startActivity(it);
                         break;
                 }
             }
@@ -262,4 +369,34 @@ public class Activity_host_reservation_check extends FragmentActivity {
         }
     }
 
+    public void search_user_info(int userID) {
+
+        RequestParams params = new RequestParams();
+        params.put("userID", userID);
+
+        Helper_server.post("data/getHostProfile.php", params, new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+
+                try {
+                    guestName = response.get("name").toString();
+                    guestPhone = response.get("phoneNumber").toString();
+                    guestEmail = response.get("email").toString();
+                    Log.d("guestName : ", guestName);
+
+                    tv_guestName.setText(guestName);
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                super.onFailure(statusCode, headers, responseString, throwable);
+                Log.d("Failed: ", "" + statusCode);
+                Log.d("Error : ", "" + throwable);
+            }
+        });
+    }
 }

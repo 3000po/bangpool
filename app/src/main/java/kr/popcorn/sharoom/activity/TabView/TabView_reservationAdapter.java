@@ -107,7 +107,6 @@ public class TabView_reservationAdapter extends RecyclerView.Adapter<TabView_res
 
         @Override
         public void onClick(View v) {
-
             String str = "" + mContext.getClass();
             if (str.contains("Activity_user_view")) {
                 Intent intent = new Intent(mContext, Activity_user_reservation_check.class);
@@ -119,8 +118,6 @@ public class TabView_reservationAdapter extends RecyclerView.Adapter<TabView_res
                 Intent intent = new Intent(mContext, Activity_host_reservation_check.class);  // <- 예약 확인
                 intent.putExtra("roomNumber", list.get(getAdapterPosition()).getRoomNumber());
                 mContext.startActivity(intent);
-
-
             }
         }
 

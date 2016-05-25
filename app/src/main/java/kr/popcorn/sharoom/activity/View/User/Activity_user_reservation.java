@@ -147,7 +147,8 @@ public class Activity_user_reservation extends FragmentActivity {
         startDate.setText(roomData.getsDate());
         endDate.setText(roomData.geteDate());
 
-        seach_user_info(hostID);
+        search_user_info(hostID);
+
 
         listAdapter = new GlideFragmentAdapter( getSupportFragmentManager(), roomData.image);
 
@@ -213,7 +214,7 @@ public class Activity_user_reservation extends FragmentActivity {
             public void onClick(View v) {
                 switch(v.getId()){
                     case R.id.callbutton:
-                        Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:010-1111-2222"));
+                        Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:"+hostPhone));
                         startActivity(intent);
                         break;
 
@@ -226,7 +227,7 @@ public class Activity_user_reservation extends FragmentActivity {
             public void onClick(View v) {
                 switch(v.getId()){
                     case R.id.smsbutton:
-                        Uri uri = Uri.parse("smsto:01064207202");
+                        Uri uri = Uri.parse("smsto:"+hostPhone);
                         Intent it = new Intent(Intent.ACTION_SENDTO, uri);
                         it.putExtra("sms_body", "The SMS text");
                         startActivity(it);
@@ -409,7 +410,7 @@ public class Activity_user_reservation extends FragmentActivity {
         }
     }
 
-    public void seach_user_info(int userID){
+    public void search_user_info(int userID){
 
         RequestParams params = new RequestParams();
         params.put("userID", userID);
@@ -438,10 +439,6 @@ public class Activity_user_reservation extends FragmentActivity {
                 Log.d("Error : ", "" + throwable);
             }
         });
-
-
-
-
     }
 
 
