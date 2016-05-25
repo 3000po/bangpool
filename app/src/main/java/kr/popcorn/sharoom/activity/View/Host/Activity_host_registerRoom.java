@@ -15,7 +15,6 @@ import android.location.Geocoder;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -317,21 +316,46 @@ public class Activity_host_registerRoom extends Activity  implements View.OnClic
 
                 if(roomtype1.isChecked())
                 {
-                    _roomKind = mRoomKind[0];
+                    if(roomtype2.isChecked() || roomtype3.isChecked() || roomtype4.isChecked())
+                    {
+                        Toast.makeText(Activity_host_registerRoom.this, "방유형을 한가지만 선택해주세요.", Toast.LENGTH_LONG).show();
+                        return;
+                    }
+                    else
+                        _roomKind = mRoomKind[0];
                 }
                 else if(roomtype2.isChecked())
                 {
-                    _roomKind = mRoomKind[1];
+
+                    if(roomtype1.isChecked() || roomtype3.isChecked() || roomtype4.isChecked())
+                    {
+                        Toast.makeText(Activity_host_registerRoom.this, "방유형을 한가지만 선택해주세요.", Toast.LENGTH_LONG).show();
+                        return;
+                    }
+                    else
+                        _roomKind = mRoomKind[1];
                 }
                 else if(roomtype3.isChecked())
                 {
-                    _roomKind = mRoomKind[2];
+
+                    if(roomtype1.isChecked() || roomtype2.isChecked() || roomtype4.isChecked())
+                    {
+                        Toast.makeText(Activity_host_registerRoom.this, "방유형을 한가지만 선택해주세요.", Toast.LENGTH_LONG).show();
+                        return;
+                    }
+                    else _roomKind = mRoomKind[2];
                 }
                 else if(roomtype4.isChecked())
                 {
-                    _roomKind = mRoomKind[3];
+
+                    if(roomtype1.isChecked() || roomtype2.isChecked() || roomtype3.isChecked())
+                    {
+                        Toast.makeText(Activity_host_registerRoom.this, "방유형을 한가지만 선택해주세요.", Toast.LENGTH_LONG).show();
+                        return;
+                    }
+                    else _roomKind = mRoomKind[3];
                 }
-                else{
+                else if(!roomtype1.isChecked() && !roomtype2.isChecked() && !roomtype3.isChecked() && !roomtype4.isChecked()){
                     Toast.makeText(Activity_host_registerRoom.this, "방유형을 선택해주세요.", Toast.LENGTH_LONG).show();
                     return;
                 }

@@ -411,7 +411,6 @@ public class Activity_host_editRoom extends Activity  implements View.OnClickLis
                     Log.d("buttonList", list.get(i));
                 }
 
-                int count = 0;
                 if(roomtype1.isChecked())
                 {
                     if(roomtype2.isChecked() || roomtype3.isChecked() || roomtype4.isChecked())
@@ -457,8 +456,8 @@ public class Activity_host_editRoom extends Activity  implements View.OnClickLis
                     Toast.makeText(Activity_host_editRoom.this, "방유형을 선택해주세요.", Toast.LENGTH_LONG).show();
                     return;
                 }
-                
-                Log.d("count", String.valueOf(count));
+
+
                 final String title = et_title.getText().toString();
                 final String address = et_address.getText().toString();
                 final String price = et_price.getText().toString();
