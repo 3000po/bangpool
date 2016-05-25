@@ -3,10 +3,10 @@ package kr.popcorn.sharoom.activity;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -19,8 +19,6 @@ import org.json.JSONObject;
 
 import cz.msebera.android.httpclient.Header;
 import kr.popcorn.sharoom.R;
-import kr.popcorn.sharoom.helper.Helper_checker;
-import kr.popcorn.sharoom.helper.Helper_find;
 import kr.popcorn.sharoom.helper.Helper_server;
 
 /**
@@ -45,8 +43,47 @@ public class Activity_find extends Activity {
         et_find_password_id = (EditText) findViewById(R.id.et_find_password_id);
         et_find_password_email = (EditText) findViewById(R.id.et_find_password_email);
 
+        et_find_id_email.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+                                           @Override
+                                           public void onFocusChange(View v, boolean hasFocus) {
+                                               if (hasFocus) {
+                                                   et_find_id_email.setHint("");
+                                                   InputMethodManager imm = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
+                                                   imm.showSoftInput(et_find_id_email, InputMethodManager.SHOW_IMPLICIT);
+                                               } else
+                                                   et_find_id_email.setHint("아이디를 입력하세요");
+                                           }
+                                       }
+        );
+
+        et_find_password_id.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+                                                      @Override
+                                                      public void onFocusChange(View v, boolean hasFocus) {
+                                                          if (hasFocus) {
+                                                              et_find_password_id.setHint("");
+                                                              InputMethodManager imm = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
+                                                              imm.showSoftInput(et_find_password_id, InputMethodManager.SHOW_IMPLICIT);
+                                                          } else
+                                                              et_find_password_id.setHint("아이디를 입력하세요");
+                                                      }
+                                                  }
+        );
+
+        et_find_password_email.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+                                                      @Override
+                                                      public void onFocusChange(View v, boolean hasFocus) {
+                                                          if (hasFocus) {
+                                                              et_find_password_email.setHint("");
+                                                              InputMethodManager imm = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
+                                                              imm.showSoftInput(et_find_password_email, InputMethodManager.SHOW_IMPLICIT);
+                                                          } else
+                                                              et_find_password_email.setHint("아이디를 입력하세요");
+                                                      }
+                                                  }
+        );
 
         btn_id_find = (Button) findViewById(R.id.btn_find_id);
+
         btn_id_find.setOnClickListener(new Button.OnClickListener(){
             @Override
             public void onClick(View v) {
