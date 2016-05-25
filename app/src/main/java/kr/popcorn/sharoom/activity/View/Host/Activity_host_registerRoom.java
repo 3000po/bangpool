@@ -323,60 +323,12 @@ public class Activity_host_registerRoom extends Activity  implements View.OnClic
             }
         });
 
-        /*
-        //시작날짜 끝날짜를 모두 입력 받은 후에 끝날짜가 시작날짜보다 빠르면 알림
-        if(flag1==1 && flag2==1 &&(startDate.toString().compareTo(endDate.toString())<0)){
-            AlertDialog.Builder alert = new AlertDialog.Builder(Activity_host_registerRoom.this);
-            alert.setTitle("달력");
-            alert.setMessage("입력 날짜를 확인해주세요.");
-            alert.setPositiveButton("확인", new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int which) {
-                    startDate.setText(String.format("%d/%d/%d", mYear, mMonth+1, mDay));
-                    endDate.setText(String.format("%d/%d/%d", mYear, mMonth+1, mDay));
-                }
-            });
-            alert.show();
-        }*/
-
-        // Getting user input location
-        /*String location = et_address.getText().toString();
-        GlobalApplication myApp = (GlobalApplication) getApplication();
-        myApp.setGlobalString(location);
-
-        Geocoder geocoder = new Geocoder(this);
-        Address addr;
-
-        try {
-            List<Address> listAddress = geocoder.getFromLocationName(location, 1);
-            Log.d("addr", "1111");
-            if (listAddress.size() > 0) { // 주소값이 존재 하면
-                addr = listAddress.get(0); // Address형태로
-                lat = (addr.getLatitude() * 1E6);
-                lng = (addr.getLongitude() * 1E6);
-                //lat = addr.getLatitude();
-                //lng = addr.getLongitude();
-                Log.d("addr", lat+"/"+lng);
-
-
-
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        */
         delete = (LinearLayout) findViewById(R.id.ll_delete);
         delete.setVisibility(View.GONE);
 
         tv_register = (TextView) findViewById(R.id.bottomtext);
         tv_register.setOnClickListener(new TextView.OnClickListener(){
             public void onClick(View v) {
-
-
-                Log.d("buttonClick", "okokokokok");
-                for(int i=0; i<list.size(); i++){
-                    Log.d("buttonList", list.get(i));
-                }
-
 
                 if(roomtype1.isChecked())
                 {
@@ -440,12 +392,12 @@ public class Activity_host_registerRoom extends Activity  implements View.OnClic
                     //endDate.setText(today);
                 }
                 else{
+                    SharedPreferences.Editor edt = getSharedPreferences("room",0).edit();
+                    // 저장
+                    edt.putInt("picCount", 0);
+                    // 수행
+                    edt.commit();
                     postImage(list, title, address, price, roomKind, roomInfo, sDate, eDate, mLat, mLng);
-
-                    SharedPreferences mPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-                    SharedPreferences.Editor editor = mPref.edit();
-                    editor.clear();
-                    editor.commit();
                 }
             }
         });
@@ -652,6 +604,12 @@ public class Activity_host_registerRoom extends Activity  implements View.OnClic
         Helper_server.post("data/insert_roomdata.php", params, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                SharedPreferences.Editor edt = getSharedPreferences("room",0).edit();
+                // 저장
+                edt.putInt("picCount", 0);
+                // 수행
+                edt.commit();
+
                 progressDialog.dismiss();
 
                 System.out.println("statusCode "+statusCode);//statusCode 200
