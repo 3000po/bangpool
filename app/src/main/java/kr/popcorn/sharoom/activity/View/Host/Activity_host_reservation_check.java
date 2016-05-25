@@ -22,6 +22,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
@@ -238,9 +239,9 @@ public class Activity_host_reservation_check extends FragmentActivity {
                                         RequestParams params = new RequestParams();
                                         params.put("roomNumber", roomData.roomNumber);
 
-                                        Helper_server.post("data/cancel_reserv.php", params, new JsonHttpResponseHandler() {
+                                        Helper_server.post("data/cancel_reserv.php", params, new AsyncHttpResponseHandler() {
                                             @Override
-                                            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                                            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                                                 Helper_room.refreshRoomData("refresh",Activity_host_reservation_check.this,getApplication());
                                                 Intent finishReservIntent = new Intent(Activity_host_reservation_check.this, Activity_host_view.class);
                                                 finishReservIntent.putExtra("roomnumber", roomData.roomNumber);
@@ -249,10 +250,8 @@ public class Activity_host_reservation_check extends FragmentActivity {
                                             }
 
                                             @Override
-                                            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-                                                super.onFailure(statusCode, headers, responseString, throwable);
-                                                Log.d("Failed: ", ""+statusCode);
-                                                Log.d("Error : ", "" + throwable);
+                                            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+                                                System.out.println("sibalbalblabl_onFailure");
                                             }
                                         });
                                     }

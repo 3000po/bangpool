@@ -87,7 +87,6 @@ public class Activity_user_infoRoom extends FragmentActivity {
     private ViewGroup layout;
     private ImageAdapter adapter;
     private Helper_roomData roomData;
-    private ArrayList<String> mimage;
 
 
     @Override
@@ -99,8 +98,6 @@ public class Activity_user_infoRoom extends FragmentActivity {
 
         // Getting a reference to the map
         googleMap = supportMapFragment.getMap();
-        // Getting reference to btn_find of the layout activity_main
-        //btn_find = (Button) findViewById(R.id.map_button);
 
         //imageview(view pager)
         viewPager = (ViewPager)findViewById(R.id.pager);
@@ -171,8 +168,6 @@ public class Activity_user_infoRoom extends FragmentActivity {
         }
         //listAdapter = new GlideFragmentAdapter( getSupportFragmentManager(), roomData.image);
 
-        mimage = roomData.getImage();
-
         adapter = new ImageAdapter(this);
 
         viewPager.setAdapter(adapter);
@@ -204,7 +199,7 @@ public class Activity_user_infoRoom extends FragmentActivity {
             @Override
             public void onPageSelected(int position) {
                 //tvCount.setText(position + 1 + "/" + imgList.size());
-                tvCount.setText(position + 1 + " /" + mimage.size());
+                tvCount.setText(position + 1 + " /" + imgLength );
             }
 
             @Override
@@ -251,7 +246,7 @@ public class Activity_user_infoRoom extends FragmentActivity {
         }
         @Override
         public int getCount() {
-            return mimage.size();
+            return imgLength;
         }
 
         @Override
