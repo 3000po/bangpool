@@ -144,13 +144,29 @@ public class Activity_host_editRoom extends Activity  implements View.OnClickLis
         roomtype3 = (CheckBox) findViewById(R.id.ck_roomtype3);
         roomtype4 = (CheckBox) findViewById(R.id.ck_roomtype4);
 
-        roomtype1.setChecked(true);
-
         et_title.setText(roomData.getTitle());
         et_address.setText(roomData.getAddress());
         et_price.setText(roomData.getPrice());
         et_roomInfo.setText(roomData.getRoomInfo());
         et_facilities.setText(roomData.fac);
+        _roomKind = roomData.roomKind;
+
+        if(mRoomKind[0].equals(_roomKind))
+        {
+            roomtype1.setChecked(true);
+        }
+        else if(mRoomKind[1].equals(_roomKind))
+        {
+            roomtype2.setChecked(true);
+        }
+        else if(mRoomKind[2].equals(_roomKind))
+        {
+            roomtype3.setChecked(true);
+        }
+        else if(mRoomKind[3].equals(_roomKind))
+        {
+            roomtype4.setChecked(true);
+        }
 
         et_title.setOnFocusChangeListener(new View.OnFocusChangeListener() {
                                               @Override
