@@ -180,8 +180,6 @@ public class TabView_myself extends LinearLayout {
                                     int userID = Helper_userData.getInstance().getUserID();
                                     final String phone = edit_phone.getText().toString();
                                     final String email = edit_email.getText().toString();
-                                    Log.d("aaaaaa",""+userID);
-                                    Log.d("aaaaaa",email);
 
                                     //알림 뜨게 추가.
                                     if(phone.equals(""))
@@ -191,7 +189,6 @@ public class TabView_myself extends LinearLayout {
                                     idParams.put("userID", userID);
                                     idParams.put("phone", phone);
                                     idParams.put("email", email);
-                                    //TODO 카톡이랑 페이스북 아이디 넣기
 
                                     Helper_server.post("editmyself.php", idParams, new AsyncHttpResponseHandler() {
                                         @Override

@@ -643,13 +643,31 @@ public class Activity_host_editRoom extends Activity  implements View.OnClickLis
             String imagePath = storage + i+".jpg";
 
             try{
-                params.put("file" + i, SaveBitmapToFileCache(decodeUri(getApplicationContext(), Uri.fromFile(new File(list.get(i))), 100), imagePath));
+                params.put("file" + i, SaveBitmapToFileCache(decodeUri(getApplicationContext(), Uri.fromFile(new File(list.get(i))), 500), imagePath));
                 //params.put("path", "aaa");
             }
             catch(FileNotFoundException e){
                 System.out.println("sibalbal fileNotFound");
             }
         }
+
+        if( list.size() < 1 ){
+            Toast.makeText(getApplicationContext(), "사진을 추가하세요!", Toast.LENGTH_LONG);
+            return ;
+        }else if( title.length() < 1 || title.contains("\'") || title.contains("\"")){
+            Toast.makeText(getApplicationContext(), "방 제목을 입력하세요! (방 제목에는 \'와 \"를 입력 할 수 없어요!", Toast.LENGTH_LONG);
+            return ;
+        }else if( address.length() < 1 || address.contains("\'") || address.contains("\"") ){
+            Toast.makeText(getApplicationContext(), "주소를 입력하세요! (주소에는 \'와 \"를 입력 할 수 없어요!", Toast.LENGTH_LONG);
+            return ;
+        }else if( price.length() < 1 || price.contains("\'") || price.contains("\"") ){
+            Toast.makeText(getApplicationContext(), "값을 입력하세요!", Toast.LENGTH_LONG);
+            return ;
+        }else if( roomInfo.length() < 1 || roomInfo.contains("\'") || roomInfo.contains("\"") ){
+            Toast.makeText(getApplicationContext(), "방 정보를 입력하세요! (방 정보에는 \'와 \"를 입력 할 수 없어요!", Toast.LENGTH_LONG);
+            return ;
+        }
+
         params.put("title", title);
         params.put("address", address);
         params.put("price", price);
