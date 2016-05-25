@@ -238,7 +238,7 @@ public class Activity_host_reservation_check extends FragmentActivity {
                                         RequestParams params = new RequestParams();
                                         params.put("roomNumber", roomData.roomNumber);
 
-                                        Helper_server.post("data/reserv_room.php", params, new JsonHttpResponseHandler() {
+                                        Helper_server.post("data/cancel_reserv.php", params, new JsonHttpResponseHandler() {
                                             @Override
                                             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
 
