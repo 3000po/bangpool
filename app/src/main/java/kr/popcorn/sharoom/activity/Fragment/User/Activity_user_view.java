@@ -85,7 +85,7 @@ public class Activity_user_view extends FragmentActivity {
             public void onClick(View v) {
                 switch (v.getId()){
                     case R.id.mapMenu:
-                        Helper_room.refreshRoomData("aa",Activity_user_view.this,getApplication());
+                        Helper_room.refreshRoomData("aa",getApplicationContext(),getApplication());
                         //Intent mapIntent = new Intent(Activity_user_view.this, Activity_mapMenu.class);
                         //startActivity(mapIntent);
                 }

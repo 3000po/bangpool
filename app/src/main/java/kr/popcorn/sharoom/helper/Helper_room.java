@@ -153,8 +153,9 @@ public class Helper_room {
 
     public static void refreshRoomData(final String id, final Context mContext, final Application application) {
 
-        Intent intent = new Intent(mContext, Activity_server_roading.class);
+        Intent intent = new Intent(application, Activity_server_roading.class);
         intent.putExtra("main","서버와 연결 중입니다.");
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_SINGLE_TOP);
         mContext.startActivity(intent); // 서버 정보 받을 동안 보여줄 activity
 
         final RequestParams idParams = new RequestParams("userID", id);
@@ -196,8 +197,12 @@ public class Helper_room {
                     }
                     if((Activity)Activity_server_roading.activity_server_roading == null) {
                         Log.e("너무빨라","null");
-                        GlobalApplication serverInfo = (GlobalApplication)application;
-                        serverInfo.setServer_info(1);
+                        //GlobalApplication serverInfo = (GlobalApplication)application;
+                        //serverInfo.setServer_info(1);
+                        Intent intent = new Intent(mContext, Activity_server_roading.class);
+                        intent.putExtra("exit",0);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                        mContext.startActivity(intent); // 서버 정보 받을 동안 보여줄 activity
                     }
                     else ((Activity)Activity_server_roading.activity_server_roading).finish();
 
