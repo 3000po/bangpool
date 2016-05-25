@@ -192,7 +192,7 @@ public class Helper_room {
                                 addImage(i, imageUrl);
                         }
                         list.add(i, new Helper_roomData(roomNumber, userID, title, address,price,roomKind,roomInfo, fac, lat, lng, sDate,eDate, image[i], isClosed, rUserID) );
-                        //Log.e("img url",""+image[i].get(0));
+                        Log.e("img url",""+image[i].get(0));
                     }
                     if((Activity)Activity_server_roading.activity_server_roading == null) {
                         Log.e("너무빨라","null");
