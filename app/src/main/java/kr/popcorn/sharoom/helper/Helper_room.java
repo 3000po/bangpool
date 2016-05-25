@@ -157,8 +157,6 @@ public class Helper_room {
         intent.putExtra("main","서버와 연결 중입니다.");
         mContext.startActivity(intent); // 서버 정보 받을 동안 보여줄 activity
 
-        final Activity_server_roading activity_server_roading = (Activity_server_roading) Activity_server_roading.activity_server_roading;
-
         final RequestParams idParams = new RequestParams("userID", id);
         Helper_server.post("data/getRoomData.php", idParams, new JsonHttpResponseHandler() {
             @Override
@@ -194,6 +192,7 @@ public class Helper_room {
                                 addImage(i, imageUrl);
                         }
                         list.add(i, new Helper_roomData(roomNumber, userID, title, address,price,roomKind,roomInfo, fac, lat, lng, sDate,eDate, image[i], isClosed, rUserID) );
+                        Log.e("img url",""+image[i].get(0));
                     }
                     if((Activity)Activity_server_roading.activity_server_roading == null) {
                         Log.e("너무빨라","null");

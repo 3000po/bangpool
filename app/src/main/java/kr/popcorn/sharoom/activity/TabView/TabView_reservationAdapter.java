@@ -59,7 +59,9 @@ public class TabView_reservationAdapter extends RecyclerView.Adapter<TabView_res
         //myface.setImageBitmap(getCircleBitmap(face));
 
         //holder.myface.setImageResource(R.drawable.ic_action_mapview_m);
+       // Glide.with(mContext).load(list.get(position).image.get(0)).override(800,600).into(holder.roomimage);
         Glide.with(mContext).load(list.get(position).image.get(0)).into(holder.roomimage);
+
         holder.roomname.setText(list.get(position).title);
     }
 

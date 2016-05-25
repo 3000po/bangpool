@@ -59,7 +59,7 @@ public class Helper_roomPicListAdapter extends RecyclerView.Adapter<Helper_roomP
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         try{
-            Bitmap bitmap = decodeUri(mContext,  Uri.fromFile(new File(list.get(position))), 100);
+            Bitmap bitmap = decodeUri(mContext,  Uri.fromFile(new File(list.get(position))), 500);
             //Picasso.with(mContext).load(bitmap).into(holder.roompic);
             holder.roompic.setImageBitmap(bitmap);
         }catch( FileNotFoundException e){

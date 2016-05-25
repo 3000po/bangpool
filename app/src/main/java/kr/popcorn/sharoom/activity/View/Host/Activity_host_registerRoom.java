@@ -59,8 +59,11 @@ import me.yokeyword.imagepicker.callback.CallbackForImagePicker;
 
 //방을 등록하기 위한 액티비티
 public class Activity_host_registerRoom extends Activity  implements View.OnClickListener{
+
     public final int MAX_SIZE=7;
     public final int PICK_THE_ALBUM=1;
+
+    private  int imageView_Size = 500;
 
     private ArrayList<String> list;
     private ImagePicker mImagePicker;
@@ -595,7 +598,7 @@ public class Activity_host_registerRoom extends Activity  implements View.OnClic
 
         if( list.size() > 0 ) {
             try {
-                Bitmap bitmap = decodeUri(getApplicationContext(), Uri.fromFile(new File(list.get(0))), 100);
+                Bitmap bitmap = decodeUri(getApplicationContext(), Uri.fromFile(new File(list.get(0))), imageView_Size);
                 picButton.setImageBitmap(bitmap);
             }catch (FileNotFoundException e){
                 Log.e("ddddd","fuck");
@@ -621,13 +624,14 @@ public class Activity_host_registerRoom extends Activity  implements View.OnClic
             String imagePath = storage + i+".jpg";
 
             try{
-                params.put("file" + i, SaveBitmapToFileCache(decodeUri(getApplicationContext(), Uri.fromFile(new File(list.get(i))), 100), imagePath));
+                params.put("file" + i, SaveBitmapToFileCache(decodeUri(getApplicationContext(), Uri.fromFile(new File(list.get(i))), imageView_Size), imagePath));
                 //params.put("path", "aaa");
             }
             catch(FileNotFoundException e){
                 System.out.println("sibalbal fileNotFound");
             }
         }
+
         params.put("title", title);
         params.put("address", address);
         params.put("price", price);

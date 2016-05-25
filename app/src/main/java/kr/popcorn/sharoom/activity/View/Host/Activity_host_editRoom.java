@@ -46,7 +46,6 @@ import java.util.List;
 
 import cz.msebera.android.httpclient.Header;
 import kr.popcorn.sharoom.R;
-import kr.popcorn.sharoom.activity.TabView.Activity_server_roading;
 import kr.popcorn.sharoom.helper.GlobalApplication;
 import kr.popcorn.sharoom.helper.Helper_room;
 import kr.popcorn.sharoom.helper.Helper_roomData;
@@ -401,8 +400,6 @@ public class Activity_host_editRoom extends Activity  implements View.OnClickLis
         tv_register.setText("수정 하기");
         tv_register.setOnClickListener(new TextView.OnClickListener(){
             public void onClick(View v) {
-
-                startActivity(new Intent(getApplication(), Activity_server_roading.class)); // 서버 정보 받을 동안 보여줄 activity
 
                 Log.d("buttonClick", "okokokokok");
                 for(int i=0; i<list.size(); i++){
