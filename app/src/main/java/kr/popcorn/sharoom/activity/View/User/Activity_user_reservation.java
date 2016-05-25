@@ -275,18 +275,15 @@ public class Activity_user_reservation extends FragmentActivity {
                                             RequestParams params = new RequestParams();
                                             params.put("roomNumber", roomData.roomNumber);
                                             params.put("userID", Helper_userData.getInstance().getUserID());
-<<<<<<< HEAD
                                             params.put("rsDate", sDate);
                                             params.put("reDate", eDate);
 
                                             //TODO
 
-=======
                                             params.put("rsdate", roomData.rsDate);
                                             params.put("redate", roomData.reDate);
 
                                             //TODO
->>>>>>> 7dae723b0eb411051b9143468a89f81623c0e7f1
                                             Helper_server.post("data/reserv_room.php", params, new JsonHttpResponseHandler() {
                                                 @Override
                                                 public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
