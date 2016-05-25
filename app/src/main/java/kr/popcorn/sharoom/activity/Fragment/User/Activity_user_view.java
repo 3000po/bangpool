@@ -20,6 +20,7 @@ import com.loopj.android.http.AsyncHttpClient;
 import kr.popcorn.sharoom.R;
 import kr.popcorn.sharoom.activity.Activity_login;
 import kr.popcorn.sharoom.activity.Activity_mapMenu;
+import kr.popcorn.sharoom.activity.TabView.Activity_server_roading;
 import kr.popcorn.sharoom.helper.Helper_room;
 import kr.popcorn.sharoom.helper.Helper_server;
 import kr.popcorn.sharoom.helper.Helper_userData;
@@ -36,26 +37,16 @@ public class Activity_user_view extends FragmentActivity {
     public static Activity AActivty;
 
     @Override
-    protected void onResume() {
-        super.onResume();
-
-        int n = mPager.getCurrentItem();
-
-        mToptext.setText("방 리스트");
-        mAdapter = new TestFragmentAdapter(getSupportFragmentManager());
-        mPager.setAdapter(mAdapter);
-        mPager.setCurrentItem(n);
-    }
-
-    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_user_view);
 
+        Log.e("user_onCreate","bb");
+
         Helper_userData data = Helper_userData.getInstance();
 
         Activity_login login = (Activity_login) Activity_login.login_Activity; //login_Activity_finish
-        login.finish();
+        if(login!=null) login.finish();
 
         AsyncHttpClient client = Helper_server.getInstance();
 
@@ -85,7 +76,7 @@ public class Activity_user_view extends FragmentActivity {
             public void onClick(View v) {
                 switch (v.getId()){
                     case R.id.mapMenu:
-                        Helper_room.refreshRoomData("aa",Activity_user_view.this,getApplication());
+                        Helper_room.refreshRoomData("aa", getApplicationContext());
                         //Intent mapIntent = new Intent(Activity_user_view.this, Activity_mapMenu.class);
                         //startActivity(mapIntent);
                 }
@@ -166,9 +157,22 @@ public class Activity_user_view extends FragmentActivity {
         init();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        Log.e("user_onResume","aa");
+        int n = mPager.getCurrentItem();
+        mToptext.setText("방 리스트");
+        mAdapter = new TestFragmentAdapter(getSupportFragmentManager());
+        mPager.setAdapter(mAdapter);
+        mPager.setCurrentItem(n);
+    }
+
     private void init() {
     }
 
+    //종료버튼
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         switch(keyCode) {
             case KeyEvent.KEYCODE_BACK:
@@ -177,6 +181,7 @@ public class Activity_user_view extends FragmentActivity {
                         .setMessage("종료 하시겠어요?")
                         .setPositiveButton("예", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int whichButton) {
+                                if((Activity) Activity_server_roading.activity_server_roading!=null) ((Activity)Activity_server_roading.activity_server_roading).finish();
                                 finish();
                             }
                         })

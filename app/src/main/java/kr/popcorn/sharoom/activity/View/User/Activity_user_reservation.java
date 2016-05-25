@@ -269,17 +269,18 @@ public class Activity_user_reservation extends FragmentActivity {
                                     new DialogInterface.OnClickListener() {
                                         @Override
                                         public void onClick(DialogInterface dialog, int which) {
+                                            Log.e("reserv !!","요상하구만");
+
                                             RequestParams params = new RequestParams();
                                             params.put("roomNumber", roomData.roomNumber);
                                             params.put("userID", Helper_userData.getInstance().getUserID());
+                                            params.put("rsdate", roomData.rsDate);
+                                            params.put("redate", roomData.reDate);
 
                                             //TODO
-
-
                                             Helper_server.post("data/reserv_room.php", params, new JsonHttpResponseHandler() {
                                                 @Override
                                                 public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-
                                                     try{
                                                         String ok = response.get("ok").toString();
                                                         if(ok.equals("true")) reserv =  true;
@@ -287,13 +288,15 @@ public class Activity_user_reservation extends FragmentActivity {
                                                     } catch(JSONException e){
                                                         e.printStackTrace();
                                                     }
+                                                    Log.e("reserv !!",""+reserv);
                                                     if(reserv == true) {
 
-                                                        Helper_room.refreshRoomData("refresh",Activity_user_reservation.this,getApplication());
+                                                        Helper_room.refreshRoomData("refresh", getApplicationContext());
                                                         Intent finishReservIntent = new Intent(Activity_user_reservation.this, Activity_FinishReserv.class);
                                                         finishReservIntent.putExtra("roomnumber", roomData.roomNumber);
                                                         startActivity(finishReservIntent);
-                                                        finish();
+
+                                                        Activity_user_reservation.this.finish();
                                                     }
                                                     else{
                                                         //이미 예약되었습니다.
@@ -304,8 +307,8 @@ public class Activity_user_reservation extends FragmentActivity {
                                                 @Override
                                                 public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
                                                     super.onFailure(statusCode, headers, responseString, throwable);
-                                                    Log.d("Failed: ", ""+statusCode);
-                                                    Log.d("Error : ", "" + throwable);
+                                                    Log.d("reservation_Failed: ", ""+statusCode);
+                                                    Log.d("reservation_Error : ", "" + throwable);
                                                 }
                                             });
                                         }

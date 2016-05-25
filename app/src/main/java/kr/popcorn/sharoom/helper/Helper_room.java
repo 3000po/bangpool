@@ -155,15 +155,18 @@ public class Helper_room {
         });
     }
 
-    public static void refreshRoomData(final String id, final Context mContext, final Application application) {
+    public static void refreshRoomData(final String id, final Context mContext) {
 
-        Intent intent = new Intent(application, Activity_server_roading.class);
-        intent.putExtra("main","서버와 연결 중입니다.");
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-        mContext.startActivity(intent); // 서버 정보 받을 동안 보여줄 activity
+//        ProgressDialog progressDialog = new ProgressDialog(mContext.getApplicationContext());
+//        progressDialog.setIndeterminate(true);
+//        progressDialog.setCancelable(false);
+//        progressDialog.setCanceledOnTouchOutside(false);
+//        progressDialog.setMessage("서버로 부터 정보를 받고 있습니다.");
+//        progressDialog.show();
 
         final RequestParams idParams = new RequestParams("userID", id);
         Helper_server.post("data/getRoomData.php", idParams, new JsonHttpResponseHandler() {
+
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
 
@@ -201,23 +204,31 @@ public class Helper_room {
                         list.add(i, new Helper_roomData(roomNumber, userID, title, address,price,roomKind,roomInfo, fac, lat, lng, sDate,eDate, image[i], isClosed, rUserID, rsDate, reDate) );
                         Log.e("img url",""+image[i].get(0));
                     }
-                    if((Activity)Activity_server_roading.activity_server_roading == null) {
-                        Log.e("너무빨라","null");
-                        Intent intent = new Intent(mContext, Activity_server_roading.class);
-                        intent.putExtra("exit",0);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                        mContext.startActivity(intent); // 서버 정보 받을 동안 보여줄 activity
-                    }
-                    else ((Activity)Activity_server_roading.activity_server_roading).finish();
-
+//                    if((Activity)Activity_server_roading.activity_server_roading == null) {
+//                        Log.e("너무빨라","null");
+//                        Intent intent = new Intent(mContext, Activity_server_roading.class);
+//                        intent.putExtra("exit",0);
+//                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                        mContext.startActivity(intent); // 서버 정보 받을 동안 보여줄 activity
+//                    }
+//                    else ((Activity)Activity_server_roading.activity_server_roading).finish();
+                    //progressDialog.dismiss();
+                    Intent intent = new Intent(mContext, Activity_server_roading.class);
+                    intent.putExtra("main","화면 재구성중");
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    // | Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                    mContext.startActivity(intent); // 서버 정보 받을 동안 보여줄 activity
                     System.out.println("ListData finish");
                 } catch (JSONException e) {
+                    //progressDialog.dismiss();
+                    Toast.makeText(mContext, "서버에 연결을 실패했습니다.", Toast.LENGTH_SHORT).show();
                     e.printStackTrace();
                 }
             }
 
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
                 super.onFailure(statusCode, headers, responseString, throwable);
+                //progressDialog.dismiss();
                 Log.d("Failed: ", "myself " + statusCode);
                 Log.d("Error : ", "myself " + throwable);
                 Toast.makeText(mContext, "서버에 연결을 실패했습니다.", Toast.LENGTH_SHORT).show();

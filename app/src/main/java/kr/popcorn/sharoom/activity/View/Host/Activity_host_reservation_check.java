@@ -245,11 +245,12 @@ public class Activity_host_reservation_check extends FragmentActivity {
                                         Helper_server.post("data/cancel_reserv.php", params, new AsyncHttpResponseHandler() {
                                             @Override
                                             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-                                                Helper_room.refreshRoomData("refresh",getApplication(), getApplication());
+                                                finish();
+
+                                                Helper_room.refreshRoomData("refresh", getApplicationContext());
                                                 //Intent finishReservIntent = new Intent(Activity_host_reservation_check.this, Activity_host_view.class);
                                                 //finishReservIntent.putExtra("roomnumber", roomData.roomNumber);
                                                 //startActivity(finishReservIntent);
-                                                finish();
                                             }
 
                                             @Override

@@ -400,8 +400,7 @@ public class Activity_host_editRoom extends Activity  implements View.OnClickLis
                             String ok= response.get("complite").toString();
                             if( ok.equals("ok") ) System.out.println("삭제됬다"); //TODO 삭제시 이동 필요.
                             Activity_host_editRoom.this.finish();
-                            Helper_room.refreshRoomData("host_editRoom",getApplication(),getApplication());
-
+                            Helper_room.refreshRoomData("host_editRoom", getApplicationContext());
                         } catch(JSONException e){
                             e.printStackTrace();
                         }
@@ -732,7 +731,7 @@ public class Activity_host_editRoom extends Activity  implements View.OnClickLis
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 System.out.println("statusCode "+statusCode);//statusCode 200
                 Activity_host_editRoom.this.finish();
-                Helper_room.refreshRoomData("host_editRoom",getApplication(),getApplication());
+                Helper_room.refreshRoomData("host_editRoom", getApplicationContext());
             }
 
             @Override
