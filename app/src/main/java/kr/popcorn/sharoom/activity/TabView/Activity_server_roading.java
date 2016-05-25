@@ -39,7 +39,7 @@ public class Activity_server_roading extends Activity {
         main_text.setText(main);
 
         Handler handler = new Handler();
-        handler.postDelayed(new splashhandler(), 1000);
+        handler.postDelayed(new splashhandler(), 500);
     }
 
     @Override
