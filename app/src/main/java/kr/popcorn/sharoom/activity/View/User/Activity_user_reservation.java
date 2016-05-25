@@ -296,6 +296,7 @@ public class Activity_user_reservation extends FragmentActivity {
                                                     }
                                                     else{
                                                         //이미 예약되었습니다.
+                                                        Toast.makeText(Activity_user_reservation.this, "죄송합니다. 이미 예약되었습니다.", Toast.LENGTH_SHORT).show();
                                                     }
                                                 }
 
