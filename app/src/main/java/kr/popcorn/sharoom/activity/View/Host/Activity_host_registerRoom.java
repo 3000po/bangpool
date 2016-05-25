@@ -65,7 +65,7 @@ public class Activity_host_registerRoom extends Activity  implements View.OnClic
 
     private  int imageView_Size = 500;
 
-    private ArrayList<String> list;
+    public ArrayList<String> list;
     private ImagePicker mImagePicker;
 
     private Dialog dialog;
@@ -392,11 +392,6 @@ public class Activity_host_registerRoom extends Activity  implements View.OnClic
                     //endDate.setText(today);
                 }
                 else{
-                    SharedPreferences.Editor edt = getSharedPreferences("room",0).edit();
-                    // 저장
-                    edt.putInt("picCount", 0);
-                    // 수행
-                    edt.commit();
                     postImage(list, title, address, price, roomKind, roomInfo, sDate, eDate, mLat, mLng);
                 }
             }
@@ -601,15 +596,11 @@ public class Activity_host_registerRoom extends Activity  implements View.OnClic
         progressDialog.setMessage("방 등록중입니다.");
         progressDialog.show();
 
+        list = new ArrayList<String>();
+
         Helper_server.post("data/insert_roomdata.php", params, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-                SharedPreferences.Editor edt = getSharedPreferences("room",0).edit();
-                // 저장
-                edt.putInt("picCount", 0);
-                // 수행
-                edt.commit();
-
                 progressDialog.dismiss();
 
                 System.out.println("statusCode "+statusCode);//statusCode 200
