@@ -621,7 +621,8 @@ public class Activity_host_registerRoom extends Activity  implements View.OnClic
         Helper_server.post("data/insert_roomdata.php", params, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-                progressDialog.dismiss();
+                if(progressDialog.isShowing())
+                    progressDialog.dismiss();
 
                 System.out.println("statusCode "+statusCode);//statusCode 200
                 Toast.makeText(Activity_host_registerRoom.this, "방 등록에 성공 하셨습니다.", Toast.LENGTH_LONG).show();
@@ -638,7 +639,8 @@ public class Activity_host_registerRoom extends Activity  implements View.OnClic
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
                 Toast.makeText(Activity_host_registerRoom.this, "방 등록이 실패 하셨습니다.", Toast.LENGTH_LONG).show();
-                progressDialog.dismiss();
+                if(progressDialog.isShowing())
+                    progressDialog.dismiss();
                 System.out.println("sibalbalblabl_onFailure");
             }
         });
