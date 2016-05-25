@@ -70,8 +70,10 @@ public class Helper_room {
                             double lng = Double.parseDouble(response.get("lng" + i).toString().trim());
                             String sDate = response.get("sDate" + i).toString().trim();
                             String eDate = response.get("eDate" + i).toString().trim();
-                            int isClosed = Integer.parseInt(response.get("isClosed"+i).toString().trim());
+                            int isClosed = Integer.parseInt(response.get("isClosed" + i).toString().trim());
                             int rUserID = Integer.parseInt(response.get("rUserID" + i).toString().trim());
+                            String rsDate = response.get("rsDate" + i).toString().trim();
+                            String reDate = response.get("reDate" + i).toString().trim();
 
                             image[i] = new ArrayList<String>();
                             for(int j=0; j< 8; j++){
@@ -80,7 +82,7 @@ public class Helper_room {
                                 System.out.println("ccccc" + imageUrl);
                                 addImage(i, imageUrl);
                             }
-                            list.add(i, new Helper_roomData(roomNumber, userID, title, address, price, roomKind, roomInfo, fac, lat, lng, sDate, eDate, image[i], isClosed, rUserID));
+                            list.add(i, new Helper_roomData(roomNumber, userID, title, address, price, roomKind, roomInfo, fac, lat, lng, sDate, eDate, image[i], isClosed, rUserID, rsDate, reDate));
                         }
                         System.out.println("ListData finish");
                         Helper_userData.login_GetData(id, mContext);
@@ -123,8 +125,10 @@ public class Helper_room {
                         double lng = Double.parseDouble(response.get("lng" + i).toString().trim());
                         String sDate = response.get("sDate" + i).toString().trim();
                         String eDate = response.get("eDate" + i).toString().trim();
-                        int isClosed = Integer.parseInt(response.get("isClosed"+i).toString().trim());
+                        int isClosed = Integer.parseInt(response.get("isClosed" + i).toString().trim());
                         int rUserID = Integer.parseInt(response.get("rUserID" + i).toString().trim());
+                        String rsDate = response.get("rsDate" + i).toString().trim();
+                        String reDate = response.get("reDate" + i).toString().trim();
 
                         image[i] = new ArrayList<String>();
 
@@ -134,7 +138,7 @@ public class Helper_room {
                             System.out.println("ccccc" + imageUrl);
                             addImage(i, imageUrl);
                         }
-                        list.add(i,new Helper_roomData(roomNumber, userID, title, address, price, roomKind, roomInfo, fac, lat, lng, sDate, eDate, image[i], isClosed, rUserID));
+                        list.add(i,new Helper_roomData(roomNumber, userID, title, address, price, roomKind, roomInfo, fac, lat, lng, sDate, eDate, image[i], isClosed, rUserID, rsDate, reDate));
                     }
                     System.out.println("ListData finish");
                     Helper_userData.login_GetData(id, mContext, num);
@@ -182,8 +186,10 @@ public class Helper_room {
                         double lng = Double.parseDouble(response.get("lng" + i).toString().trim());
                         String sDate = response.get("sDate" + i).toString().trim();
                         String eDate = response.get("eDate" + i).toString().trim();
-                        int isClosed = Integer.parseInt(response.get("isClosed"+i).toString().trim());
+                        int isClosed = Integer.parseInt(response.get("isClosed" + i).toString().trim());
                         int rUserID = Integer.parseInt(response.get("rUserID" + i).toString().trim());
+                        String rsDate = response.get("rsDate" + i).toString().trim();
+                        String reDate = response.get("reDate" + i).toString().trim();
 
                         image[i] = new ArrayList<String>();
                         for(int j=0; j< 8; j++){
@@ -192,7 +198,7 @@ public class Helper_room {
                                 System.out.println("ccccc" + imageUrl);
                                 addImage(i, imageUrl);
                         }
-                        list.add(i, new Helper_roomData(roomNumber, userID, title, address,price,roomKind,roomInfo, fac, lat, lng, sDate,eDate, image[i], isClosed, rUserID) );
+                        list.add(i, new Helper_roomData(roomNumber, userID, title, address,price,roomKind,roomInfo, fac, lat, lng, sDate,eDate, image[i], isClosed, rUserID, rsDate, reDate) );
                         Log.e("img url",""+image[i].get(0));
                     }
                     if((Activity)Activity_server_roading.activity_server_roading == null) {

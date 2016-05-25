@@ -28,12 +28,14 @@ public class Helper_roomData {
     public String eDate;
     public int isClosed;
     public int rUserID;
+    public String rsDate;
+    public String reDate;
 
 
     public  ArrayList<String> image;
 
     public Helper_roomData(int roomNumber, int userID, String title, String address, String price, String roomKind, String roomInfo,
-                           String fac, double lat, double lng, String sDate, String eDate, ArrayList<String> image, int isClosed, int rUserID) {
+                           String fac, double lat, double lng, String sDate, String eDate, ArrayList<String> image, int isClosed, int rUserID, String rsDate, String reDate) {
         this.roomNumber = roomNumber;
         this.userID = userID;
         this.title = title;
@@ -49,6 +51,8 @@ public class Helper_roomData {
         this.image = image;
         this.isClosed = isClosed;
         this.rUserID = rUserID;
+        this.rsDate = rsDate;
+        this.reDate = reDate;
     }
 
     public int getRoomNumber() {
