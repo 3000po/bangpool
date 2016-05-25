@@ -399,11 +399,13 @@ public class Activity_host_editRoom extends Activity  implements View.OnClickLis
                         try{
                             String ok= response.get("complite").toString();
                             if( ok.equals("ok") ) System.out.println("삭제됬다"); //TODO 삭제시 이동 필요.
-                            Activity_host_editRoom.this.finish();
-                            Helper_room.refreshRoomData("host_editRoom", getApplicationContext());
+
                         } catch(JSONException e){
                             e.printStackTrace();
                         }
+                        Toast.makeText(Activity_host_editRoom.this, "삭제 완료", Toast.LENGTH_LONG).show();
+                        Activity_host_editRoom.this.finish();
+                        Helper_room.refreshRoomData("host_editRoom", getApplicationContext());
                     }
 
                     @Override
@@ -411,6 +413,7 @@ public class Activity_host_editRoom extends Activity  implements View.OnClickLis
                         super.onFailure(statusCode, headers, responseString, throwable);
                         Log.d("Failed: ", ""+statusCode);
                         Log.d("Error : ", "" + throwable);
+                        Toast.makeText(Activity_host_editRoom.this, "삭제 실패", Toast.LENGTH_LONG).show();
                     }
                 });
             }
