@@ -243,8 +243,8 @@ public class Activity_user_reservation extends FragmentActivity {
 
                 switch (arg0.getId()) {
                     case R.id.reservationBtn:
-                        String sDate = startDate.getText().toString();
-                        String eDate = endDate.getText().toString();
+                        final String sDate = startDate.getText().toString();
+                        final String eDate = endDate.getText().toString();
 
                         if(sDate == null) {
                             startDate.setText(today);
@@ -265,6 +265,7 @@ public class Activity_user_reservation extends FragmentActivity {
                             aDialog.setTitle("예약 체크 하기"); //타이틀바 제목
                             aDialog.setMessage("서로 연락이 닿았고 예약 하기로 하셨습니까?");
 
+
                             aDialog.setPositiveButton("확인",
                                     new DialogInterface.OnClickListener() {
                                         @Override
@@ -272,9 +273,10 @@ public class Activity_user_reservation extends FragmentActivity {
                                             RequestParams params = new RequestParams();
                                             params.put("roomNumber", roomData.roomNumber);
                                             params.put("userID", Helper_userData.getInstance().getUserID());
+                                            params.put("rsDate", sDate);
+                                            params.put("reDate", eDate);
 
                                             //TODO
-
 
                                             Helper_server.post("data/reserv_room.php", params, new JsonHttpResponseHandler() {
                                                 @Override
