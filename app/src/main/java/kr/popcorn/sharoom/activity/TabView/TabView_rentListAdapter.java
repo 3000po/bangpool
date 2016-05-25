@@ -20,6 +20,7 @@ import java.util.ArrayList;
 
 import kr.popcorn.sharoom.R;
 import kr.popcorn.sharoom.activity.View.User.Activity_user_infoRoom;
+import kr.popcorn.sharoom.helper.CustomGlide;
 import kr.popcorn.sharoom.helper.Helper_roomData;
 
 /**
@@ -53,7 +54,8 @@ public class TabView_rentListAdapter extends RecyclerView.Adapter<TabView_rentLi
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
 
-        Glide.with(mContext).load(list.get(position).image.get(0)).into(holder.roomimage);
+
+        Glide.with(mContext).load(list.get(position).image.get(0)).override(1280,800).into(holder.roomimage);
 
         //holder.roomimage.setImageResource(list.get(position).roomimage);
         holder.rating.setText(list.get(position).title);

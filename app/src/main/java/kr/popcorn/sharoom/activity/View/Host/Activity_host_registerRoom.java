@@ -595,7 +595,7 @@ public class Activity_host_registerRoom extends Activity  implements View.OnClic
 
         if( list.size() > 0 ) {
             try {
-                Bitmap bitmap = decodeUri(getApplicationContext(), Uri.fromFile(new File(list.get(0))), 100);
+                Bitmap bitmap = decodeUri(getApplicationContext(), Uri.fromFile(new File(list.get(0))), 1000);
                 picButton.setImageBitmap(bitmap);
             }catch (FileNotFoundException e){
                 Log.e("ddddd","fuck");
@@ -621,7 +621,7 @@ public class Activity_host_registerRoom extends Activity  implements View.OnClic
             String imagePath = storage + i+".jpg";
 
             try{
-                params.put("file" + i, SaveBitmapToFileCache(decodeUri(getApplicationContext(), Uri.fromFile(new File(list.get(i))), 100), imagePath));
+                params.put("file" + i, SaveBitmapToFileCache(decodeUri(getApplicationContext(), Uri.fromFile(new File(list.get(i))), 1000), imagePath));
                 //params.put("path", "aaa");
             }
             catch(FileNotFoundException e){
