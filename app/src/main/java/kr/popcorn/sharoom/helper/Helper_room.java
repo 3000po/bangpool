@@ -157,8 +157,6 @@ public class Helper_room {
         intent.putExtra("main","서버와 연결 중입니다.");
         mContext.startActivity(intent); // 서버 정보 받을 동안 보여줄 activity
 
-        final Activity_server_roading activity_server_roading = (Activity_server_roading) Activity_server_roading.activity_server_roading;
-
         final RequestParams idParams = new RequestParams("userID", id);
         Helper_server.post("data/getRoomData.php", idParams, new JsonHttpResponseHandler() {
             @Override

@@ -46,7 +46,7 @@ public class Activity_server_roading extends Activity {
         }
 
         Handler handler = new Handler();
-        handler.postDelayed(new splashhandler(), 30000);
+        handler.postDelayed(new splashhandler(), 3000);
     }
 
     private class splashhandler implements Runnable{
