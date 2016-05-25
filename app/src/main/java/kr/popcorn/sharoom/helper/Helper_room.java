@@ -197,8 +197,6 @@ public class Helper_room {
                     }
                     if((Activity)Activity_server_roading.activity_server_roading == null) {
                         Log.e("너무빨라","null");
-                        //GlobalApplication serverInfo = (GlobalApplication)application;
-                        //serverInfo.setServer_info(1);
                         Intent intent = new Intent(mContext, Activity_server_roading.class);
                         intent.putExtra("exit",0);
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_SINGLE_TOP);
@@ -216,7 +214,6 @@ public class Helper_room {
                 super.onFailure(statusCode, headers, responseString, throwable);
                 Log.d("Failed: ", "myself " + statusCode);
                 Log.d("Error : ", "myself " + throwable);
-                ((Activity)Activity_server_roading.activity_server_roading).finish();
                 Toast.makeText(mContext, "서버에 연결을 실패했습니다.", Toast.LENGTH_SHORT).show();
             }
         });

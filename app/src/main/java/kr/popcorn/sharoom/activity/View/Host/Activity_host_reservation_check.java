@@ -97,6 +97,8 @@ public class Activity_host_reservation_check extends FragmentActivity {
         guestID = roomData.rUserID;
         search_user_info(guestID);
 
+
+
         imgLength = 0;
         for(int i = 0; i< 8; i ++){
             if(roomData.getImage().get(i).equals("http://14.63.227.200/0"))
@@ -215,6 +217,7 @@ public class Activity_host_reservation_check extends FragmentActivity {
                     case R.id.requestInfo:
                         //Toast.makeText(Activity_Reservation.this, "문의요청버튼 누름.", Toast.LENGTH_LONG).show();
                         customDialog = new Activity_profileView(Activity_host_reservation_check.this);
+                        customDialog.setProfile(guestName,guestPhone,guestEmail);
                         customDialog.setCanceledOnTouchOutside(true);
                         customDialog.show();
 
@@ -242,10 +245,10 @@ public class Activity_host_reservation_check extends FragmentActivity {
                                         Helper_server.post("data/cancel_reserv.php", params, new AsyncHttpResponseHandler() {
                                             @Override
                                             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-                                                Helper_room.refreshRoomData("refresh",Activity_host_reservation_check.this,getApplication());
-                                                Intent finishReservIntent = new Intent(Activity_host_reservation_check.this, Activity_host_view.class);
-                                                finishReservIntent.putExtra("roomnumber", roomData.roomNumber);
-                                                startActivity(finishReservIntent);
+                                                Helper_room.refreshRoomData("refresh",getApplication(), getApplication());
+                                                //Intent finishReservIntent = new Intent(Activity_host_reservation_check.this, Activity_host_view.class);
+                                                //finishReservIntent.putExtra("roomnumber", roomData.roomNumber);
+                                                //startActivity(finishReservIntent);
                                                 finish();
                                             }
 
@@ -392,4 +395,7 @@ public class Activity_host_reservation_check extends FragmentActivity {
             }
         });
     }
+
+
+
 }

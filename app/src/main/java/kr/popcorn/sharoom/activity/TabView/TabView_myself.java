@@ -20,6 +20,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
@@ -29,6 +30,7 @@ import com.loopj.android.http.RequestParams;
 import cz.msebera.android.httpclient.Header;
 import kr.popcorn.sharoom.R;
 import kr.popcorn.sharoom.activity.Activity_login;
+import kr.popcorn.sharoom.helper.Helper_checker;
 import kr.popcorn.sharoom.helper.Helper_server;
 import kr.popcorn.sharoom.helper.Helper_userData;
 
@@ -151,7 +153,7 @@ public class TabView_myself extends LinearLayout {
         edit_btn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 if (v.getId() == R.id.editbutton) {
-                    Context mContext = getContext().getApplicationContext();
+                    final Context mContext = getContext().getApplicationContext();
                     LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(getContext().LAYOUT_INFLATER_SERVICE);
 
                     //R.layout.dialog는 xml 파일명이고  R.id.popup은 보여줄 레이아웃 아이디
@@ -180,14 +182,24 @@ public class TabView_myself extends LinearLayout {
                                     int userID = Helper_userData.getInstance().getUserID();
                                     final String phone = edit_phone.getText().toString();
                                     final String email = edit_email.getText().toString();
+
                                     Log.d("aaaaaa",""+userID);
                                     Log.d("aaaaaa",email);
 
                                     //알림 뜨게 추가.
-                                    if(phone.equals(""))
+                                    if(!Helper_checker.phone_number_check(phone)){
+                                        Toast.makeText(mContext, " 휴대폰 형식에 맞게 입력해주세요.", Toast.LENGTH_LONG).show();
                                         return;
-                                    if(email.equals(""))
+                                    }
+                                    if(Helper_checker.isEmail(email)){
+                                        Toast.makeText(mContext, " 이메일에 형식에 맞게 입력해주세요. ", Toast.LENGTH_LONG).show();
                                         return;
+                                    }
+                                    if(Helper_checker.email_error_check(email)){
+                                        Toast.makeText(mContext, " 이메일에 ', \" 형식이 있으면 안됩니다. ", Toast.LENGTH_LONG).show();
+                                        return;
+                                    }
+
                                     idParams.put("userID", userID);
                                     idParams.put("phone", phone);
                                     idParams.put("email", email);

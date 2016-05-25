@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -20,14 +21,21 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.loopj.android.http.JsonHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
+import cz.msebera.android.httpclient.Header;
 import kr.popcorn.sharoom.R;
 import kr.popcorn.sharoom.activity.Activity_profileView;
 import kr.popcorn.sharoom.helper.Helper_room;
 import kr.popcorn.sharoom.helper.Helper_roomData;
+import kr.popcorn.sharoom.helper.Helper_server;
 
 /**
  * Created by parknature on 16. 5. 6..
@@ -58,6 +66,14 @@ public class Activity_user_reservation_check extends FragmentActivity {
     private int roomnumber;
     private  int imgLength;
 
+    private TextView tv_hostName;
+
+    private int hostID;
+    private String hostName;
+    private String hostPhone;
+    private String hostEmail;
+
+
     private Helper_roomData roomData;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,6 +94,8 @@ public class Activity_user_reservation_check extends FragmentActivity {
         endDate = (TextView) findViewById(R.id.endDate);
 
         cancel_button.setVisibility(View.GONE);
+
+        tv_hostName = (TextView)findViewById(R.id.hostname);
 
         roomnumber = getIntent().getExtras().getInt("roomNumber");  //룸 넘버
         idx = Helper_room.search_index(roomnumber);
@@ -101,9 +119,12 @@ public class Activity_user_reservation_check extends FragmentActivity {
             tvCount.setText("");
         }
 
+        hostID = roomData.getUserID();
         roomName.setText(roomData.getTitle());
         startDate.setText(roomData.getsDate());
         endDate.setText(roomData.geteDate());
+
+        search_user_info(hostID);
 
         adapter = new ImageAdapter(this);
         viewPager.setAdapter(adapter);
@@ -135,7 +156,7 @@ public class Activity_user_reservation_check extends FragmentActivity {
             public void onClick(View v) {
                 switch (v.getId()) {
                     case R.id.callbutton:
-                        Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:010-1111-2222"));
+                        Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:"+hostPhone));
                         startActivity(intent);
                         break;
 
@@ -148,7 +169,7 @@ public class Activity_user_reservation_check extends FragmentActivity {
             public void onClick(View v) {
                 switch(v.getId()){
                     case R.id.smsbutton:
-                        Uri uri = Uri.parse("smsto:01064207202");
+                        Uri uri = Uri.parse("smsto:"+hostPhone);
                         Intent it = new Intent(Intent.ACTION_SENDTO, uri);
                         it.putExtra("sms_body", "The SMS text");
                         startActivity(it);
@@ -200,6 +221,7 @@ public class Activity_user_reservation_check extends FragmentActivity {
                     case R.id.requestInfo:
                         //Toast.makeText(Activity_Reservation.this, "문의요청버튼 누름.", Toast.LENGTH_LONG).show();
                         customDialog = new Activity_profileView(Activity_user_reservation_check.this);
+                        customDialog.setProfile(hostName,hostPhone,hostEmail);
                         customDialog.setCanceledOnTouchOutside(true);
                         customDialog.show();
 
@@ -273,5 +295,37 @@ public class Activity_user_reservation_check extends FragmentActivity {
             ((ViewPager) container).removeView((ImageView) object);
         }
     }
+
+    public void search_user_info(int userID){
+
+        RequestParams params = new RequestParams();
+        params.put("userID", userID);
+
+        Helper_server.post("data/getHostProfile.php", params, new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+
+                try{
+                    hostName = response.get("name").toString();
+                    hostPhone = response.get("phoneNumber").toString();
+                    hostEmail = response.get("email").toString();
+                    Log.d("hostName : ",hostName);
+
+                    tv_hostName.setText(hostName);
+
+                } catch(JSONException e){
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                super.onFailure(statusCode, headers, responseString, throwable);
+                Log.d("Failed: ", ""+statusCode);
+                Log.d("Error : ", "" + throwable);
+            }
+        });
+    }
+
 
 }

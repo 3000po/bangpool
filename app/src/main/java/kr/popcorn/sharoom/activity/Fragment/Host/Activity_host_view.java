@@ -34,7 +34,6 @@ public class Activity_host_view extends FragmentActivity {
         super.onResume();
 
         int n = mPager.getCurrentItem();
-
         mToptext.setText("방 리스트");
         mAdapter = new H_TestFragmentAdapter(getSupportFragmentManager());
         mPager.setAdapter(mAdapter);
