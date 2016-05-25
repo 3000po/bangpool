@@ -1,275 +1,269 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:background="@color/activity_layout_background"
     android:orientation="vertical" >
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/ll_header"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/activity_layout_header_height"
-        android:layout_gravity="center_vertical"
-        android:layout_margin="@dimen/activity_layout_header_margin"
-        android:background="@color/activity_layout_header_background"
-        android:gravity="center_vertical"
-        android:orientation="vertical"
-        android:padding="@dimen/activity_layout_header_padding"
-        android:visibility="gone" >
-    </LinearLayout>
-
-    <!-- android:padding="@color/activity_layout_header_background" -->
-
-    <LinearLayout
-        android:id="@+id/ll_body"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_margin="@dimen/activity_layout_body_margin"
-        android:layout_weight="1"
-        android:background="@color/activity_layout_left_background"
-        android:orientation="horizontal"
-        android:padding="@dimen/activity_layout_body_padding" >
-
-        <LinearLayout
-            android:id="@+id/ll_left"
-            android:layout_width="0dip"
+        android:layout_height="50dp"
+        android:layout_alignParentTop="true"
+        android:background="@color/bangpoolColor"
+        android:gravity="top"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/toptext"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_gravity="top"
-            android:layout_margin="@dimen/activity_layout_left_margin"
-            android:layout_weight="1"
-            android:background="@color/activity_layout_left_background"
-            android:orientation="vertical"
-            android:padding="@dimen/activity_layout_left_padding"
-            android:visibility="gone" >
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/ll_center"
-            android:layout_width="0dip"
-            android:layout_height="match_parent"
-            android:layout_gravity="top"
-            android:layout_margin="@dimen/activity_layout_center_margin"
-            android:layout_weight="2"
-            android:background="@color/activity_layout_center_background"
-            android:orientation="vertical"
-            android:padding="@dimen/activity_layout_center_padding" >
-
-            <!-- content start -->
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:orientation="vertical" >
-                <!-- 아이디 찾기 -->
-                <LinearLayout
-                    android:layout_width = "match_parent"
-                    android:layout_height = "50dp"
-                    android:orientation="horizontal">
-                    <TextView
-                        android:id="@+id/tv_find_id_text"
-                        android:layout_width="match_parent"
-                        android:layout_height="40dp"
-                        android:layout_weight = "1"
-                        android:layout_marginTop="5dp"
-                        android:gravity="center"
-                        android:text="아이디 찾기"
-                        android:textColor="@color/activity_main_app_name"
-                        android:textSize="25sp"
-                        android:textStyle="bold" >
-                    </TextView>
-                    </LinearLayout>
-                <LinearLayout
-                    android:layout_width = "match_parent"
-                    android:layout_height = "50dp"
-                    android:orientation="horizontal">
-                    <TextView
-                        android:id="@+id/tv_find_id_email"
-                        android:layout_width="0dp"
-                        android:layout_height="40dp"
-                        android:layout_weight = "1"
-                        android:layout_marginTop="5dp"
-                        android:gravity="center"
-                        android:text=" 가입 이메일 "
-                        android:textColor="@color/activity_main_app_name"
-                        android:textSize="25sp"
-                        android:textStyle="bold" >
-                    </TextView>
-                    <EditText
-                        android:id="@+id/et_find_id_email"
-                        android:layout_width="0dp"
-                        android:layout_height="40dp"
-                        android:layout_weight ="1"
-                        android:layout_gravity="center"
-                        android:textColor="@color/activity_login_edit"
-                        android:hint="이메일을 입력하세요"
-                        android:imeOptions="actionNext"
-                        android:singleLine = "true"
-                        android:lines = "1"
-                        />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width = "match_parent"
-                    android:layout_height = "50dp"
-                    android:orientation="horizontal">
-                    <Button
-                        android:id="@+id/btn_find_id"
-                        android:layout_width="match_parent"
-                        android:layout_height="60dp"
-                        android:layout_weight = "1"
-                        android:layout_marginTop="5dp"
-                        android:gravity="center"
-                        android:text="아이디 찾기"
-                        android:textColor="@color/activity_main_app_name"
-                        android:textSize="25sp"
-                        android:textStyle="bold" >
-                    </Button>
-                </LinearLayout>
-
-                <!-- 비밀번호 찾기 -->
-                <LinearLayout
-                    android:layout_width = "match_parent"
-                    android:layout_height = "50dp"
-                    android:orientation="horizontal">
-                    <TextView
-                        android:id="@+id/tv_find_password_text"
-                        android:layout_width="match_parent"
-                        android:layout_height="40dp"
-                        android:layout_weight = "1"
-                        android:layout_marginTop="5dp"
-                        android:gravity="center"
-                        android:text="비밀번호 찾기"
-                        android:textColor="@color/activity_main_app_name"
-                        android:textSize="25sp"
-                        android:textStyle="bold" >
-                    </TextView>
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width = "match_parent"
-                    android:layout_height = "50dp"
-                    android:orientation="horizontal">
-                    <TextView
-                        android:id="@+id/tv_find_password_id"
-                        android:layout_width="0dp"
-                        android:layout_height="40dp"
-                        android:layout_weight = "1"
-                        android:layout_marginTop="5dp"
-                        android:gravity="center"
-                        android:text=" 가입 아이디 "
-                        android:textColor="@color/activity_main_app_name"
-                        android:textSize="25sp"
-                        android:textStyle="bold" >
-                    </TextView>
-                    <EditText
-                        android:id="@+id/et_find_password_id"
-                        android:layout_width="0dp"
-                        android:layout_height="40dp"
-                        android:layout_weight ="1"
-                        android:layout_gravity="center"
-                        android:textColor="@color/activity_login_edit"
-                        android:hint="아이디를 입력하세요"
-                        android:imeOptions="actionNext"
-                        android:singleLine = "true"
-                        android:lines = "1"
-                        />
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width = "match_parent"
-                    android:layout_height = "50dp"
-                    android:orientation="horizontal">
-                    <TextView
-                        android:id="@+id/tv_find_password_email"
-                        android:layout_width="0dp"
-                        android:layout_height="40dp"
-                        android:layout_weight = "1"
-                        android:layout_marginTop="5dp"
-                        android:gravity="center"
-                        android:text=" 가입 이메일 "
-                        android:textColor="@color/activity_main_app_name"
-                        android:textSize="25sp"
-                        android:textStyle="bold" >
-                    </TextView>
-                    <EditText
-                        android:id="@+id/et_find_password_email"
-                        android:layout_width="0dp"
-                        android:layout_height="40dp"
-                        android:layout_weight ="1"
-                        android:layout_gravity="center"
-                        android:textColor="@color/activity_login_edit"
-                        android:hint="이메일을 입력하세요"
-                        android:imeOptions="actionNext"
-                        android:singleLine = "true"
-                        android:lines = "1"
-                        />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width = "match_parent"
-                    android:layout_height = "50dp"
-                    android:orientation="horizontal">
-                    <Button
-                        android:id="@+id/btn_find_password"
-                        android:layout_width="match_parent"
-                        android:layout_height="60dp"
-                        android:layout_weight = "1"
-                        android:layout_marginTop="5dp"
-                        android:gravity="center"
-                        android:text="비밀번호 찾기"
-                        android:textColor="@color/activity_main_app_name"
-                        android:textSize="25sp"
-                        android:textStyle="bold" >
-                    </Button>
-                </LinearLayout>
-            </LinearLayout>
-
-            <!-- content end -->
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/ll_right"
-            android:layout_width="0dip"
-            android:layout_height="match_parent"
-            android:layout_gravity="top"
-            android:layout_margin="@dimen/activity_layout_right_margin"
-            android:layout_weight="1"
-            android:background="@color/activity_layout_right_background"
-            android:orientation="vertical"
-            android:padding="@dimen/activity_layout_right_padding"
-            android:visibility="gone" >
-        </LinearLayout>
-    </LinearLayout>
-
-    <RelativeLayout
-        android:id="@+id/rl_body"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:orientation="vertical"
-        android:visibility="gone" >
+            android:gravity="center"
+            android:text="ID/PW 찾기"
+            android:textSize="23sp"
+            android:textStyle="bold"
+            android:textColor="#FFFFFF">
+        </TextView>
     </RelativeLayout>
 
-    <LinearLayout
-        android:id="@+id/ll_footer"
+    <RelativeLayout
+        android:id="@+id/ll_body"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/activity_layout_footer_height"
-        android:layout_gravity="center_vertical"
-        android:layout_margin="@dimen/activity_layout_footer_margin"
-        android:background="@color/activity_layout_footer_background"
-        android:gravity="center_vertical"
-        android:orientation="vertical"
-        android:padding="@dimen/activity_layout_footer_padding" >
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:layout_below="@id/ll_header">
+        <!-- content start -->
 
-        <TextView
+        <LinearLayout
+            android:id="@+id/ll_find_id"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="@string/app_company"
-            android:textColor="@color/activity_main_company"
-            android:textSize="15sp" >
-        </TextView>
-    </LinearLayout>
+            android:layout_gravity="center"
+            android:orientation="vertical"
+            android:layout_marginTop="80dp"
+            android:layout_marginLeft="30dp">
+            <TextView
+                android:id="@+id/tv_find_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="ID 찾기"
+                android:textColor="@color/bangpoolColor"
+                android:textSize="30sp"
+                android:textStyle="bold"
+                android:layout_gravity="center"
+                android:layout_centerVertical="true"
+                />
+            <RelativeLayout
+                android:id="@+id/loginInfo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:descendantFocusability="beforeDescendants">
+                <!--아이디-->
+                <RelativeLayout
+                    android:id="@+id/layout_id"
+                    android:layout_width = "match_parent"
+                    android:layout_height = "wrap_content">
 
-</LinearLayout>
+                    <ImageView
+                        android:id="@+id/iv_id"
+                        android:layout_width="150dp"
+                        android:layout_height="30dp"
+                        android:src="@drawable/password"
+                        android:layout_centerVertical="true"
+                        android:layout_centerHorizontal="true"
+                        android:paddingTop="21dp" />
+
+                    <TextView
+                        android:id="@+id/tv_join_id"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:text="가입 이메일"
+                        android:textColor="@color/bangpoolColor"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        android:layout_toStartOf="@id/iv_id"
+                        android:layout_centerVertical="true"
+                        android:paddingRight="5dp"
+                        android:paddingBottom="5dp">
+                    </TextView>
+
+                    <EditText
+                        android:id="@+id/et_find_id_email"
+                        android:layout_gravity="center"
+                        android:hint="이메일을 입력하세요"
+                        android:layout_width="150dp"
+                        android:layout_height="40dp"
+                        android:paddingLeft="5dp"
+                        android:layout_alignLeft="@id/iv_id"
+                        android:layout_alignBottom="@id/iv_id"
+                        android:textColor="@color/bangpoolColor"
+                        android:textSize="16sp"
+                        android:background="@null"
+                        android:imeOptions="actionNext"
+                        android:singleLine = "true"
+                        android:lines = "1" />
+
+                </RelativeLayout>
+            </RelativeLayout>
+
+            <Button
+                android:id="@+id/btn_find_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:scaleX="0.5"
+                android:scaleY="0.5"
+                android:layout_marginTop="20dp"
+                android:gravity="center"
+                android:textColor="@color/activity_main_app_name"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:layout_gravity="center"
+                android:background="@null"
+                android:drawableLeft="@drawable/findid"
+                android:layout_centerVertical="true">
+            </Button>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_below="@id/ll_find_id"
+            android:layout_width = "match_parent"
+            android:layout_height = "wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="40dp"
+            android:layout_marginLeft="30dp">
+            <TextView
+                android:id="@+id/tv_find_password_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_gravity="center"
+                android:layout_centerVertical="true"
+                android:text="PW 찾기"
+                android:textColor="@color/bangpoolColor"
+                android:textSize="30sp"
+                android:textStyle="bold">
+            </TextView>
+
+            <RelativeLayout
+                android:id="@+id/passwordInfo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:descendantFocusability="beforeDescendants">
+                <!--비밀번호-->
+                <RelativeLayout
+                    android:id="@+id/layout_password"
+                    android:layout_width = "match_parent"
+                    android:layout_height = "wrap_content">
+                    <RelativeLayout
+                        android:id="@+id/rl_find_password_id"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <ImageView
+                            android:id="@+id/iv_find_password_id"
+                            android:layout_width="150dp"
+                            android:layout_height="30dp"
+                            android:src="@drawable/password"
+                            android:layout_centerVertical="true"
+                            android:layout_centerHorizontal="true"
+                            android:paddingTop="21dp"
+                            />
+                        <TextView
+                            android:id="@+id/tv_join_password"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:text="가입 아이디"
+                            android:textColor="@color/bangpoolColor"
+                            android:textSize="18sp"
+                            android:textStyle="bold"
+                            android:layout_centerVertical="true"
+                            android:paddingRight="5dp"
+                            android:paddingBottom="5dp">
+                        </TextView>
+
+                        <EditText
+                            android:id="@+id/et_find_password_id"
+                            android:hint="아이디를 입력하세요"
+                            android:layout_width="150dp"
+                            android:layout_height="40dp"
+                            android:paddingLeft="5dp"
+                            android:layout_alignLeft="@id/iv_find_password_id"
+                            android:layout_alignBottom="@id/iv_find_password_id"
+                            android:textColor="@color/bangpoolColor"
+                            android:textSize="16sp"
+                            android:background="@null"
+                            android:imeOptions="actionNext"
+                            android:singleLine = "true"
+                            android:lines = "1" />
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_below="@id/rl_find_password_id"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <ImageView
+                            android:id="@+id/iv_find_password_email"
+                            android:layout_width="150dp"
+                            android:layout_height="30dp"
+                            android:src="@drawable/password"
+                            android:layout_centerVertical="true"
+                            android:layout_centerHorizontal="true"
+                            android:paddingTop="21dp" />
+                        <TextView
+                            android:id="@+id/tv_find_password_email"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:text="가입 이메일"
+                            android:textColor="@color/bangpoolColor"
+                            android:textSize="18sp"
+                            android:textStyle="bold"
+                            android:layout_centerVertical="true"
+                            android:paddingRight="5dp"
+                            android:paddingBottom="5dp">
+                        </TextView>
+                        <EditText
+                            android:id="@+id/et_find_password_email"
+                            android:layout_width="150dp"
+                            android:layout_height="40dp"
+                            android:layout_gravity="center"
+                            android:paddingLeft="5dp"
+                            android:textColor="@color/bangpoolColor"
+                            android:hint="이메일을 입력하세요"
+                            android:background="@null"
+                            android:textSize="16sp"
+                            android:layout_alignLeft="@id/iv_find_password_email"
+                            android:layout_alignBottom="@id/iv_find_password_email"
+                            android:imeOptions="actionNext"
+                            android:singleLine = "true"
+                            android:lines = "1"
+                            />
+                    </RelativeLayout>
+                </RelativeLayout>
+            </RelativeLayout>
+            <Button
+                android:id="@+id/btn_find_password"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:scaleX="0.5"
+                android:scaleY="0.5"
+                android:layout_marginTop="20dp"
+                android:layout_gravity="center"
+                android:textColor="@color/activity_main_app_name"
+                android:drawableLeft="@drawable/findpassword"
+                android:background="@null"
+                android:textSize="20sp"
+                android:textStyle="bold" >
+            </Button>
+        </LinearLayout>
+
+    </RelativeLayout>
+    <!-- content end -->
+
+</RelativeLayout>
