@@ -179,30 +179,11 @@ public class Activity_host_reservation_check extends FragmentActivity {
 
                 switch (arg0.getId()) {
                     case R.id.sure:
-
-                        String sDate = startDate.getText().toString();
-                        String eDate = endDate.getText().toString();
-
-                        System.out.println(sDate);
-
-                        System.out.println(eDate);
-                        // Log.i("jihyun1", end);)
-                        if(sDate == null) {
-                            startDate.setText(today);
-                            Toast.makeText(Activity_host_reservation_check.this, "시작 날짜를 입력해주세요.", Toast.LENGTH_LONG).show();
-                        }
-                        else if(eDate == null)
-                        {
-                            endDate.setText(today);
-                            Toast.makeText(Activity_host_reservation_check.this, "종료 날짜를 입력해주세요.", Toast.LENGTH_LONG).show();
-                        }
-                        else if(sDate.compareTo(eDate)>0){
-                            Toast.makeText(Activity_host_reservation_check.this, "입력 날짜를 확인해주세요.", Toast.LENGTH_LONG).show();
-                            //startDate.setText(today);
-                            //endDate.setText(today);
-                        }
-                        else finish();
-                        break;
+                        Intent intent = new Intent(Activity_host_reservation_check.this , Activity_host_infoRoom.class);
+                        intent.putExtra("roomNumber", roomnumber);
+                        intent.putExtra("only_info", 1);
+                        startActivity(intent);
+                    break;
                 }
             }
 

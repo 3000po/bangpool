@@ -204,7 +204,10 @@ public class Activity_user_reservation_check extends FragmentActivity {
 
                 switch (arg0.getId()) {
                     case R.id.sure:
-                        finish();
+                        Intent intent = new Intent(Activity_user_reservation_check.this , Activity_user_infoRoom.class);
+                        intent.putExtra("roomNumber", roomnumber);
+                        intent.putExtra("only_info", 1);
+                        startActivity(intent);
                         break;
                 }
 

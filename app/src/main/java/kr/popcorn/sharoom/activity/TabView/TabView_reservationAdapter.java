@@ -63,6 +63,8 @@ public class TabView_reservationAdapter extends RecyclerView.Adapter<TabView_res
         Glide.with(mContext).load(list.get(position).image.get(0)).into(holder.roomimage);
 
         holder.roomname.setText(list.get(position).title);
+        holder.sDate.setText(list.get(position).rsDate);
+        holder.sDate.setText(list.get(position).reDate);
     }
 
     @Override
@@ -84,7 +86,9 @@ public class TabView_reservationAdapter extends RecyclerView.Adapter<TabView_res
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public ImageView roomimage;
         public TextView roomname;
-        public TextView roomschedule;
+
+        TextView sDate;
+        TextView eDate;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -93,7 +97,9 @@ public class TabView_reservationAdapter extends RecyclerView.Adapter<TabView_res
 
             roomimage = (ImageView) itemView.findViewById(R.id.roomimage);
             roomname = (TextView) itemView.findViewById(R.id.r_roomname);
-            roomschedule  = (TextView) itemView.findViewById(R.id.r_roomschedule);
+
+            sDate = (TextView) itemView.findViewById(R.id.s_date);
+            eDate = (TextView) itemView.findViewById(R.id.e_date);
 
             itemView.setClickable(true);
             itemView.setOnClickListener(this);

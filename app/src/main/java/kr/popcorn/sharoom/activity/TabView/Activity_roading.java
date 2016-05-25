@@ -31,15 +31,6 @@ public class Activity_roading extends Activity {
         handler.postDelayed(new splashhandler(), 5000);
     }
 
-    @Override
-    public void onWindowFocusChanged(boolean hasFocus) {
-        super.onWindowFocusChanged(hasFocus);
-
-        loading_img = (ImageView)findViewById(R.id.loading_img);
-        loading_img.setBackgroundResource(R.drawable.roading_animation);
-        mAnimationDrawable_1 = (AnimationDrawable)loading_img.getBackground();
-        mAnimationDrawable_1.run();
-    }
 
     private class splashhandler implements Runnable{
         public void run() {

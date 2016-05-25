@@ -20,38 +20,51 @@
         android:orientation="vertical"
         android:layout_alignParentRight="true"
         >
-        <TextView
-            android:layout_marginTop="20dp"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:id="@+id/r_roomname"
-            android:layout_width="170dp"
-            android:layout_height="80dp"
-            android:text="원룸 비어요. 국민대 정문 근처"
-            android:textColor="#000000"
-            android:textSize="18sp"/>
-        <View
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_width="160dp"
-            android:layout_height="5dp"
-            android:background="#20c589">
-        </View>
-        <TextView
-            android:gravity="center"
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:text="일정"
-            android:textColor="#000000"
-            android:textSize="16sp"/>
-        <TextView
-            android:gravity="center"
-            android:id="@+id/r_roomschedule"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:text="16/03/01 ~ 16/03/22 "
-            android:textColor="#000000"
-            android:textSize="16sp"/>
+            <TextView
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:id="@+id/r_roomname"
+                android:layout_width="170dp"
+                android:layout_height="80dp"
+                android:text="원룸 비어요. 국민대 정문 근처"
+                android:textColor="#000000"
+                android:textSize="18sp"/>
+            <View
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_width="160dp"
+                android:layout_height="5dp"
+                android:background="#20c589">
+            </View>
+            <TextView
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:text="일정"
+                android:textColor="#000000"
+                android:textSize="16sp"/>
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:gravity="center"
+                            android:id="@+id/s_date"
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:text=" - "
+                            android:textColor="#000000"
+                            android:textSize="16sp"/>
+                        <TextView
+                            android:gravity="center"
+                            android:id="@+id/e_date"
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:text=" - "
+                            android:textColor="#000000"
+                            android:textSize="16sp"/>
+        </LinearLayout>
 
     </LinearLayout>
 
