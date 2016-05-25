@@ -646,7 +646,7 @@ public class Activity_host_registerRoom extends Activity  implements View.OnClic
         progressDialog.setIndeterminate(true);
         progressDialog.setCancelable(false);
         progressDialog.setCanceledOnTouchOutside(false);
-        progressDialog.setTitle("방 등록중입니다.");
+        progressDialog.setMessage("방 등록중입니다.");
         progressDialog.show();
 
         Helper_server.post("data/insert_roomdata.php", params, new AsyncHttpResponseHandler() {
@@ -656,7 +656,7 @@ public class Activity_host_registerRoom extends Activity  implements View.OnClic
 
                 System.out.println("statusCode "+statusCode);//statusCode 200
                 Toast.makeText(getApplicationContext(), "방 등록에 성공 하셨습니다.", Toast.LENGTH_LONG).show();
-                Helper_room.refreshRoomData("refresh",Activity_host_registerRoom.this,getApplication());
+                Helper_room.refreshRoomData("refresh", getApplication(), getApplication());
 
                 finish();
             }
