@@ -315,11 +315,6 @@ public class Activity_login extends Activity {
                                                 params.put("id", id);
                                                 params.put("name", name);
                                                 params.put("email", email);
-                                                if (gender.equals("male") == true) {
-                                                    params.put("gender", 1);
-                                                } else {
-                                                    params.put("gender", 2);
-                                                }
                                                 params.put("phone",phone);
 
                                                 Helper_server.post("facebook.php", params, new AsyncHttpResponseHandler() {
@@ -587,7 +582,7 @@ public class Activity_login extends Activity {
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
         //페이스북 로그인
         callbackManager.onActivityResult(requestCode, resultCode, data);
 

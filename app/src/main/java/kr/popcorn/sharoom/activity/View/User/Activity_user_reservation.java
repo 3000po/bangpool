@@ -243,8 +243,8 @@ public class Activity_user_reservation extends FragmentActivity {
 
                 switch (arg0.getId()) {
                     case R.id.reservationBtn:
-                        final String sDate = startDate.getText().toString();
-                        final String eDate = endDate.getText().toString();
+                        String sDate = startDate.getText().toString();
+                        String eDate = endDate.getText().toString();
 
                         if(sDate == null) {
                             startDate.setText(today);
@@ -265,28 +265,20 @@ public class Activity_user_reservation extends FragmentActivity {
                             aDialog.setTitle("예약 체크 하기"); //타이틀바 제목
                             aDialog.setMessage("서로 연락이 닿았고 예약 하기로 하셨습니까?");
 
-
                             aDialog.setPositiveButton("확인",
                                     new DialogInterface.OnClickListener() {
                                         @Override
                                         public void onClick(DialogInterface dialog, int which) {
-                                            Log.e("reserv !!","요상하구만");
-
                                             RequestParams params = new RequestParams();
                                             params.put("roomNumber", roomData.roomNumber);
                                             params.put("userID", Helper_userData.getInstance().getUserID());
-                                            params.put("rsDate", sDate);
-                                            params.put("reDate", eDate);
 
                                             //TODO
 
-                                            params.put("rsdate", roomData.rsDate);
-                                            params.put("redate", roomData.reDate);
-
-                                            //TODO
                                             Helper_server.post("data/reserv_room.php", params, new JsonHttpResponseHandler() {
                                                 @Override
                                                 public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+
                                                     try{
                                                         String ok = response.get("ok").toString();
                                                         if(ok.equals("true")) reserv =  true;
@@ -294,15 +286,13 @@ public class Activity_user_reservation extends FragmentActivity {
                                                     } catch(JSONException e){
                                                         e.printStackTrace();
                                                     }
-                                                    Log.e("reserv !!",""+reserv);
                                                     if(reserv == true) {
 
-                                                        Helper_room.refreshRoomData("refresh", getApplicationContext());
+                                                        Helper_room.refreshRoomData("refresh", Activity_user_reservation.this);
                                                         Intent finishReservIntent = new Intent(Activity_user_reservation.this, Activity_FinishReserv.class);
                                                         finishReservIntent.putExtra("roomnumber", roomData.roomNumber);
                                                         startActivity(finishReservIntent);
-
-                                                        Activity_user_reservation.this.finish();
+                                                        finish();
                                                     }
                                                     else{
                                                         //이미 예약되었습니다.
@@ -313,8 +303,8 @@ public class Activity_user_reservation extends FragmentActivity {
                                                 @Override
                                                 public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
                                                     super.onFailure(statusCode, headers, responseString, throwable);
-                                                    Log.d("reservation_Failed: ", ""+statusCode);
-                                                    Log.d("reservation_Error : ", "" + throwable);
+                                                    Log.d("Failed: ", ""+statusCode);
+                                                    Log.d("Error : ", "" + throwable);
                                                 }
                                             });
                                         }
