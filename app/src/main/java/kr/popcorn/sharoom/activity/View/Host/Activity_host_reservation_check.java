@@ -142,8 +142,8 @@ public class Activity_host_reservation_check extends FragmentActivity {
         mYear = cal.get(Calendar.YEAR);
         mMonth = cal.get(Calendar.MONTH);
         mDay = cal.get(Calendar.DAY_OF_MONTH);
-        startDate.setText(roomData.getsDate());
-        endDate.setText(roomData.geteDate());
+        startDate.setText(roomData.rsDate);
+        endDate.setText(roomData.reDate);
 
         //달력 입력을 받기 위한 다이얼로그
         startDate.setOnClickListener(new TextView.OnClickListener() {

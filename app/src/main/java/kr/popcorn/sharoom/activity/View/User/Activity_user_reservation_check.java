@@ -121,8 +121,8 @@ public class Activity_user_reservation_check extends FragmentActivity {
 
         hostID = roomData.getUserID();
         roomName.setText(roomData.getTitle());
-        startDate.setText(roomData.getsDate());
-        endDate.setText(roomData.geteDate());
+        startDate.setText(roomData.rsDate);
+        endDate.setText(roomData.reDate);
 
         search_user_info(hostID);
 
@@ -181,8 +181,8 @@ public class Activity_user_reservation_check extends FragmentActivity {
         mYear = cal.get(Calendar.YEAR);
         mMonth = cal.get(Calendar.MONTH);
         mDay = cal.get(Calendar.DAY_OF_MONTH);
-        startDate.setText(String.format("%d/%d/%d", mYear, mMonth+1, mDay));
-        endDate.setText(String.format("%d/%d/%d", mYear, mMonth+1, mDay));
+        //startDate.setText(String.format("%d/%d/%d", mYear, mMonth+1, mDay));
+        //endDate.setText(String.format("%d/%d/%d", mYear, mMonth+1, mDay));
 
   /*peopleNum = (Spinner)findViewById(R.id.peopleNum);
         List<String> list = new ArrayList<String>();

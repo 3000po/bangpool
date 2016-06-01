@@ -263,7 +263,8 @@ public class Activity_user_reservation extends FragmentActivity {
                         else{
                             AlertDialog.Builder aDialog = new AlertDialog.Builder(Activity_user_reservation.this);
                             aDialog.setTitle("예약 체크 하기"); //타이틀바 제목
-                            aDialog.setMessage("서로 연락이 닿았고 예약 하기로 하셨습니까?");
+                            aDialog.setMessage("서로 연락이 닿았고 예약 하기로 하셨습니까?\n\n ※무책임하게 예약을 하실 경우 방 리스트에서 사라지게 되어 주인의 영업에 손실에 대한 책임을 질 수도 있습니다." +
+                                    "\n 이 방이 맞는지 확인해 주세요!");
 
 
                             aDialog.setPositiveButton("확인",

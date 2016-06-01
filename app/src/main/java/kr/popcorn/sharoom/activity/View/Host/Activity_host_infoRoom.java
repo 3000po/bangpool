@@ -119,6 +119,8 @@ public class Activity_host_infoRoom extends FragmentActivity {
         comment = (TextView)findViewById(R.id.comment);
         facilities = (TextView)findViewById(R.id.facilities);
 
+        layout = (ViewGroup) findViewById(R.id.reservationBar);
+
 
         roomnumber = getIntent().getExtras().getInt("roomNumber");  //룸 넘버
         idx = Helper_room.search_index(roomnumber);
@@ -178,6 +180,11 @@ public class Activity_host_infoRoom extends FragmentActivity {
         viewPager.setAdapter(adapter);
         viewPager.setCurrentItem(0);
 
+        int only_info = 0;
+        only_info = getIntent().getExtras().getInt("only_info");
+
+        if(only_info == 1) layout.setVisibility(View.GONE);
+
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -228,7 +235,6 @@ public class Activity_host_infoRoom extends FragmentActivity {
 
         });*/
 
-        layout = (ViewGroup) findViewById(R.id.reservationBar);
         layout.setOnClickListener(new OnClickListener() {
 
             @Override

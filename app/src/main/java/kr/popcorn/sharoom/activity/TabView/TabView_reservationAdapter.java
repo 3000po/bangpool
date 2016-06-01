@@ -64,7 +64,7 @@ public class TabView_reservationAdapter extends RecyclerView.Adapter<TabView_res
 
         holder.roomname.setText(list.get(position).title);
         holder.sDate.setText(list.get(position).rsDate);
-        holder.sDate.setText(list.get(position).reDate);
+        holder.eDate.setText(list.get(position).reDate);
     }
 
     @Override

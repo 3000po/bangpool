@@ -619,6 +619,7 @@ public class Activity_host_registerRoom extends Activity  implements View.OnClic
         list = new ArrayList<String>();
 
         Helper_server.post("data/insert_roomdata.php", params, new AsyncHttpResponseHandler() {
+
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 if(progressDialog.isShowing())

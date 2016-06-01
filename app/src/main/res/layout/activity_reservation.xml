@@ -289,7 +289,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
 
-                android:text="예약이 완료될려면 상대방도 예약 확인을 체크해야합니다."
+                android:text="※ 꼭 상대방과 연락 후 예약을 해주세요!"
                 android:textColor="#000000"
                 android:textStyle="bold"
                 android:textSize="14sp" />
